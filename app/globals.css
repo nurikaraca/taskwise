@@ -3,11 +3,8 @@
 @tailwind utilities;
 
 
-body {
-  @apply bg-cover bg-center bg-no-repeat min-h-screen text-white; /* Yazı rengi için beyaz ayarlandı */
-  background-image: url('/bg.jpg'); /* Resmin yolu */
- 
-}
+
+
 
 @layer base {
   * {
@@ -17,6 +14,14 @@ body {
    
   }
   html, body {
+    /* background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: white;
+    background-image: url('/bg.jpg'); */
+    background-image: linear-gradient(to right, #fc5c7d, #6a82fb);
+    height: 100vh;
     
   }
 }

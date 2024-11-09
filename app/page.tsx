@@ -1,9 +1,15 @@
+import AnimatedText from "@/components/AnimatedText";
 
+export default  async function Home() {
+  
+ 
+  return  (
 
-export default function Home() {
-  return (
-    <div className="">
-      <p>This is  home page</p>
+<div className=" flex items-center justify-center">
+  <div className=" ">
+    <AnimatedText />
     </div>
-  );
+  
+</div>
+  )
 }
