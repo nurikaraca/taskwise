@@ -18,11 +18,12 @@
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
-    color: white;
-    background-image: url('/bg.jpg'); */
-    background-image: linear-gradient(to right, #fc5c7d, #6a82fb);
+    color: white;*/
+   /* background-color: #BAD7FF; */
+     background-image: linear-gradient(to right, #fc5c7d, #6a82fb); 
     height: 100vh;
     
   }
 }
+
 

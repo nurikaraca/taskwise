@@ -46,7 +46,7 @@ const LoginForm = () => {
       if (result?.error) {
         console.error("Login failed:", result.error);
       } else {
-        router.push("/");  
+        router.push("/dashboard");  
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -60,7 +60,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex  flex-col items-center  text-xl p-5 w-[27rem] border  space-y-2 ">
+    <div className="flex bg-white text-slate-900 font-semibold  flex-col items-center  text-xl p-5 w-[27rem] border  space-y-2 ">
       <h1 className="  mb-2 text-slate-700">Sign In</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}

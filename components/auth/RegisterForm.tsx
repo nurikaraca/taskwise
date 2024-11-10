@@ -47,7 +47,7 @@ const RegisterForm = () => {
   const onSubmit = async (data: any) => {
     const result = await signupWithCreds(data);
     if (result?.error) {
-      console.error("Kayıt başarısız:", result.error);
+      console.error("Register failed:", result.error);;
     } else {
       router.push("/"); 
     }

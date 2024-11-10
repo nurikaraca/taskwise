@@ -37,11 +37,11 @@ export default async function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           {/*max-w-screen-lg h-screen flex flex-col items-center justify-center*/}
-          <div className=" mx-auto container">
+          <div className=" mx-auto container ">
             <header className="h-[4rem]">
               <Navbar />
             </header>
-            <main className="flex-grow h-[calc(100vh-4rem)] flex items-center justify-center">{children}</main>
+            <main className="h-[calc(100vh-4rem)] ">{children}</main>
           </div>
         </body>
       </html>

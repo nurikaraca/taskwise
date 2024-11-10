@@ -15,6 +15,11 @@ const Navbar =async  () => {
 
 
         <div className="flex items-center gap-x-5">
+        {
+           session && <Link href="/dashboard">
+               Dashboard
+          </Link>
+        }
           {!session?.user ? (
             <Link href="/sign-in">
               <div className=" text-white text-sm px-4 py-2 rounded-sm">

@@ -34,7 +34,7 @@ export const {
         },
         password: { label: "Password", type: "password" },
       },
-      //kesildi 
+      
       authorize: async (credentials) => {
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
