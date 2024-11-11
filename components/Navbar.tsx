@@ -3,18 +3,22 @@ import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
 import Logout from './auth/Logout';
+import Search from './Search';
 
 const Navbar =async  () => {
   const session =  await auth();
   return (
-    <nav className='border-b   flex justify-center h-full '>
+    <nav className='border-b border-[#2B2B2B]  flex justify-center h-full '>
       <div className="container flex items-center justify-between my-4 mx-auto px-10 text-white font-bold">
-        <Link className='' href="/">
+        <Link className='flex-2' href="/">
           Home
         </Link>
 
+       <div className="flex-5 ">
+        <Search />
+       </div>
 
-        <div className="flex items-center gap-x-5">
+        <div className="flex items-center flex-3 gap-x-5">
         {
            session && <Link href="/dashboard">
                Dashboard

@@ -1,3 +1,4 @@
+import Groups from "./_components/groups/Groups";
 
 interface DashboardLayoutProps {
     children: React.ReactNode
@@ -9,12 +10,12 @@ interface DashboardLayoutProps {
      
 
       
-       <div className="h-full w-full bg-[rgba(17,25,40,0.75)] backdrop-blur-[19px] backdrop-saturate-[180%] flex "> 
-           <div className="grow-[2]  p-4 bg-blur-3xl "> 
-               
+       <div className=" w-full flex h-full"> 
+           <div className="grow-[1] h-full "> 
+              <Groups />
           </div>
-           <div className="w-[1px] h-full  bg-white mx-auto "></div> 
-          <main className="grow-[8]  p-4 ">
+           <div className="w-[1px] h-full border-b border-[#2B2B2B] "></div> 
+          <main className="grow-[9]  p-4 bg-[#1F1F1F]">
              {children}
           </main>
         </div>
