@@ -22,7 +22,7 @@ import AuthButton from "./AuthButton";
 import LoginGoogle from "./LoginGoogle";
 import LoginGithub from "./LoginGithub";
 
-// Şema ile e-posta, şifre ve şifre doğrulama alanlarını kontrol ediyoruz
+
 const formSchema = z.object({
   email: z.string().email("Geçerli bir e-posta giriniz."),
   password: z.string().min(6, "Şifre en az 6 karakter olmalı."),
@@ -58,8 +58,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center text-xl p-5 w-[27rem] border space-y-2">
-      <h1 className="mb-2  text-slate-700">Sign up</h1>
+    <div className="flex bg-white text-slate-900 flex-col items-center text-xl p-5 w-[27rem] border space-y-2">
+      <h1 className="mb-2 text-slate-700">Sign up</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
           <FormField

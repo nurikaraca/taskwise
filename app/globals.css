@@ -34,6 +34,45 @@
     border-radius: 4px; 
     border: 1px solid #2B2B2B; 
   }
+
+  /* tooltip */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    
+    visibility: hidden;
+    width: 15rem;
+    background-color: #1F1F1F;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    border: 2px solid #2A2A2A; 
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 125%;
+  }
+
+  .tooltip .tooltiptext::after {
+   
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #2A2A2A transparent transparent;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
 }
 
 

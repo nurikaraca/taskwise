@@ -10,12 +10,12 @@ interface DashboardLayoutProps {
      
 
       
-       <div className=" w-full flex h-full"> 
-           <div className="grow-[1] h-full "> 
+       <div className=" w-full flex h-full "> 
+           <div className=" h-full w-[8rem] sm:w-[11rem]  md:w-[14rem] lg:w-[18rem] xl:w-[25rem]"> 
               <Groups />
           </div>
            <div className="w-[1px] h-full border-b border-[#2B2B2B] "></div> 
-          <main className="grow-[9]  p-4 bg-[#1F1F1F]">
+          <main className="w-full  p-4 bg-[#1F1F1F]">
              {children}
           </main>
         </div>

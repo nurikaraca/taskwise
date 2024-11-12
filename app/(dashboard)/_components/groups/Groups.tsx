@@ -2,46 +2,46 @@
 import React, { useState } from 'react'
 import CreateGroup from './CreateGroup'
 import { Button } from '@/components/ui/button'
-import { IoAddCircle } from "react-icons/io5";
+
 import ListGroup from './ListGroup';
 import Link from 'next/link';
+import { useGroup } from "../../../context/GroupContext";
+import ActionTool from './ActionTool';
+
+
+
 
 const Groups = () => {
-  const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const { isCreateGroupFormVisible, handleShowCreateGroup } = useGroup();
 
-  const handleShowCreateGroup = () => {
-    setShowCreateGroup(prev => !prev)
-  }
+
   return (
-    <div className='flex h-[calc(100vh-4rem)] text-slate-200 text-2xl '>
+    <div className='flex h-[calc(100vh-4rem)] w-full text-slate-200 text-2xl  '>
 
-      <div className="w-[3rem] flex flex-col items-center border-r  h-full">
 
-        <div className="w-full h-1/2 overflow-y-scroll scroll-custom flex  flex-col items-center">
+       {/* Left side */}
+      <div className=" justify-start flex flex-col items-center border-r border-slate-700  h-full w-[1.5rem] sm:w-[2.2rem] md:w-[2.8rem] lg:w-[3.5rem] xl:w-[4.3rem]">
+
+         {/* list groups */}
+        <div className="w-full h-1/2 overflow-y-scroll scroll-custom flex  justify-center  border-dotted border-b-2 border-slate-700 mb-1">
           <ListGroup />
-
-
-        </div>
-        <div className="w-full h-1/2 flex flex-col items-center justify-end py-4 space-y-4 ">
-          <IoAddCircle
-            className=''
-            onClick={handleShowCreateGroup}
-          />
         </div>
 
+        {/* Tools */}
+        <div className="w-full h-1/2 flex justify-center  ">
+         <ActionTool />
+        </div>
 
       </div>
 
 
-
-      <div className="flex-1  h-full">
-        <h1 className='flex '>Groups</h1>
-
-        <div className="w-[10rem]">
+   {/* right side */}
+      <div className="flex h-full  w-full  flex-col text-sm xl:text-xl ">
+        <h1 className="text-center">{isCreateGroupFormVisible ? 'Create New  Group':'Group' }</h1>
+        <div className="">
           {
-            showCreateGroup && <CreateGroup />
+            isCreateGroupFormVisible && <CreateGroup />
           }
-
         </div>
 
       </div>

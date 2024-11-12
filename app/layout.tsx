@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import Image from "next/image";
+import { GroupProvider } from "./context/GroupContext";
 
 
 const geistSans = localFont({
@@ -37,26 +38,17 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-         
-          <div className=" mx-auto container relative">
-            <header className="h-[4rem] flex ">
-              <div className="flex grow-[2] items-center justify-center ">
-                <Image 
-                 src="/bg-transparent.png"
-                 alt="logo"
-                 width={30}
-                 height={40}
-                />
+          <GroupProvider>
 
-               
-              </div>
-              <div className="grow-[8] ">
+          
 
+          <div className=" ">
+            <nav className="h-[4rem] flex ">
               <Navbar />
-              </div>
-            </header>
-            <main className="h-[calc(100vh-4rem)] ">{children}</main>
+            </nav>
+            <main className="h-[calc(100vh-4rem)] w-full">{children}</main>
           </div>
+          </GroupProvider>
         </body>
       </html>
     </SessionProvider>

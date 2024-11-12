@@ -18,6 +18,7 @@ import { Eye, EyeOff } from "@geist-ui/icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { createGroup } from "@/actions/groups/createGroup";
+import { useGroup } from "@/app/context/GroupContext";
 
 
 const formSchema = z.object({
@@ -26,7 +27,8 @@ const formSchema = z.object({
 });
 
 const CreateGroup = () => {
-  const router = useRouter();
+  const { isCreateGroupFormVisible, handleShowCreateGroup } = useGroup();
+
   
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -34,19 +36,26 @@ const CreateGroup = () => {
       name: "",
       description: "",
     },
+    
   });
 
   
 
   const onSubmit = async (data: any) => {
-    await createGroup({
-      name:data.name,
-      description:data.description,
+    try {
+      await createGroup({
+        name: data.name,
+        description: data.description,
       });
+
+      handleShowCreateGroup();  
+    } catch (error) {
+      console.error("An error occurred while creating the group: ", error);
+    }
   };
   return (
-    <div className=" flex text-white font-semibold  flex-col items-center justify-center m-2    space-y-2 w-[15rem] ">
-      <h1 className=" ">Create New Group</h1>
+    <div className=" flex text-white    items-center justify-center   space-y-2 w-full  h-full ">
+  
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 ">
