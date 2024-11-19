@@ -3,18 +3,24 @@ import { db } from '@/db';
 import { auth } from "@/auth"
 
 export async function GET(req: Request) {
-    const session = await auth();
-    if (!session || !session.user?.id) {
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
-    }
-    const groups = await db.group.findMany({
-        where: {
-            members:{
-                some:{
-                    userId: session.user.id
-                }
-            }
+    try {
+        const session = await auth();
+        if (!session || !session.user?.id) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
         }
-    })
-    return NextResponse.json(groups)
+        const groups = await db.group.findMany({
+            where: {
+                ownerId: session.user.id 
+               
+            }
+          });
+      
+        return NextResponse.json(groups)
+    } catch (error) {
+        console.error("Error fetching groups:", error);
+        return NextResponse.json(
+            { message: "An error occurred while fetching groups." },
+            { status: 500 }
+        );
+    }
 }

@@ -1,5 +1,5 @@
 
-"use server"
+'use server'
 
 import { signIn, signOut } from '@/auth';
 import { db } from "@/db";

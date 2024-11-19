@@ -15,7 +15,7 @@ interface DashboardLayoutProps {
               <Groups />
           </div>
            <div className="w-[1px] h-full border-b border-[#2B2B2B] "></div> 
-          <main className="w-full  p-4 bg-[#1F1F1F]">
+          <main className="w-full   bg-[#1F1F1F]">
              {children}
           </main>
         </div>

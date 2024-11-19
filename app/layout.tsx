@@ -3,11 +3,19 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { SessionProvider } from "next-auth/react";
+//import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import Image from "next/image";
 import { GroupProvider } from "./context/GroupContext";
-
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
+import AuthProvider from "@/utils/providers/AuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,31 +34,33 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
+
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const session = await auth();
+
+
   return (
-    <SessionProvider session={session}>
+    <AuthProvider>
+      <ReactQueryClientProvider>
 
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <GroupProvider>
-
-          
-
-          <div className=" ">
-            <nav className="h-[4rem] flex ">
-              <Navbar />
-            </nav>
-            <main className="h-[calc(100vh-4rem)] w-full">{children}</main>
-          </div>
-          </GroupProvider>
-        </body>
-      </html>
-    </SessionProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <GroupProvider>
+              <div className=" ">
+                <nav className="h-[4rem] flex ">
+                  <Navbar />
+                </nav>
+                <main className="h-[calc(100vh-4rem)] w-full">{children}</main>
+              </div>
+            </GroupProvider>
+          </body>
+        </html>
+      </ReactQueryClientProvider>
+    </AuthProvider>
   );
 }
