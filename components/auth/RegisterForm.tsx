@@ -17,18 +17,19 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "@geist-ui/icons";
 import Link from "next/link";
-import { signupWithCreds } from "@/actions/auth"; 
+import { signupWithCreds } from "@/actions/auth";
 import AuthButton from "./AuthButton";
 import LoginGoogle from "./LoginGoogle";
 import LoginGithub from "./LoginGithub";
 
 
 const formSchema = z.object({
-  email: z.string().email("Geçerli bir e-posta giriniz."),
-  password: z.string().min(6, "Şifre en az 6 karakter olmalı."),
-  passwordConfirm: z.string().min(6, "Şifre en az 6 karakter olmalı."),
+  name: z.string().min(1, "Full name is required."),
+  email: z.string().email("Enter a valid email."),
+  password: z.string().min(6, "Password must be at least 6 characters."),
+  passwordConfirm: z.string().min(6, "Password must be at least 6 characters."),
 }).refine((data) => data.password === data.passwordConfirm, {
-  message: "Şifreler eşleşmiyor.",
+  message: "Passwords do not match.",
   path: ["passwordConfirm"],
 });
 
@@ -38,19 +39,25 @@ const RegisterForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
       passwordConfirm: "",
     },
   });
-  
+
   const onSubmit = async (data: any) => {
-    const result = await signupWithCreds(data);
-    if (result?.error) {
-      console.error("Register failed:", result.error);;
-    } else {
-      router.push("/"); 
+    if (typeof window !== 'undefined') {
+      const result = await signupWithCreds(data);
+      console.log("mydata => ",data)
+      if (result?.error) {
+        console.error("Register failed:", result.error);;
+      } else {
+        router.push("/");
+      }
+
     }
+
   };
 
   const togglePasswordVisibility = () => {
@@ -58,10 +65,24 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex bg-white text-slate-900 flex-col items-center text-xl p-5 w-[27rem] border space-y-2">
-      <h1 className="mb-2 text-slate-700">Sign up</h1>
+    <div className="flex  bg-white text-slate-900  flex-col items-center text-xl p-5 w-[27rem] border space-y-2">
+      <h1 className="mb-2 text-slate-900">Sign up</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="text" placeholder="Full name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
           <FormField
             control={form.control}
             name="email"
@@ -124,13 +145,13 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          
+
           <AuthButton text="Sign up" />
 
           <span className="text-slate-700 flex justify-center">
-          Already have an account?
+            Already have an account?
             <Link href="/sign-in" className="ml-2">
-            Sign in
+              Sign in
             </Link>
           </span>
 

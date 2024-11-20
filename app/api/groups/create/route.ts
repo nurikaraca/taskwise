@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json(newGroup);
+    return NextResponse.json(newGroup , { status: 201 });
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error creating group:", error.message, error.stack);

@@ -6,10 +6,10 @@ import { createContext, useContext, useState, ReactNode } from "react";
 export interface Group {
   id: string;
   name: string;
-  members: string[]; 
   inviteLink?: string;
   role: string; 
 }
+
 
 interface GroupContextType {
   isCreateGroupFormVisible: boolean;
@@ -18,6 +18,8 @@ interface GroupContextType {
   setSelectedGroup: (group: Group | null) => void;
   inviteLink: string | null;
   setInviteLink: (link: string | null) => void;
+
+
 }
 
 export const GroupContext = createContext<GroupContextType | undefined>(undefined);

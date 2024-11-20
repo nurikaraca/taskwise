@@ -21,11 +21,7 @@ const Groups = () => {
     staleTime: 1000 * 60 * 5,
   });
   
-//   console.log("react query li grups ",groups)
-//  useEffect(() => {
-//   console.log("gel yarim ol selected group um ol :=>",selectedGroup)
-//  }, [selectedGroup])
- 
+
   return (
     <div className='flex h-[calc(100vh-4rem)] w-full text-slate-200 text-2xl '>
 

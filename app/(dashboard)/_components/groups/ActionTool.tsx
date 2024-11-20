@@ -1,12 +1,12 @@
 "use client"
 import React from 'react'
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
-
+import { CgProfile } from "react-icons/cg";
 
 import { useGroup } from '@/app/context/GroupContext';
 
 const ActionTool = () => {
-  const { isCreateGroupFormVisible,setIsCreateGroupFormVisible, selectedGroup, setSelectedGroup } = useGroup();
+  const { isCreateGroupFormVisible, setIsCreateGroupFormVisible, selectedGroup, setSelectedGroup } = useGroup();
 
 
 
@@ -17,7 +17,7 @@ const ActionTool = () => {
   }
   return (
 
-    <div className='flex  '>
+    <div className='flex flex-col '>
 
       <div className="tooltip">
         <AiOutlineUsergroupAdd
@@ -27,6 +27,9 @@ const ActionTool = () => {
           Create New Group
         </p>
       </div>
+
+      
+
 
     </div>
 

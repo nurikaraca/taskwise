@@ -3,10 +3,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-//import { SessionProvider } from "next-auth/react";
+
 import { auth } from "@/auth";
-import Image from "next/image";
-import { GroupProvider } from "./context/GroupContext";
+
 import {
   useQuery,
   useMutation,
@@ -16,6 +15,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import AuthProvider from "@/utils/providers/AuthProvider";
+import Providers from "./context/Providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -50,14 +50,14 @@ export default async function RootLayout({
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
-            <GroupProvider>
+            <Providers>
               <div className=" ">
                 <nav className="h-[4rem] flex ">
                   <Navbar />
                 </nav>
                 <main className="h-[calc(100vh-4rem)] w-full">{children}</main>
               </div>
-            </GroupProvider>
+            </Providers>
           </body>
         </html>
       </ReactQueryClientProvider>

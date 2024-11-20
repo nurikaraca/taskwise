@@ -51,8 +51,8 @@ const CreateGroup = () => {
   };
 
   return (
-    <div className="flex text-white flex-col items-center justify-center space-y-2 w-full h-full">
-      <h2>Create New Group</h2>
+    <div className="flex text-black flex-col items-center justify-center space-y-2 w-full h-full">
+      <h2 className="text-white">Create New Group</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -61,7 +61,7 @@ const CreateGroup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="text" placeholder="Group Name" {...field} />
+                  <input type="text" placeholder="Group Name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,13 +73,13 @@ const CreateGroup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="text" placeholder="Description" {...field} />
+                  <input type="text" placeholder="Description" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Create New Group</Button>
+          <Button className="text-white" type="submit">Create New Group</Button>
         </form>
       </Form>
 

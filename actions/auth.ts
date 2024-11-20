@@ -34,10 +34,10 @@ export const logout = async () => {
 
 
 
-export const signupWithCreds = async (formData: { email: string; password: string }) => {
-    const { email, password } = formData;
+export const signupWithCreds = async (formData: {name: string; email: string; password: string }) => {
+    const {name, email, password } = formData;
 
-   
+   console.log("name, email, password" , name, email, password)
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
         return { error: "User already exists. Please login." };
@@ -49,6 +49,7 @@ export const signupWithCreds = async (formData: { email: string; password: strin
        
         const newUser = await db.user.create({
             data: {
+                name,
                 email,
                 hashedPassword,
             },

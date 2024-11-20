@@ -1,23 +1,24 @@
-
+import axios from "axios";
 
 export const createGroup = async ({ name, description }: { name: string; description: string }) => {
-    const response = await fetch("http://localhost:3000/api/groups/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        description,
-      }),
+  try {
+    const response = await axios.post("http://localhost:3000/api/groups/create", {
+      name,
+      description,
     });
+
+    return response.data; 
+  } catch (error: any) {
+    
+    if (error.response) {
+      
+      throw new Error(`API error: ${error.response.status} - ${error.response.data}`);
+    } else if (error.request) {
+    
+      throw new Error("No response received from the server.");
+    } else {
   
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(`API error: ${response.status} - ${errorMessage}`);
+      throw new Error(`Unexpected error: ${error.message}`);
     }
-  
-   
-    const newGroup = await response.json();
-  return newGroup;
-  };
+  }
+};
