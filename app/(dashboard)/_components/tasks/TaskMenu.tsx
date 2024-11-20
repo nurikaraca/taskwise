@@ -7,16 +7,22 @@ interface TaskMenuProps {
 }
 
 const TaskMenu: React.FC<TaskMenuProps> = ({ isAdmin }) => {
-  const { isCreateTaskFormVisible, setIsCreateTaskFormVisible } = useTask();
+  const { isCreateTaskFormVisible, setIsCreateTaskFormVisible,isTaskListVisible,setIsTaskListVisible } = useTask();
   const  handleChangeTaskFormVisible = ()=>{
     setIsCreateTaskFormVisible(!isCreateTaskFormVisible)
   } 
+
+  const  handleChangeTaskListVisible = ()=>{
+    setIsTaskListVisible(!isTaskListVisible)
+    
+  } 
+
   return (
     <div className="flex justify-center items-center space-x-4 p-4 border-2 border-green-500 rounded-xl  text-white w-[60%] h-full  ">
       
       
       {/* Task List */}
-      <button className="flex   space-x-2 p-2 bg-gray-700 rounded hover:bg-gray-600">
+      <button className="flex   space-x-2 p-2 bg-gray-700 rounded hover:bg-gray-600" onClick={handleChangeTaskListVisible}>
         <IoIosListBox className="text-green-400 text-lg" />
         <span>Task List</span>
       </button>
