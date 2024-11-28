@@ -5,7 +5,7 @@ import { FaCopy } from "react-icons/fa";
 import { getGroupMembers } from '@/actions/groups/getGroupMembers';
 
 
-interface Member {
+ export interface Member {
   id: string;
   name: string;
   email: string;

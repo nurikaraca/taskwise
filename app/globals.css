@@ -84,7 +84,17 @@
     visibility: visible;
   }
 
+ /* upload icon */
+  .stroke-custom {
+    path {
+      stroke-width: 8px !important;
+      /* outline-color: pink !important;
+      outline-width: 400px; */
+    }
+  }
+
 }
+
 
 
 

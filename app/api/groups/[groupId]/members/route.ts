@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import { db } from "@/db"; // Veritabanı bağlantınızı import edin
 
 // Grubun üyelerini getiren API
-export async function GET(
-  req: Request,
-  { params }: { params: { groupId: string } }
-) {
-  try {
-    const { groupId } = params; // URL'den grup ID'sini alıyoruz
+export async function GET(req: Request, context: { params: { groupId: string } }) {
 
+  
+
+  try {
+   
+    const { groupId } = await context.params;// URL'den grup ID'sini alıyoruz
+
+    console.log("group id alamıyoruz aşko", groupId)
     if (!groupId) {
       return NextResponse.json(
         { message: "Group ID is required" },

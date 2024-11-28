@@ -19,6 +19,7 @@ export async function POST(req: Request) {
     const data = await req.json();
     const { title, description, groupId } = data;
 
+
    // Checks if a group with the given groupId exists in the database
     const groupExists = await db.group.findUnique({
       where: { id: groupId },
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
         user: true, 
       },
     });
-
+    
     if (nonAdminUsers.length === 0) {
       return NextResponse.json({ message: "No non-admin users found in the group" }, { status: 404 });
     }

@@ -3,6 +3,7 @@
 import { getTasks } from '@/actions/tasks/getAllTasks';
 import { useGroup } from '@/app/context/GroupContext';
 import React, { useEffect, useState } from 'react'
+import { FaPen, FaRegTrashAlt } from "react-icons/fa";
 import {
     Table,
     TableBody,
@@ -12,16 +13,22 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Task } from '@/app/context/TaskContext';
+import { Task, useTask } from '@/app/context/TaskContext';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import TaskDetail from './TaskDetail';
 
 const ListTasks = () => {
     const { selectedGroup } = useGroup();
-    const groupId = selectedGroup?.id || ''; 
-      
+   const {selectedTask,setSelectedTask } = useTask();
   
-      
-const { data:tasks, isLoading, isError, refetch } = useQuery({
+    const router = useRouter();
+
+  const handleTaskDetail = (task: Task) =>{
+    setSelectedTask(task)
+  }
+    const groupId = selectedGroup?.id || ''; 
+    const { data:tasks, isLoading, isError, refetch } = useQuery({
     queryKey: ['tasks'],
     queryFn:() => getTasks(groupId),       
   }); 
@@ -29,6 +36,7 @@ const { data:tasks, isLoading, isError, refetch } = useQuery({
     //When the selected group changes, refetch is triggered.
   useEffect(() => {
         refetch();
+        
   }, [selectedGroup]);
 
   if (isLoading) {
@@ -40,35 +48,49 @@ if (isError) {
 }
 
 
-    return (
-        <div className='w-full h-full '>
+return (
+    <div className='w-full h-full'>
+        
+        {selectedTask ? (
+            <TaskDetail  />
+        ) : (
             <Table className='text-2xl'>
                 <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
-                <TableHeader >
-                    <TableRow >
+                <TableHeader>
+                    <TableRow>
                         <TableHead>Group Name</TableHead>
-                        <TableHead className="">Title</TableHead>
+                        <TableHead>Title</TableHead>
                         <TableHead>Description</TableHead>
                         <TableHead>Status</TableHead>
-
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {
-                        tasks?.map((task)=>(
-                            <TableRow key={task.id}>
-                        <TableCell className="">{selectedGroup?.name}</TableCell>
-                        <TableCell>{task.title}</TableCell>
-                        <TableCell>{task.description}</TableCell>
-                        <TableCell className="">{task.status || 'Pending'}</TableCell>
-                    </TableRow>
-                        ))
-                    }
+                    {tasks?.map((task) => (
+                        <TableRow key={task.id}>
+                            <TableCell>{selectedGroup?.name}</TableCell>
+                            <TableCell>{task.title}</TableCell>
+                            <TableCell>{task.description}</TableCell>
+                            <TableCell>{task.status || 'Pending'}</TableCell>
+                            <TableCell>
+                                <div className="flex space-x-4 cursor-pointer">
+                                    <button
+                                        className='hover:scale-125'
+                                        onClick={() => handleTaskDetail(task)}
+                                    >
+                                        <FaPen color='green' />
+                                    </button>
+                                    <button className='hover:scale-125'>
+                                        <FaRegTrashAlt color='red' />
+                                    </button>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
-
-        </div>
-    )
+        )}
+    </div>
+);
 }
 
-export default ListTasks
+export default ListTasks;

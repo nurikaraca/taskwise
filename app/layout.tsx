@@ -16,6 +16,7 @@ import {
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import AuthProvider from "@/utils/providers/AuthProvider";
 import Providers from "./context/Providers";
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,17 +46,15 @@ export default async function RootLayout({
   return (
     <AuthProvider>
       <ReactQueryClientProvider>
-
         <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
+          <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
             <Providers>
               <div className=" ">
                 <nav className="h-[4rem] flex ">
                   <Navbar />
                 </nav>
                 <main className="h-[calc(100vh-4rem)] w-full">{children}</main>
+                <Toaster />
               </div>
             </Providers>
           </body>

@@ -8,6 +8,8 @@ import CreateTask from "./CreateTask";
 import { useTask } from "@/app/context/TaskContext";
 import ListTasks from "./ListTasks";
 import AnimatedText from "@/components/AnimatedText";
+import TaskDetail from "./TaskDetail";
+import { useAdmin } from "@/app/context/AdminContext";
 
 export interface UserGroup {
   id: string;
@@ -20,100 +22,43 @@ export interface UserGroup {
 
 const Task = () => {
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  //const [isAdmin, setIsAdmin] = useState(false);
   const { selectedGroup } = useGroup();
-  const { isCreateTaskFormVisible, setIsCreateTaskFormVisible, isTaskListVisible, setIsTaskListVisible } = useTask();
-  const session = useSession();
-  const currentUserId = session.data?.user?.id;
-  const groupId = selectedGroup?.id;
+ const { view,setView, selectedTask,setSelectedTask } = useTask();
+ const  {isAdmin, } = useAdmin();
 
-// if selectedGroup changes, it sets isTaskListVisible to false
+  // When the group changes, it updates the view to createTask
   useEffect(() => {
-    if (typeof window !== 'undefined'){
-      setIsTaskListVisible(false);
-
-    }
-  }, [selectedGroup, setIsTaskListVisible]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const checkIfAdmin = async () => {
-        if (!currentUserId || !groupId) {
-          setIsAdmin(false);
-          return;
-        }
-
-        try {
-          //If the current user is an admin in the selected group, set isAdmin to true.
-          const members: UserGroup[] = await getGroupMembers(groupId);
-          const currentUser = members.find((member) => member.id === currentUserId);
-          if (currentUser?.role === "ADMIN") {
-            setIsAdmin(true);
-          }
-          else {
-            setIsAdmin(false);
-          }
-        } catch (error) {
-          console.error("An error occurred while checking group members:", error);
-        }
-      };
-      checkIfAdmin();
-
-    }
-
-  }, [currentUserId, groupId, selectedGroup]);
-
+    setView("createTask"); 
+  }, [selectedGroup, setView]);
+ 
   return (
     <div className="h-full text-white  p-6 flex justify-center flex-col w-full ">
       {/* Menü */}
       <div className="w-full flex h-[3rem] justify-center rounded-2xl">
-        {
-          selectedGroup && <TaskMenu isAdmin={isAdmin} />
-        }
-        
+        {selectedGroup && <TaskMenu  />}
       </div>
 
-      <div className="h-[calc(100vh-3rem)] ">
-        {/* Görevler */}
-
-       
-          {/* task list */}
-
-          {isTaskListVisible && <>
-            <div className="flex  mt-5  ">
-            {/* <h1 className="text-2xl text-center ">Task List</h1> */}
-            <ListTasks />
-            </div>
+      <div className="h-[calc(100vh-3rem)]">
+       {
+        selectedGroup ? 
+          (
+          <>
+        
+          {view === 'taskDetail' && selectedTask && (<TaskDetail  />)}
+          {view === 'taskList' && <ListTasks  />}
+          {view === 'createTask' && <CreateTask />} 
+         
           </>
+        )
 
-          }
-        
-
-        <div className=" flex h-[calc(100vh-30rem)]">
-          {
-            isAdmin ?
-              <>
-                {
-                  isCreateTaskFormVisible &&
-                      <CreateTask />
-                }
-              </>
-              :
-              <>
-                {!isTaskListVisible && (
-                  <div className="flex items-center justify-center w-full">
-                    <AnimatedText />
-                  </div>
-                )}
-              </>
-
-          }
-
-
-        </div>
-
+          : 
+          (<div className="flex justify-center items-center h-full">
+            <span>Select a group</span>
+          </div>)
+          
+       }
       </div>
-
     </div>
   );
 };

@@ -29,6 +29,7 @@ model User {
   ownedGroups     Group[]         @relation("OwnedGroups")
   memberships     UserGroup[]
   tasks           Task[]          @relation("UserTasks")
+  files           File[] 
 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
@@ -45,12 +46,13 @@ model Group {
   ownerId         String          @db.ObjectId
   members         UserGroup[]
   tasks           Task[]
-  inviteLink      String?         // Davet linki
-  inviteCode      String?         // Davet kodu (örneğin nanoid ile oluşturulacak)
+  inviteLink      String?         
+  inviteCode      String?        
 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
+
 
 
 
@@ -63,10 +65,25 @@ model Task {
   assignedToId    String          @db.ObjectId
   group           Group           @relation(fields: [groupId], references: [id])
   groupId         String          @db.ObjectId
-
+  files           File[]   
+  
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
+
+model File {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+ fileUrl     String
+  fileId      String
+  uploadedBy  String   @db.ObjectId
+  taskId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  task      Task     @relation(fields: [taskId], references: [id])
+  user      User     @relation(fields: [uploadedBy], references: [id])
+}
+
 
 model UserGroup {
   id              String          @id @default(auto()) @map("_id") @db.ObjectId
@@ -81,6 +98,7 @@ model UserGroup {
 
   @@unique([userId, groupId])     // Ensure a user can only join a group once
 }
+
 
 enum GroupRole {
   ADMIN

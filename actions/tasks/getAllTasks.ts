@@ -13,9 +13,11 @@ interface Task {
 
 export const getTasks = async (groupId: string): Promise<Task[]> => {
   try {
+    
     const response = await axios.get(Urls, {
       params: { groupId },
     });
+    console.log("response bu :> ",response.data)
     return response.data;
   } catch (error) {
     console.error("Axios error:", error);

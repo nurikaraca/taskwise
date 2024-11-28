@@ -8,6 +8,7 @@ export async function GET(req: Request) {
         if (!session || !session.user?.id) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
+
         const { searchParams } = new URL(req.url);
         const groupId = searchParams.get("groupId");
 
@@ -15,9 +16,18 @@ export async function GET(req: Request) {
             return NextResponse.json({ message: "Group ID is required" }, { status: 400 });
         }
 
+        const groupExists = await db.group.findUnique({
+            where: { id: groupId },
+        });
+
+        if (!groupExists) {
+            return NextResponse.json({ message: "Group not found" }, { status: 404 });
+        }
 
         const tasks = await db.task.findMany({
-            where: { groupId },
+            where: {
+                groupId: groupId,
+            },
         });
 
         return NextResponse.json(tasks);

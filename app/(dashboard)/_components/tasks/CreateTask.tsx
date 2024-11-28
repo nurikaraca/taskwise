@@ -14,6 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createTask } from "@/actions/tasks/createTask";
 import { useGroup } from "@/app/context/GroupContext";
+import { useEffect, useState } from "react";
+import { getGroupMembers } from "@/actions/groups/getGroupMembers";
+import { Member } from "../groups/GroupDetail";
+import { useToast } from "@/hooks/use-toast";
+import { useTask } from "@/app/context/TaskContext";
 
 const formSchema = z.object({
   title: z.string().max(100, "Title is too long."),
@@ -23,7 +28,24 @@ const formSchema = z.object({
 
 const CreateTask = () => {
   const { selectedGroup } = useGroup();
-  
+  const [members, setMembers] = useState<Member[]>([]);
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const fetchMembers = async () => {
+        if (selectedGroup?.id) {
+          try {
+            const data = await getGroupMembers(selectedGroup.id);
+            setMembers(data);
+          } catch (error) {
+            console.error("Error fetching members:", error);
+          }
+        }
+      };
+      fetchMembers();
+    }
+  }, [selectedGroup]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -38,23 +60,40 @@ const CreateTask = () => {
       console.error("No group is selected.");
       return;
     }
+    //If there are no members in the group, a task cannot be created.
+    if (members.length === 1) {
+      toast({ 
+        variant: "destructive", 
+        title: "Something went wrong.", 
+        description: "If there are no members in the group, a task cannot be created." })
+      form.reset();
+      return;
+    }
 
     try {
-
       const newTask = await createTask({
         title: data.title,
         description: data.description,
-        groupId: selectedGroup.id, 
+        groupId: selectedGroup.id,
       });
 
-      console.log("Task successfully created:", newTask);
-
+      console.log("", newTask);
+       toast({
+        variant:"success",
+        title: "Task created", 
+       })
       // Reset form
       form.reset();
     } catch (error) {
+      toast(
+        { 
+        variant: "destructive", 
+        title: "Something went wrong.", 
+        description: "An error occurred while creating the task:" })
       console.error("An error occurred while creating the task:", error);
     }
   };
+
 
   return (
     <div className="flex text-white flex-col items-center justify-center space-y-4 w-full h-full">
@@ -100,7 +139,7 @@ const CreateTask = () => {
           />
 
           {/* Submit Button */}
-          <Button className="bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center" type="submit">
+          <Button className="bg-blue-600 text-white hover:bg-blue-500 flex items-center justify-center text-xl  rounded-xl " type="submit">
             Create Task
           </Button>
         </form>
