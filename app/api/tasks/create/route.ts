@@ -52,7 +52,7 @@ export async function POST(req: Request) {
             title: title || "",
             description: description || "",
             groupId,
-            assignedToId: userGroup.user.id, 
+            assignedToId: userExists.id //userGroup.user.id, 
           },
         });
       })

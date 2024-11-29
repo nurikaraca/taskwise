@@ -19,103 +19,112 @@ import { useRouter } from 'next/navigation';
 import TaskDetail from './TaskDetail';
 import { checkTaskFile } from '@/actions/files/checkTaskFile';
 import { toast } from '@/hooks/use-toast';
+import { deleteTask } from '@/actions/tasks/deleteTask';
 
 const ListTasks = () => {
     const { selectedGroup } = useGroup();
-   const {selectedTask,setSelectedTask } = useTask();
-  
+    const { selectedTask, setSelectedTask } = useTask();
+
     const router = useRouter();
 
-  const handleTaskDetail = async (task: Task) =>{
-    try {
-        //Checks whether a file has already been submitted.
-        const taskId = task.id
-        const existingFile = await  checkTaskFile({ taskId })
-        if(existingFile) {
-            toast({
-                variant: "destructive",
-                title: "Something went wrong.",
-                description: "A file has already been submitted for this task!",
-              });
-              return;
-        }
-        
-    } catch (error: any) {
-        if (error.message === "No file found.") {
-            setSelectedTask(task)
-        }
-        else{
-            toast({
-                variant: "destructive",
-                title: "Something went wrong.",
-              }); 
+    const handleTaskDetail = async (task: Task) => {
+        try {
+            //Checks whether a file has already been submitted.
+            const taskId = task.id
+            const existingFile = await checkTaskFile({ taskId })
+            if (existingFile) {
+                toast({
+                    variant: "destructive",
+                    title: "Something went wrong.",
+                    description: "A file has already been submitted for this task!",
+                });
+                return;
+            }
+
+        } catch (error: any) {
+            if (error.message === "No file found.") {
+                setSelectedTask(task)
+            }
+            else {
+                toast({
+                    variant: "destructive",
+                    title: "Something went wrong.",
+                });
+            }
         }
     }
-  }
-    const groupId = selectedGroup?.id || ''; 
-    const { data:tasks, isLoading, isError, refetch } = useQuery({
-    queryKey: ['tasks'],
-    queryFn:() => getTasks(groupId),       
-  }); 
+    const groupId = selectedGroup?.id || '';
+    const { data: tasks, isLoading, isError, refetch } = useQuery({
+        queryKey: ['tasks'],
+        queryFn: () => getTasks(groupId),
+    });
 
     //When the selected group changes, refetch is triggered.
-  useEffect(() => {
+    useEffect(() => {
         refetch();
-        
-  }, [selectedGroup]);
 
-  if (isLoading) {
-    return <div>Loading tasks...</div>;
-}
+    }, [selectedGroup]);
 
-if (isError) {
-    return <div>Error loading tasks. Please try again later.</div>;
-}
+    if (isLoading) {
+        return <div>Loading tasks...</div>;
+    }
 
+    if (isError) {
+        return <div>Error loading tasks. Please try again later.</div>;
+    }
+  
+    const handleDelete = async (taskId: string) => {
+       try {
+        const result = await deleteTask(taskId);
+        toast({ variant: "success", title: "Task deleted successfully" })
+        refetch();
+       } catch (error) {
+        console.error("Delete failed:", error);
+       }
+    }
+    return (
+        <div className='w-full h-full'>
 
-return (
-    <div className='w-full h-full'>
-        
-        {selectedTask ? (
-            <TaskDetail  />
-        ) : (
-            <Table className='text-2xl'>
-                <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Group Name</TableHead>
-                        <TableHead>Title</TableHead>
-                        <TableHead>Description</TableHead>
-                        <TableHead>Status</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {tasks?.map((task) => (
-                        <TableRow key={task.id}>
-                            <TableCell>{selectedGroup?.name}</TableCell>
-                            <TableCell>{task.title}</TableCell>
-                            <TableCell>{task.description}</TableCell>
-                            <TableCell>{task.status || 'Pending'}</TableCell>
-                            <TableCell>
-                                <div className="flex space-x-4 cursor-pointer">
-                                    <button
-                                        className='hover:scale-125'
-                                        onClick={() => handleTaskDetail(task)}
-                                    >
-                                        <FaPen color='green' />
-                                    </button>
-                                    <button className='hover:scale-125'>
-                                        <FaRegTrashAlt color='red' />
-                                    </button>
-                                </div>
-                            </TableCell>
+            {selectedTask ? (
+                <TaskDetail />
+            ) : (
+                <Table className='text-2xl'>
+                    <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Group Name</TableHead>
+                            <TableHead>Title</TableHead>
+                            <TableHead>Description</TableHead>
+                            <TableHead>Status</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        )}
-    </div>
-);
+                    </TableHeader>
+                    <TableBody>
+                        {tasks?.map((task) => (
+                            <TableRow key={task.id}>
+                                <TableCell>{selectedGroup?.name}</TableCell>
+                                <TableCell>{task.title}</TableCell>
+                                <TableCell>{task.description}</TableCell>
+                                <TableCell>{task.status || 'Pending'}</TableCell>
+                                <TableCell>
+                                    <div className="flex space-x-4 cursor-pointer">
+                                        <button
+                                            className='hover:scale-125'
+                                            onClick={() => handleTaskDetail(task)}
+                                        >
+                                            <FaPen color='green' />
+                                        </button>
+                                        <button className='hover:scale-125' onClick={() => handleDelete(task.id)}>
+                                            <FaRegTrashAlt color='red' />
+                                        </button>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            )}
+        </div>
+    );
 }
 
 export default ListTasks;
