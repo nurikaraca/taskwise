@@ -17,6 +17,8 @@ import { Task, useTask } from '@/app/context/TaskContext';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import TaskDetail from './TaskDetail';
+import { checkTaskFile } from '@/actions/files/checkTaskFile';
+import { toast } from '@/hooks/use-toast';
 
 const ListTasks = () => {
     const { selectedGroup } = useGroup();
@@ -24,8 +26,31 @@ const ListTasks = () => {
   
     const router = useRouter();
 
-  const handleTaskDetail = (task: Task) =>{
-    setSelectedTask(task)
+  const handleTaskDetail = async (task: Task) =>{
+    try {
+        //Checks whether a file has already been submitted.
+        const taskId = task.id
+        const existingFile = await  checkTaskFile({ taskId })
+        if(existingFile) {
+            toast({
+                variant: "destructive",
+                title: "Something went wrong.",
+                description: "A file has already been submitted for this task!",
+              });
+              return;
+        }
+        
+    } catch (error: any) {
+        if (error.message === "No file found.") {
+            setSelectedTask(task)
+        }
+        else{
+            toast({
+                variant: "destructive",
+                title: "Something went wrong.",
+              }); 
+        }
+    }
   }
     const groupId = selectedGroup?.id || ''; 
     const { data:tasks, isLoading, isError, refetch } = useQuery({
