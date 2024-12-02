@@ -2,21 +2,23 @@ import { auth } from '@/auth'
 import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
-import Logout from './auth/Logout';
+import Logout from './account/Account';
 import Search from './Search';
 import MobileMenu from './MobileMenu';
+import Account from './account/Account';
+
 
 const Navbar = async () => {
   const session = await auth();
+
   return (
     <nav className='border-b border-[#2B2B2B] mx-10 w-full  flex items-center justify-between h-full text-white '>
-      {/* <div className="container  my-4 mx-auto px-10 text-white font-bold"> */}
-      <Link className='flex-2 ' href="/">
+      <Link className='flex-2 mb-4' href="/">
         <Image
           src="/bg-transparent.png"
           alt="logo"
-          width={30}
-          height={30}
+          width={20}
+          height={20}
         />
       </Link>
       {/* Search */}
@@ -44,7 +46,7 @@ const Navbar = async () => {
           </Link>
         ) : (
           <>
-            <div className="flex items-center gap-x-2 text-sm">
+            {/* <div className="flex items-center gap-x-2 text-sm ">
               {session?.user?.name}
               {session?.user.image && (
                 <Image
@@ -55,8 +57,8 @@ const Navbar = async () => {
                   src={session?.user?.image || ""}
                 />
               )}
-            </div>
-            <Logout />
+            </div> */}
+            <Account />
           </>
         )}
       </div>

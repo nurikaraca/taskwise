@@ -6,17 +6,17 @@ export default async function Home() {
 
   return (
 
-    <div className="flex items-center justify-center  h-full relative">
-      <div className=" absolute top-20">
+    <div className="flex   items-center justify-center   relative  mt-[10rem] ">
+      <div className=" absolute top-2">
         <Image
        src="/bg-transparent.png"
        alt='logo'
-       width={300}
-       height={300}
+       width={100}
+       height={100}
       />
       </div>
        
-   <div className="absolute bottom-7">
+   <div className="absolute top-48 ">
     <AnimatedText />
    </div>
       

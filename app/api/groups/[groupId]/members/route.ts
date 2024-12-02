@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import { db } from "@/db"; // Veritabanı bağlantınızı import edin
-
-// Grubun üyelerini getiren API
+import { db } from "@/db"; 
+// API that gets the members of the group
 export async function GET(req: Request, context: { params: { groupId: string } }) {
 
   
 
   try {
    
-    const { groupId } = await context.params;// URL'den grup ID'sini alıyoruz
+    const { groupId } = await context.params
 
     console.log("group id alamıyoruz aşko", groupId)
     if (!groupId) {
@@ -18,22 +17,23 @@ export async function GET(req: Request, context: { params: { groupId: string } }
       );
     }
 
-    // Gruba ait üyeleri getir
+    // Get members of the group
     const groupMembers = await db.userGroup.findMany({
       where: {
         groupId,
       },
       include: {
-        user: true, // Kullanıcı bilgilerini almak için
+        user: true, 
       },
     });
 
-    // Kullanıcı bilgilerini düzenle
+    
     const members = groupMembers.map((member) => ({
       id: member.user.id,
       name: member.user.name,
       email: member.user.email,
-      role: member.role, // Kullanıcının gruptaki rolü
+      role: member.role, 
+      image:member.user.image,
     }));
 
     return NextResponse.json(members);

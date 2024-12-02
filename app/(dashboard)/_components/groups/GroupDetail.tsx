@@ -1,15 +1,21 @@
+
+
 import { Group, useGroup } from '@/app/context/GroupContext'
 import React, { useEffect, useState } from 'react'
 import CreateGroup from './CreateGroup'
 import { FaCopy } from "react-icons/fa";
+import { RxAvatar } from "react-icons/rx";
+
 import { getGroupMembers } from '@/actions/groups/getGroupMembers';
+import Image from 'next/image';
 
 
- export interface Member {
+export interface Member {
   id: string;
   name: string;
   email: string;
   role: string;
+  image: string;
 }
 
 
@@ -29,21 +35,28 @@ const GroupDetail = () => {
 
 
   useEffect(() => {
-    const fetchMembers = async () => {
-      if (selectedGroup?.id) {
-        setLoading(true);
-        try {
-          const data = await getGroupMembers(selectedGroup.id); // Context'ten gelen ID'yi kullan
-          setMembers(data);
-        } catch (error) {
-          console.error("Error fetching members:", error);
-        } finally {
-          setLoading(false);
+    if (typeof window !== 'undefined') {
+      const fetchMembers = async () => {
+        if (selectedGroup?.id) {
+          setLoading(true);
+          try {
+            const data = await getGroupMembers(selectedGroup.id);
+            console.log("memberslar bunlar mı kro ", data)
+            setMembers(data);
+          } catch (error) {
+            console.error("Error fetching members:", error);
+          } finally {
+            setLoading(false);
+          }
         }
-      }
-    };
+      };
 
-    fetchMembers();
+      fetchMembers();
+
+    }
+
+
+
   }, [selectedGroup]);
 
   return (
@@ -85,10 +98,23 @@ const GroupDetail = () => {
                   {/* Members List */}
                   <div className="w-full mt-4  p-4">
                     <h2 className="text-lg font-semibold">Members:</h2>
-                    <ul className=" pl-4 w-full bg-slate-500">
+                    <ul className=" pl-4 w-full ">
                       {members.map((member) => (
-                        <li key={member.id} className='w-full bg-slate-500 border border-slate-200'>
-                          {member.name}  {/*({member.email})  */}
+                        <li key={member.id} className="flex items-center justify-start p-3 drop-shadow-2xl  rounded-md cursor-pointer shadow-md hover:scale-105 transition-all duration-200 ease-in-out" >
+                          
+                     {member.image ? (
+                             <Image
+                             src={member.image}
+                             alt='avatar'
+                             width={30}
+                             height={30}
+                             className='rounded-full mr-3'
+                           />
+                     ) : (
+                      <RxAvatar size={30} className='rounded-full mr-3'/>
+                     )}
+                         
+                          <span className="text-white font-medium "> {member.name}</span>
                         </li>
                       ))}
 

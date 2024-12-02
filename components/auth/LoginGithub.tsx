@@ -10,7 +10,7 @@ const LoginGithub = () => {
     className='flex  items-center p-2 justify-center space-x-20 cursor-pointer border rounded-md'>
     
       <FaGithub  size={24}/>
-      <p className='flex items-center justify-center '>Continue with Github</p>
+      <p className='flex items-center justify-center text-xs sm:text-sm md:text-md lg:text-lg  xl:text-xl '>Continue with Github</p>
     </div>
   )
 }

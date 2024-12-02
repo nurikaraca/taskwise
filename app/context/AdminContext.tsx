@@ -20,7 +20,8 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const groupId = selectedGroup?.id;
 
   useEffect(() => {
-    const checkIfAdmin = async () => {
+    if (typeof window !== 'undefined') {
+       const checkIfAdmin = async () => {
       if (!currentUserId || !groupId) {
         setIsAdmin(false);
         return;
@@ -36,7 +37,9 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     };
 
-    checkIfAdmin();
+    checkIfAdmin(); 
+    }
+  
   }, [currentUserId, groupId]);
 
   return (

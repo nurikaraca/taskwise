@@ -18,24 +18,29 @@ export default  function JoinClient() {
 
 
   useEffect(() => {
-    const fetchGroup = async () => {
+    if (typeof window !== 'undefined') {
+      const fetchGroup = async () => {
 
-      if (group?.id) {
-        try {
-          const data = await getGroupById(group.id);
-          setGroup(data);
-        } catch (err) {
-          setError("An error occurred while retrieving group information.");
-          console.error(err);
+        if (group?.id) {
+          try {
+            const data = await getGroupById(group.id);
+            setGroup(data);
+          } catch (err) {
+            setError("An error occurred while retrieving group information.");
+            console.error(err);
+          }
         }
-      }
-    };
-
-   fetchGroup();
+      };
+  
+     fetchGroup();
+    }
+    
   }, []);
 
   useEffect(() => {
-    if (!inviteCode) return;
+    if (typeof window !== 'undefined'){
+
+         if (!inviteCode) return;
     const fetchGroup = async () => {
       try {
         const groupData = await getGroupByInviteCode(inviteCode);
@@ -47,6 +52,8 @@ export default  function JoinClient() {
     };
 
     fetchGroup();
+    }
+ 
   }, [inviteCode]);
 
   const handleJoinGroup = async () => {

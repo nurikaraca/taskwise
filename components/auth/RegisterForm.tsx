@@ -65,8 +65,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex  bg-white text-slate-900  flex-col items-center text-xl p-5 w-[27rem] border space-y-2">
-      <h1 className="mb-2 text-slate-900">Sign up</h1>
+    <div className="flex  text-slate-100  border-slate-600  flex-col items-center  text-xl p-2 border  space-y-2  w-full ">
+      <h1 className="mb-2 text-slate-300">Sign up</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
           <FormField
@@ -148,7 +148,7 @@ const RegisterForm = () => {
 
           <AuthButton text="Sign up" />
 
-          <span className="text-slate-700 flex justify-center">
+          <span className="text-slate-500 flex justify-center text-[1.1rem] sm:text-md md:text-md lg:text-lg  xl:text-xl">
             Already have an account?
             <Link href="/sign-in" className="ml-2">
               Sign in
@@ -157,7 +157,7 @@ const RegisterForm = () => {
 
           <div className="flex items-center my-4">
             <div className="flex-grow border-b border-gray-300"></div>
-            <span className="mx-4 text-gray-500">YA DA</span>
+            <span className="mx-4 text-gray-500">OR</span>
             <div className="flex-grow border-b border-gray-300"></div>
           </div>
 

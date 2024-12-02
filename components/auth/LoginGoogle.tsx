@@ -9,7 +9,7 @@ const LoginGoogle = () => {
     <div onClick={() => login("google")}
      className='flex  items-center p-2 justify-center space-x-20 cursor-pointer border rounded-md'>
       <FcGoogle  size={24}/>
-      <p className='flex items-center justify-center '>Continue with Google</p>
+      <p className='flex items-center justify-center text-xs sm:text-sm md:text-md lg:text-lg  xl:text-xl  '>Continue with Google</p>
     </div>
   )
 }

@@ -58,10 +58,10 @@ const LoginForm = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   }
-
+//absolute -top-24 -left-28 absolute -top-24 -left-28
   return (
-    <div className="flex bg-white text-slate-900 font-semibold  flex-col items-center  text-xl p-5 w-[27rem] border  space-y-2 ">
-      <h1 className="  mb-2 text-slate-700">Sign In</h1>
+    <div className="flex  text-slate-100   flex-col items-center  text-xl p-2 border border-slate-600 space-y-2  w-full">
+      <h1 className="  mb-2 text-slate-300">Sign In</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 w-full">
@@ -106,7 +106,7 @@ const LoginForm = () => {
 
           <AuthButton text="Sign in" />
 
-          <span className="text-slate-700 flex justify-center">Don't have an account ?
+          <span className="text-slate-500 flex justify-center text-[1.1rem] sm:text-md md:text-md lg:text-lg  xl:text-xl">Don't have an account ?
             <Link href="/sign-up" className="ml-2">
               Sign up
             </Link>

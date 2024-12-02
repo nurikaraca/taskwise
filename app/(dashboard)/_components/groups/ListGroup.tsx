@@ -1,4 +1,4 @@
-
+"use client"
 
 import React, { useEffect, useState } from 'react';
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -12,16 +12,19 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { getJoinedGroups } from '@/actions/groups/getJoinedGroups';
 const ListGroup = () => {
   const { setSelectedGroup } = useGroup();
   const [groupName, setGroupName]   = useState("");
-  const [role, setRole] = useState<"ADMIN" | "USER">("USER");
+  const [role, setRole] = useState<"ADMIN" | "USER" | "All">("All");
   const [groups, setGroups] = useState<Group[]>([]);
   const [filteredGroups, setFilteredGroups] = useState<Group[]>([]);
 
  
   useEffect(() => {
-    const fetchGroups = async () => {
+
+    if (typeof window !== 'undefined'){
+   const fetchGroups = async () => {
       try {
         const allGroups = await getGroups();
         setGroups(allGroups);
@@ -32,19 +35,24 @@ const ListGroup = () => {
     };
 
     fetchGroups();
+    }
+  
   }, []);
 
-  
-  const handleFilterChange = async (selectedRole: "ADMIN" | "USER") => {
-    setRole(selectedRole);
+// Filtreleme işlemi
+const handleFilterChange = async (selectedRole: "ADMIN" | "USER" | "All") => {
+  setRole(selectedRole);
+  if (selectedRole === "All") {
+    setFilteredGroups(groups); // Tüm grupları göster
+  } else {
     try {
       const filtered = await getGroupFilters(selectedRole);
-      setFilteredGroups(filtered); 
+      setFilteredGroups(filtered);
     } catch (error) {
       console.error("Error filtering groups:", error);
     }
-  };
-
+  }
+};
 
   const filters = [
     { label: "All Groups", value: "All" },
@@ -52,20 +60,37 @@ const ListGroup = () => {
     { label: "Only the groups I joined", value: "USER" },
   ];
 
-
-  const handleListGroup = (filterValue: string) => {
-    if (filterValue === "All") {
-      setFilteredGroups(groups); 
-    } else {
-      handleFilterChange(filterValue as "ADMIN" | "USER"); 
-    }
-  };
-
-
   const myonClick =(group: Group) =>{
     setSelectedGroup(group)
     setGroupName(group.name)
   }
+
+  const handleListGroup = async (filterValue: string) => {
+    if (filterValue === "All") {
+      try {
+       
+        const adminGroups = await getGroupFilters("ADMIN");
+        const userGroups = await getGroupFilters("USER");
+        const joinedGroups=  await getJoinedGroups()
+         
+        const combinedGroups = [...groups, ...adminGroups, ...userGroups].reduce(
+          (uniqueGroups, group) => {
+            if (!uniqueGroups.some((g: any) => g.id === group.id)) {
+              uniqueGroups.push(group);
+            }
+            return uniqueGroups;
+          },
+          [] as Group[]
+        );
+  
+        setFilteredGroups(combinedGroups);
+      } catch (error) {
+        console.error("Error fetching combined groups:", error);
+      }
+    } else {
+      handleFilterChange(filterValue as "ADMIN" | "USER");
+    }
+  };
   return (
     <div className="flex flex-col items-center space-y-2   w-full scroll-custom  ">
       <Popover >

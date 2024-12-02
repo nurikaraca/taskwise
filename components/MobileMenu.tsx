@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet"
 import Image from "next/image";
 import Link from "next/link";
-import Logout from "./auth/Logout";
+import Logout from "./account/Account";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 

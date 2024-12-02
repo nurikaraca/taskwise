@@ -47,7 +47,7 @@ const TaskDetail = () => {
          
         <div className="h-[calc(100vh-14rem)] flex flex-col items-center  justify-center ">
          
-          {isAdmin && <FileUpload  />}
+          {!isAdmin && <FileUpload  />}
         </div>
 
       </div>

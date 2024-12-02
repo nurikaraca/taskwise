@@ -23,10 +23,10 @@ const Groups = () => {
   
 
   return (
-    <div className='flex h-[calc(100vh-4rem)] w-full text-slate-200 text-2xl '>
+    <div className='flex h-full w-full text-slate-200 text-2xl '>
 
   {/* Left side */}
-  <div className="justify-start flex flex-col items-center border-r border-slate-700 h-full w-[1.5rem] sm:w-[2.2rem] md:w-[2.8rem] lg:w-[3.5rem] xl:w-[4.3rem]  ">
+  <div className="justify-start flex flex-col items-center border-r border-slate-700 xl:h-[40rem] w-[1.5rem] sm:w-[2.2rem] md:w-[2.8rem] lg:w-[3.5rem] xl:w-[4.3rem]  ">
 
     {/* List groups */}
     <div className=" h-1/2    w-full     flex justify-center border-b-2 border-slate-700 mb-1 ">

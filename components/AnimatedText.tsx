@@ -7,7 +7,7 @@ const AnimatedText = () => {
    
      
       <TypeAnimation
-        className='text-sky-600 '
+        className='text-sky-600 !text-2xl flex items-center justify-center'
         sequence={[
           'Welcome to TASKWISE', // Types 'One'
           2000, // Waits 1s
@@ -21,7 +21,8 @@ const AnimatedText = () => {
         wrapper="span"
         cursor={true}
         repeat={Infinity}
-        style={{ fontSize: '4em', display: 'inline-block' }}
+        
+        style={{  display: 'inline-block' }}
       />
     
 

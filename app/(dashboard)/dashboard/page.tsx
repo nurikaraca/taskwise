@@ -1,14 +1,16 @@
 
 import Task from "../_components/tasks/Task";
+
 const DashBoard = () => {
-return (
-    <div className=" h-full text-white flex ">
-       <Task /> 
+  return (
+    <div className="relative  text-white flex">
+    
+      <div className="relative z-10 flex flex-1 h-full ">
+        <Task />
+      </div>
     </div>
   );
-}
-export default DashBoard
+};
 
-
-
+export default DashBoard;
 

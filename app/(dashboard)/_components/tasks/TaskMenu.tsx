@@ -13,7 +13,7 @@ const TaskMenu = () => {
 
 
   return (
-    <div className="flex justify-center items-center space-x-4 p-4 border-2 border-green-500 rounded-xl  text-white w-[60%] h-full  ">
+    <div className="flex justify-center items-center space-x-4 p-4 border-2 border-green-500/25 rounded-xl  text-white w-[60%] h-full  ">
       
       
       {/* Task List */}
