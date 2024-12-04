@@ -43,6 +43,7 @@ const GroupDetail = () => {
             const data = await getGroupMembers(selectedGroup.id);
             console.log("memberslar bunlar mı kro ", data)
             setMembers(data);
+          
           } catch (error) {
             console.error("Error fetching members:", error);
           } finally {
@@ -58,7 +59,7 @@ const GroupDetail = () => {
 
 
   }, [selectedGroup]);
-
+console.log(members)
   return (
     <div className=''>
       <div className="flex h-full w-full text-sm xl:text-xl   ">

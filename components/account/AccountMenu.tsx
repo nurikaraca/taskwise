@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import Image from 'next/image'
+import Link from 'next/link'
  
 interface AccountMenuProps {
    
@@ -44,14 +45,14 @@ interface AccountMenuProps {
   }
 
 const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
-  
+ 
      
   return (
-    <div>
+    <div className=' !border-none '>
      
-     <DropdownMenu >
-      <DropdownMenuTrigger asChild >
-        <Button variant="outline">
+     <DropdownMenu  >
+      <DropdownMenuTrigger asChild  >
+        <Button variant="ghost">
         <div className="flex items-center gap-x-2 text-sm ">
               {name}
               {image && (
@@ -66,13 +67,13 @@ const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
             </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 text-white">
+      <DropdownMenuContent className="w-56 text-white  ">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <User />
-            <span>Profile</span>
+            <Link href="/profile">Profile</Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>

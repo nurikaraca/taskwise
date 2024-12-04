@@ -123,7 +123,7 @@ export default async function RootLayout({
           >
             
             <Providers>
-              <div className="mycontainer w-[94%]  h-[45rem] ">
+              <div className="mycontainer w-[94%]   max-h-[55rem] ">
                 <nav className="h-[4rem] flex  ">
                   <Navbar />
                 </nav>

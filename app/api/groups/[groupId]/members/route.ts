@@ -9,7 +9,7 @@ export async function GET(req: Request, context: { params: { groupId: string } }
    
     const { groupId } = await context.params
 
-    console.log("group id alamıyoruz aşko", groupId)
+   
     if (!groupId) {
       return NextResponse.json(
         { message: "Group ID is required" },
