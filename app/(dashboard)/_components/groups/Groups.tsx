@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 
 import ActionTool from './ActionTool'
 import { useGroup } from "../../../context/GroupContext"
-import { useQuery } from '@tanstack/react-query'
+
 import { getGroups } from '@/actions/groups/getGroups'
 import GroupDetail from './GroupDetail'
 import ListGroup from './ListGroup'
@@ -15,12 +15,7 @@ import ListGroup from './ListGroup'
 const Groups = () => {
   const { isCreateGroupFormVisible,setIsCreateGroupFormVisible, selectedGroup,inviteLink } = useGroup()
 
-  const { data: groups } = useQuery({
-    queryKey: ['groups'],
-    queryFn: getGroups,       
-    staleTime: 1000 * 60 * 5,
-  });
-  
+
 
   return (
     <div className='flex h-full w-full text-slate-200 text-2xl '>
@@ -41,7 +36,7 @@ const Groups = () => {
 
   {/* Group detail  */}
  <div className="w-full ">
- <GroupDetail/>
+  <GroupDetail/>
 
  </div>
     

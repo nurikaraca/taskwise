@@ -1,4 +1,11 @@
 "use client";
+import { format } from "date-fns"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,17 +26,29 @@ import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 import { Member } from "../groups/GroupDetail";
 import { useToast } from "@/hooks/use-toast";
 import { useTask } from "@/app/context/TaskContext";
+import { Calendar } from "@/components/ui/calendar"
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().max(100, "Title is too long."),
-  description: z
-    .string().max(250, "Description is too long."),
+  description: z.string().max(250, "Description is too long."),
+  date: z.date().nullable().refine(
+    (date) => {
+      if (!date) return true;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Sadece gün karşılaştırması yap
+      return date >= today;
+    },
+    { message: "Date must be today or later." }
+  ),
 });
 
 const CreateTask = () => {
   const { selectedGroup } = useGroup();
   const [members, setMembers] = useState<Member[]>([]);
   const { toast } = useToast()
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -52,20 +71,22 @@ const CreateTask = () => {
     defaultValues: {
       title: "",
       description: "",
+      date: new Date(),
     },
   });
 
-  const onSubmit = async (data: { title: string; description: string }) => {
+  const onSubmit = async (data: { title: string; description: string, date: Date }) => {
     if (!selectedGroup?.id) {
       console.error("No group is selected.");
       return;
     }
     //If there are no members in the group, a task cannot be created.
     if (members.length === 1) {
-      toast({ 
-        variant: "destructive", 
-        title: "Something went wrong.", 
-        description: "If there are no members in the group, a task cannot be created." })
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description: "If there are no members in the group, a task cannot be created."
+      })
       form.reset();
       return;
     }
@@ -75,31 +96,33 @@ const CreateTask = () => {
         title: data.title,
         description: data.description,
         groupId: selectedGroup.id,
+        dueDate: data.date,
       });
 
       console.log("", newTask);
-       toast({
-        variant:"success",
-        title: "Task created", 
-       })
+      toast({
+        variant: "success",
+        title: "Task created",
+      })
       // Reset form
       form.reset();
     } catch (error) {
       toast(
-        { 
-        variant: "destructive", 
-        title: "Something went wrong.", 
-        description: "An error occurred while creating the task:" })
+        {
+          variant: "destructive",
+          title: "Something went wrong.",
+          description: "An error occurred while creating the task:"
+        })
       console.error("An error occurred while creating the task:", error);
     }
   };
 
 
   return (
-    <div className="flex text-white flex-col items-center justify-center space-y-4 w-full h-full">
+    <div className="flex text-white flex-col items-center justify-center space-y-4 w-full mt-9 h-full border border-slate-200/10 ">
       <h2 className="text-white text-xl font-bold">Create New Task</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col w-[50rem] ">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col w-[30rem] mt-9 ">
           {/* Title Input */}
           <FormField
             control={form.control}
@@ -132,6 +155,44 @@ const CreateTask = () => {
                     {...field}
                     className="text-white"
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Calendar Input */}
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"ghost"}
+                        className={cn(
+                          "w-[280px] justify-start text-left font-normal",
+                          !date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon />
+                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0 text-white">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={(selectedDate) => {
+                          setDate(selectedDate);
+                          field.onChange(selectedDate); 
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </FormControl>
                 <FormMessage />
               </FormItem>

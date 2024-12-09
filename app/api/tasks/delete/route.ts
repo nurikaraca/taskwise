@@ -2,7 +2,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { auth } from '@/auth';
-import exp from 'constants';
 
 export async function DELETE(req: Request) {
     try {
@@ -20,8 +19,7 @@ export async function DELETE(req: Request) {
 
         const url = new URL(req.url);
         const taskId = url.searchParams.get("taskId")
-        console.log(taskId,"backend tasakid")
-
+        
 
         if (!taskId) {
             return NextResponse.json({ message: "Task Id is required" }, { status: 400 })
@@ -36,9 +34,7 @@ export async function DELETE(req: Request) {
             return NextResponse.json({message:"Task Not Found" }, {status:404 })
         }
 
-        console.log("idleşme")
-        console.log(task.assignedToId )
-        console.log( session.user.id)
+      
         if(task.assignedToId !== session.user.id){
             return NextResponse.json({
                 message:"You are not authorized to delete this task" },

@@ -4,7 +4,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useGroup } from "@/app/context/GroupContext";
-import { getGroupMembers } from "@/actions/groups/getGroupMembers";
+import { groupAdmin } from "@/actions/user/isAdmin";
+
 
 interface AdminContextProps {
   isAdmin: boolean;
@@ -28,9 +29,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
 
       try {
-        const members = await getGroupMembers(groupId);
-        const currentUser = members.find((member:  any) => member.id === currentUserId);
-        setIsAdmin(currentUser?.role === "ADMIN" ? true : false);
+        const admin = await groupAdmin(groupId);
+        
+        setIsAdmin(admin);
+        
       } catch (error) {
         console.error("Error checking admin status:", error);
         setIsAdmin(false);

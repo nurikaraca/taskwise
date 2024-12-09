@@ -17,7 +17,16 @@ export async function POST(req: Request) {
     }
 
     const data = await req.json();
-    const { title, description, groupId } = data;
+    const { title, description, groupId, dueDate } = data;
+
+
+
+    if (!dueDate || new Date(dueDate) <= new Date()) {
+      return NextResponse.json(
+        { message: "Invalid or past due date" },
+        { status: 400 }
+      );
+    }
 
 
    // Checks if a group with the given groupId exists in the database
@@ -52,7 +61,8 @@ export async function POST(req: Request) {
             title: title || "",
             description: description || "",
             groupId,
-            assignedToId: userExists.id 
+            assignedToId: userExists.id ,
+            dueDate: new Date(dueDate),
           },
         });
       })

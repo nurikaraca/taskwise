@@ -9,36 +9,35 @@ export async function DELETE(req: Request) {
     }
     const data = await req.json()
      const groupId = data.groupId;
-   
+    const userId = data.userId
 
 
     if (!groupId) {
         return NextResponse.json({ message: "Group ID is required" }, { status: 400 });
     }
+    if (!userId) {
+        return NextResponse.json({ message: "User ID is required" }, { status: 400 });
+    }
 
     const group = await db.group.findUnique({
         where: { id: groupId },
+        include: {members: true},
     });
  
     if (!group) {
         return NextResponse.json({ message: "Group not found" }, { status: 404 });
     }
 
-    if (group.ownerId !== session.user.id) {
-        return NextResponse.json({ message: "You are not authorized to delete this group" }, { status: 403 });
+ const userInGroup = group.members.find(member => member.userId ==userId);
+
+ await db.userGroup.delete({
+    where:{
+        userId_groupId: {
+            userId: userId,
+            groupId: groupId,
+        },
     }
-    
-    await db.task.deleteMany({
-        where: { groupId: groupId }
-    })
+ });
 
-    await db.userGroup.deleteMany({
-        where: { groupId: groupId }
-    })
-
-    await db.group.delete({
-        where: { id: groupId }
-    })
-
-    return NextResponse.json({ message: 'Group deleted' })
+ return NextResponse.json({ message: 'User removed from group successfully' });
 }

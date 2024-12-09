@@ -1,11 +1,14 @@
 
 'use client';
 
+import { getGroups } from "@/actions/groups/getGroups";
+import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useState, ReactNode } from "react";
 
 export interface Group {
   id: string;
   name: string;
+  description:string;
   inviteLink?: string;
   role: string; 
 }
@@ -20,6 +23,11 @@ interface GroupContextType {
   setInviteLink: (link: string | null) => void;
 
 
+  groups: Group[];
+  isLoading: boolean;
+  error: Error | null;
+  refetchGroups: () => void;
+
 }
 
 export const GroupContext = createContext<GroupContextType | undefined>(undefined);
@@ -33,6 +41,11 @@ export const GroupProvider = ({ children }: GroupProviderProps) => {
   const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
   const [inviteLink, setInviteLink] = useState<string | null>(null);
 
+  const { data: groups = [], error, isLoading, refetch } = useQuery({
+    queryKey: ["groups"],
+    queryFn: getGroups,
+  });
+
   return (
     <GroupContext.Provider
       value={{
@@ -42,6 +55,11 @@ export const GroupProvider = ({ children }: GroupProviderProps) => {
         setSelectedGroup,
         inviteLink,
         setInviteLink,
+
+        groups,
+        isLoading,
+        error,
+        refetchGroups: refetch,
       }}
     >
       {children}

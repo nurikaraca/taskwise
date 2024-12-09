@@ -42,7 +42,7 @@ const Task = () => {
         {selectedGroup && <TaskMenu  />}
       </div>
 
-      <div className="h-[calc(100vh-3rem)] ">
+      <div className="h-[calc(100vh-3rem)]  ">
        {
         selectedGroup ? 
           (

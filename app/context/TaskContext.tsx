@@ -81,6 +81,7 @@ export interface Task {
   status: string;
   groupId: string;
   assignedToId: string;
+  dueDate: Date;
 }
 
 interface TaskContextType {
@@ -95,6 +96,9 @@ interface TaskContextType {
 
   view: 'taskDetail' | 'taskList' | 'createTask'; // Default olarak seçenekler
   setView: Dispatch<SetStateAction<'taskDetail' | 'taskList' | 'createTask'>>;
+
+  dueDate: Date | null;  
+  setDueDate: Dispatch<SetStateAction<Date | null>>;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -107,6 +111,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
   const [isCreateTaskFormVisible, setIsCreateTaskFormVisible] = useState(false);
   const [isTaskListVisible, setIsTaskListVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [dueDate, setDueDate] = useState<Date | null>(null); 
   const [view, setView] = useState<'taskDetail' | 'taskList' | 'createTask'>('taskList');
  
 
@@ -121,6 +126,9 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
         setSelectedTask,
         view,
         setView,
+
+        dueDate,  
+        setDueDate, 
         
         
       }}

@@ -71,7 +71,7 @@ const CreateGroup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <input type="text" placeholder="Group Name" {...field} />
+                  <Input type="text"  placeholder="Group Name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,13 +83,13 @@ const CreateGroup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <input type="text" placeholder="Description" {...field} />
+                  <Input type="text" placeholder="Description" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="text-white" type="submit">Create New Group</Button>
+          <Button className="text-white flex items-center justify-center  w-full" type="submit">Create New Group</Button>
         </form>
       </Form>
 

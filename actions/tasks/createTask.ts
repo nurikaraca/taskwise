@@ -1,11 +1,12 @@
 import axios from "axios";
 
-export const createTask = async ({ title, description, groupId }: { title: string; description: string; groupId: string }) => {
+export const createTask = async ({ title, description, groupId,dueDate }: { title: string; description: string; groupId: string,dueDate: Date }) => {
   try {
     const response = await axios.post("http://localhost:3000/api/tasks/create", {
       title,
       description,
       groupId, 
+      dueDate
     });
 
     

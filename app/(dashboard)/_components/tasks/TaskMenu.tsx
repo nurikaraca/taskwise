@@ -13,20 +13,20 @@ const TaskMenu = () => {
 
 
   return (
-    <div className="flex justify-center items-center space-x-4 p-4 border-2 border-green-500/25 rounded-xl  text-white w-[60%] h-full  ">
+    <div className="flex justify-end items-center space-x-4 p-4  rounded-xl  text-white  h-full  backdrop-blur-sm  w-full ">
       
       
       {/* Task List */}
-      <button className="flex   space-x-2 p-2 bg-gray-700 rounded hover:bg-gray-600" onClick={() => setView('taskList')}>
+      <button className="flex   space-x-2 p-2  rounded hover:scale-110 " onClick={() => setView('taskList')}>
         <IoIosListBox className="text-green-400 text-lg" />
-        <span>Task List</span>
+        <span className="">Task List</span>
       </button>
 
       {/* Create Task */}
       {isAdmin && (
-        <button className="flex   space-x-2 p-2 bg-gray-700 rounded hover:bg-gray-600 items-center" onClick={() => setView('createTask')}>
+        <button className="flex   space-x-2 p-2  rounded  items-center hover:scale-110" onClick={() => setView('createTask')}>
           <IoIosCreate className="text-green-400 text-lg flex items-center " />
-          <span>Create Task</span>
+          <span className=" " >Create Task</span>
 
         </button>
       )}

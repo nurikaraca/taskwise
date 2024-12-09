@@ -8,6 +8,9 @@ import { RxAvatar } from "react-icons/rx";
 
 import { getGroupMembers } from '@/actions/groups/getGroupMembers';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import Members from '@/app/(dashboard)/_components/groups/Members';
+
 
 
 export interface Member {
@@ -41,9 +44,8 @@ const GroupDetail = () => {
           setLoading(true);
           try {
             const data = await getGroupMembers(selectedGroup.id);
-            console.log("memberslar bunlar mı kro ", data)
             setMembers(data);
-          
+
           } catch (error) {
             console.error("Error fetching members:", error);
           } finally {
@@ -59,81 +61,60 @@ const GroupDetail = () => {
 
 
   }, [selectedGroup]);
-console.log(members)
   return (
-    <div className=''>
-      <div className="flex h-full w-full text-sm xl:text-xl   ">
-        <div className="flex flex-col h-full w-full p-2  relative">
-          {isCreateGroupFormVisible ? (
-            <>
-              {/* Create Group Form */}
-              <div className='absolute top-10'>
-                <CreateGroup />
-              </div>
-            </>
-          ) : (
-            <>
-              {selectedGroup ? (
-                <>
-                  {/* Group Name */}
-                  <div className="w-full mb-1 flex justify-center items-center relative">
-                    <div
-                      className="relative flex items-center cursor-pointer"
-                      onMouseEnter={() => setHoverTextVisible(true)}
-                      onMouseLeave={() => setHoverTextVisible(false)}
-                      onClick={() => handleCopyLink(selectedGroup?.inviteLink || '')}
-                    >
-                      <FaCopy className="text-gray-600 hover:text-blue-600" size={24} />
-                      {hoverTextVisible && (
-                        <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs bg-gray-800 text-white px-2 py-1 rounded">
-                          Copy Invite Link
-                        </span>
-                      )}
-                    </div>
-                    <h1 className="text-2xl ml-2">
-                      {selectedGroup?.name}
-                    </h1>
+
+    <div className="flex flex-col h-[40rem] w-full text-sm xl:text-xl  ">
+      <div className="flex flex-col h-full w-full p-2  relative  ">
+        {isCreateGroupFormVisible ? (
+          <>
+            {/* Create Group Form */}
+            <div className='absolute top-10'>
+              <CreateGroup />
+            </div>
+          </>
+        ) : (
+          <>
+            {selectedGroup ? (
+              <>
+
+                {/* Group Name */}
+                <div className="w-full mb-1 flex justify-center items-center relative  ">
+                  <div
+                    className="relative flex items-center cursor-pointer"
+                    onMouseEnter={() => setHoverTextVisible(true)}
+                    onMouseLeave={() => setHoverTextVisible(false)}
+                    onClick={() => handleCopyLink(selectedGroup?.inviteLink || '')}
+                  >
+                    <FaCopy className="text-gray-600 hover:text-blue-600" size={24} />
+                    {hoverTextVisible && (
+                      <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs bg-gray-800 text-white px-2 py-1 rounded">
+                        Copy Invite Link
+                      </span>
+                    )}
                   </div>
-
-
-                  {/* Members List */}
-                  <div className="w-full mt-4  p-4">
-                    <h2 className="text-lg font-semibold">Members:</h2>
-                    <ul className=" pl-4 w-full ">
-                      {members.map((member) => (
-                        <li key={member.id} className="flex items-center justify-start p-3 drop-shadow-2xl  rounded-md cursor-pointer shadow-md hover:scale-105 transition-all duration-200 ease-in-out" >
-                          
-                     {member.image ? (
-                             <Image
-                             src={member.image}
-                             alt='avatar'
-                             width={30}
-                             height={30}
-                             className='rounded-full mr-3'
-                           />
-                     ) : (
-                      <RxAvatar size={30} className='rounded-full mr-3'/>
-                     )}
-                         
-                          <span className="text-white font-medium "> {member.name}</span>
-                        </li>
-                      ))}
-
-                    </ul>
-                  </div>
-
-                  <p>{inviteLink}</p>
-                </>
-              ) : (
-                <div className="flex items-center justify-center mx-auto ">
-                  <h1>Select a Group</h1>
+                  <h1 className="text-2xl ml-2">
+                    {selectedGroup?.name}
+                  </h1>
                 </div>
-              )}
-            </>
-          )}
-        </div>
+
+
+                {/* Members List */}
+                <Members />
+                <p>{inviteLink}</p>
+              </>
+            ) : (
+              <div className="flex items-center justify-center mx-auto ">
+                <h1>Select a Group</h1>
+              </div>
+            )}
+          </>
+        )}
       </div>
+
+
+
     </div>
+
   )
 }
 

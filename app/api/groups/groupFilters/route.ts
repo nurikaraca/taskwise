@@ -12,27 +12,37 @@ export async function GET(req: Request) {
         }
 
         const url = new URL(req.url);
-        const roleParame = url.searchParams.get("role") || "USER"; 
+        const roleParame = url.searchParams.get("role") || "USER";
+        
 
-        
         const role = roleParame.toUpperCase() as keyof typeof GroupRole;
-        
+       
         if (!["ADMIN", "USER"].includes(role)) {
             return NextResponse.json({ message: "Invalid role" }, { status: 400 });
         }
+        console.log("User ID:", session.user.id);
+        console.log("Role:", role);
+
         const groups = await db.userGroup.findMany({
             where: {
                 userId: session.user.id,
                 role,
             },
-            include: {
-                group: true,
+            select: {
+                groupId: true, 
+            },
+        });
+        const groupIds = groups.map((group) => group.groupId);
+
+        const relatedGroups = await db.group.findMany({
+            where: {
+                id: {
+                    in: groupIds, 
+                },
             },
         });
 
-        const filteredGroups = groups.map(userGroup => userGroup.group);
-
-        return NextResponse.json(filteredGroups);
+        return NextResponse.json(relatedGroups);
     } catch (error) {
         console.error("Error fetching groups with role:", error);
         return NextResponse.json(

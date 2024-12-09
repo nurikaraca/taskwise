@@ -9,13 +9,14 @@ export const joinGroup = async ( groupId: string | undefined, inviteCode: string
             inviteCode,
         });
 
-        if (!response.status.toString().startsWith("2")) {
-            throw new Error("Katılma işlemi sırasında bir hata oluştu");
+         // Check if the response status does not start with "2XX"
+         if (!response.status.toString().startsWith("2")) {
+            throw new Error("An error occurred while attempting to join");
         }
 
         return response.data;
     } catch (error) {
-        console.error("Gruba katılırken bir hata oluştu:", error);
+        console.error("An error occurred while joining the group:", error);
         throw error;
     }
 };

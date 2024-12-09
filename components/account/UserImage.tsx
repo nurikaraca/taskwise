@@ -4,7 +4,7 @@ import { createUserImage } from "@/actions/user/createUserImage";
 import { getUser } from "@/actions/user/getUser";
 import Image from "next/image";
 import { useState,useEffect, use } from "react";
-import { UserProps } from "./Profile";
+import { UserProps } from "../settings/Settings";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 
 const UserImage: React.FC<UserProps> = ({ user }) => {
@@ -32,24 +32,13 @@ const userId = user.id
   };
 
   return (
-  <div className="flex  flex-col items-center  relative w-full h-full  ">
-     {/* Banner*/}
-      <div className="w-full h-52 bg-gray-200 relative">
-          <Image
-            src="/banner.jpg" 
-            alt="banner"      
-            layout="fill"  
-            objectFit="cover"   
-            className="w-full h-full"
-          />
-      </div>
-
+  <div className="flex  flex-col items-center justify-center  relative   ">
         {/* Profile Picture */}
 
-        <div className=" absolute -bottom-20 w-32 h-32 left-7 rounded-full border-4 border-white  "  >
+        <div className=" absolute  top-10  w-48 h-48  rounded-full border-4 border-white bg-green-800 "  >
             <Image
-            width={196}
-            height={196}
+            width={300}
+            height={300}
             src={previewImage || "/avatar.jpg"}
             alt="Profile Picture"
             className="object-cover w-full h-full  z-40  relative rounded-full "
@@ -73,13 +62,7 @@ const userId = user.id
          onChange={handleFileSelect}
                 /> 
         </div>
-        </div>
-
-      
-
-        <div className=" text-center absolute  -bottom-10  left-48">
-         <h1 className="text-xl font-semibold text-gray-100">{user.name} </h1>
-        </div>
+        </div> 
 
   </div>
   );

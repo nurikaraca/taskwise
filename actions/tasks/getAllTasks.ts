@@ -9,6 +9,7 @@ interface Task {
   status: string;
   groupId: string;
   assignedToId: string;
+  dueDate: Date;
 }
 
 export const getTasks = async (groupId: string): Promise<Task[]> => {
@@ -17,7 +18,6 @@ export const getTasks = async (groupId: string): Promise<Task[]> => {
     const response = await axios.get(Urls, {
       params: { groupId },
     });
-    console.log("response bu :> ",response.data)
     return response.data;
   } catch (error) {
     console.error("Axios error:", error);
