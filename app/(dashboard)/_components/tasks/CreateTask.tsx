@@ -23,12 +23,12 @@ import { createTask } from "@/actions/tasks/createTask";
 import { useGroup } from "@/app/context/GroupContext";
 import { useEffect, useState } from "react";
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
-import { Member } from "../groups/GroupDetail";
 import { useToast } from "@/hooks/use-toast";
 import { useTask } from "@/app/context/TaskContext";
 import { Calendar } from "@/components/ui/calendar"
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Member } from "@/type/types";
 
 const formSchema = z.object({
   title: z.string().max(100, "Title is too long."),

@@ -1,25 +1,17 @@
 
 
-import { Group, useGroup } from '@/app/context/GroupContext'
+import { useGroup } from '@/app/context/GroupContext'
 import React, { useEffect, useState } from 'react'
 import CreateGroup from './CreateGroup'
 import { FaCopy } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 
 import { getGroupMembers } from '@/actions/groups/getGroupMembers';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import Members from '@/app/(dashboard)/_components/groups/Members';
+import { Member } from '@/type/types';
 
 
 
-export interface Member {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  image: string;
-}
 
 
 const GroupDetail = () => {

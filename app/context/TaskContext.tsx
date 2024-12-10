@@ -72,17 +72,9 @@
 
 'use client';
 
+import { Task } from "@/type/types";
 import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from "react";
 
-export interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
-  groupId: string;
-  assignedToId: string;
-  dueDate: Date;
-}
 
 interface TaskContextType {
   isCreateTaskFormVisible: boolean;

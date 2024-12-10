@@ -2,16 +2,11 @@
 'use client';
 
 import { getGroups } from "@/actions/groups/getGroups";
+import { Group } from "@/type/types";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-export interface Group {
-  id: string;
-  name: string;
-  description:string;
-  inviteLink?: string;
-  role: string; 
-}
+
 
 
 interface GroupContextType {

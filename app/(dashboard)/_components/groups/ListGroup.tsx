@@ -21,13 +21,15 @@ const ListGroup = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-
+ 
+      
       const fetchAllGroups = async () => {
         try {
           // All Group
           const adminGroups = await getGroupFilters("ADMIN");
           const userGroups = await getGroupFilters("USER");
           setFilteredGroups([...adminGroups, ...userGroups]);
+        
         } catch (error) {
           console.error("Error fetching all groups:", error);
         }

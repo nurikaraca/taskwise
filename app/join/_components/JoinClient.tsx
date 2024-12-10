@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Group } from "@/app/context/GroupContext";
+
  import { getGroupById } from "@/actions/groups/getGroupById";
  import {  joinGroup } from "@/actions/groups/joinGroup";
  import {  getGroupByInviteCode } from "@/actions/groups/getGroupByInviteCode";
+import { Group } from "@/type/types";
 
 export default  function JoinClient() {
   const router = useRouter();

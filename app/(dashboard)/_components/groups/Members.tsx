@@ -1,17 +1,12 @@
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 import { useGroup } from "@/app/context/GroupContext";
+import { Member } from "@/type/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 
-export interface Member {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  image: string;
-}
+
 const Members = () => {
   const  {selectedGroup} = useGroup()
  

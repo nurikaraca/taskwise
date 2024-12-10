@@ -48,7 +48,7 @@ const ListTasks = () => {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const updateTaskStatuses = async () => {
-                if (!tasks) return;
+                if (!tasks) return; 
 
                 const updatedTasks = await Promise.all(
                     tasks.map(async (task) => {

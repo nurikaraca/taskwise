@@ -20,8 +20,7 @@ export async function GET(req: Request) {
         if (!["ADMIN", "USER"].includes(role)) {
             return NextResponse.json({ message: "Invalid role" }, { status: 400 });
         }
-        console.log("User ID:", session.user.id);
-        console.log("Role:", role);
+     
 
         const groups = await db.userGroup.findMany({
             where: {

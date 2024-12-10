@@ -1,15 +1,9 @@
+import { Member } from "@/type/types";
 import axios from "axios";
 
 const Urls = `http://localhost:3000/api/groups`;
 
 
- interface Member {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  image: string;
-}
 
 
 export const groupAdmin = async (groupId: string) => {

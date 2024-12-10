@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import {Group,  useGroup } from '@/app/context/GroupContext';
+import {  useGroup } from '@/app/context/GroupContext';
+import { Group } from '@/type/types';
 
 const ListGroup = () => {
   const { setSelectedGroup, selectedGroup, isLoading,error,groups } = useGroup();

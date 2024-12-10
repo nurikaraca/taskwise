@@ -12,14 +12,7 @@ import TaskDetail from "./TaskDetail";
 import { useAdmin } from "@/app/context/AdminContext";
 import { getGroups } from "@/actions/groups/getGroups";
 
-export interface UserGroup {
-  id: string;
-  userId: string;
-  groupId: string;
-  role: "ADMIN" | "USER";
-  createdAt: Date;
-  updatedAt: Date;
-}
+
 
 const Task = () => {
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);

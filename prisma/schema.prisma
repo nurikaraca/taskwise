@@ -30,6 +30,7 @@ model User {
   memberships     UserGroup[]
   tasks           Task[]          @relation("UserTasks")
   files           File[] 
+  statuses      UserTaskStatus[]
 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
@@ -42,10 +43,10 @@ model Group {
   id              String          @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   description     String?
-  owner           User            @relation("OwnedGroups", fields: [ownerId], references: [id])
+  owner           User            @relation("OwnedGroups", fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String          @db.ObjectId
-  members         UserGroup[]
-  tasks           Task[]
+  members         UserGroup[]      
+  tasks           Task[]          
   inviteLink      String?         
   inviteCode      String?        
 
@@ -60,29 +61,52 @@ model Task {
   id              String          @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   description     String?
-  status          String          @default("PENDING") // Example statuses: PENDING, COMPLETED
+  status          String          @default("PENDING") 
   assignedTo      User            @relation("UserTasks", fields: [assignedToId], references: [id])
   assignedToId    String          @db.ObjectId
-  group           Group           @relation(fields: [groupId], references: [id])
+  group           Group           @relation(fields: [groupId], references: [id],  onDelete: Cascade)
   groupId         String          @db.ObjectId
-  files           File[]   
+  files           File[] 
+  userStatuses    UserTaskStatus[]  
   dueDate         DateTime 
 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
 
+model UserTaskStatus {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+
+  user            User            @relation(fields: [userId], references: [id])
+  userId          String          @db.ObjectId
+
+  task            Task           @relation(fields: [taskId], references: [id])
+  taskId          String          @db.ObjectId
+
+  isCompleted     Boolean         @default(false)
+
+
+    
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, taskId])
+}
+
 model File {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
  fileUrl     String
   fileId      String
+
   uploadedBy  String   @db.ObjectId
+  user      User     @relation(fields: [uploadedBy], references: [id])
+
   taskId    String   @db.ObjectId
+  task      Task     @relation(fields: [taskId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  task      Task     @relation(fields: [taskId], references: [id])
-  user      User     @relation(fields: [uploadedBy], references: [id])
 }
 
 
