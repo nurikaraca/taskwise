@@ -20,18 +20,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createTask } from "@/actions/tasks/createTask";
-import { useGroup } from "@/app/context/GroupContext";
+import { useGroup } from "@/context/GroupContext";
 import { useEffect, useState } from "react";
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 import { useToast } from "@/hooks/use-toast";
-import { useTask } from "@/app/context/TaskContext";
+import { useTask } from "@/context/TaskContext";
 import { Calendar } from "@/components/ui/calendar"
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Member } from "@/type/types";
 
 const formSchema = z.object({
-  title: z.string().max(100, "Title is too long."),
+  title: z.string().min(2).max(100, "Title is too long."),
   description: z.string().max(250, "Description is too long."),
   date: z.date().nullable().refine(
     (date) => {
@@ -173,7 +173,7 @@ const CreateTask = () => {
                       <Button
                         variant={"ghost"}
                         className={cn(
-                          "w-[280px] justify-start text-left font-normal",
+                          "w-[280px] justify-start text-left font-normal text-slate-100",
                           !date && "text-muted-foreground"
                         )}
                       >
@@ -183,6 +183,7 @@ const CreateTask = () => {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 text-white">
                       <Calendar
+                     
                         mode="single"
                         selected={date}
                         onSelect={(selectedDate) => {
@@ -190,6 +191,7 @@ const CreateTask = () => {
                           field.onChange(selectedDate); 
                         }}
                         initialFocus
+                        className="rounded-md border shadow "
                       />
                     </PopoverContent>
                   </Popover>

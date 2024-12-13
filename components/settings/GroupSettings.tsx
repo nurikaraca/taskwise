@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ListGroup from "../account/ListGroup";
-import { useGroup } from "@/app/context/GroupContext";
+import { useGroup } from "@/context/GroupContext";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { updateGroup } from "@/actions/groups/updateGroup";
 import { toast } from "@/hooks/use-toast";

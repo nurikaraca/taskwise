@@ -19,7 +19,7 @@ export async function DELETE(req: Request) {
 
         const url = new URL(req.url);
         const taskId = url.searchParams.get("taskId")
-        
+        console.log("apitaskid" , taskId)
 
         if (!taskId) {
             return NextResponse.json({ message: "Task Id is required" }, { status: 400 })
@@ -40,7 +40,8 @@ export async function DELETE(req: Request) {
                 message:"You are not authorized to delete this task" },
             {status: 403})
         }
-
+        
+        console.log("task bu " ,taskId, task)
 
         await db.task.delete({
             where: { id: taskId }

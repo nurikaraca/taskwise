@@ -1,6 +1,37 @@
 
 export type UserRole = "ADMIN" | "USER";
 
+
+export  type User = {
+  id: string;
+  name?: string | null;
+  email?: string | null;
+  hashedPassword?: string | null;
+  emailVerified?: Date | null;
+  image?: string | null;
+  role?: UserRole | null;
+  ownedGroups: Group[];
+  memberships: UserGroup[];
+  tasks: Task[];
+  files: File[];
+  statuses: UserTaskStatus[];
+  createdAt: Date;
+  updatedAt: Date;
+
+};
+export  type UserTaskStatus = {
+  id: string;
+  userId: string;
+  taskId: string;
+  isCompleted: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+
+  
+  user: User;
+  task: Task;
+};
+
 export interface Task {
     id: string;
     title: string;

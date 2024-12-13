@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import {  useGroup } from '@/app/context/GroupContext';
+import {  useGroup } from '@/context/GroupContext';
 import { Group } from '@/type/types';
 
 const ListGroup = () => {
@@ -36,16 +36,3 @@ const ListGroup = () => {
 export default ListGroup;
 
 
-// useEffect(() => {
-//   if (typeof window !== 'undefined') {
-//     const fetchGroups = async () => {
-//       try {
-//         const allGroups = await getGroups();
-//         setGroups(allGroups);
-//       } catch (error) {
-//         console.error("Error fetching groups:", error);
-//       }
-//     };
-//     fetchGroups();
-//   }
-// }, []);

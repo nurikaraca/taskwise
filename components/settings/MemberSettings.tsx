@@ -1,4 +1,4 @@
-import { useGroup } from "@/app/context/GroupContext";
+import { useGroup } from "@/context/GroupContext";
 import React, { useEffect } from "react";
 import ListGroup from "../account/ListGroup";
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";

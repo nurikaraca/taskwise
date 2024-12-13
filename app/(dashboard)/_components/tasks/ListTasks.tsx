@@ -1,9 +1,8 @@
 
-
 "use client";
 
 import { getTasks } from '@/actions/tasks/getAllTasks';
-import { useGroup } from '@/app/context/GroupContext';
+import { useGroup } from '@/context/GroupContext';
 import React, { useEffect, useState } from 'react';
 import { FaPen, FaRegTrashAlt } from "react-icons/fa";
 import {
@@ -15,20 +14,26 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Task, useTask } from '@/app/context/TaskContext';
+import { useTask } from '@/context/TaskContext';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import TaskDetail from './TaskDetail';
 import { checkTaskFile } from '@/actions/files/checkTaskFile';
 import { toast } from '@/hooks/use-toast';
 import { deleteTask } from '@/actions/tasks/deleteTask';
-import { useAdmin } from '@/app/context/AdminContext';
-import { format } from "date-fns"
+import { useAdmin } from '@/context/AdminContext';
+import { format } from "date-fns";
+import { Task } from '@/type/types';
+
+
+
 const ListTasks = () => {
+
     const { selectedGroup } = useGroup();
     const { isAdmin } = useAdmin();
     const { selectedTask, setSelectedTask } = useTask();
-    const [tasksWithStatus, setTasksWithStatus] = useState<Task[]>([]);
+  
+
 
     const router = useRouter();
     const groupId = selectedGroup?.id || '';
@@ -38,53 +43,17 @@ const ListTasks = () => {
         queryFn: () => getTasks(groupId),
     });
 
+
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            refetch();
+            refetch()
         }
     }, [selectedGroup]);
 
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const updateTaskStatuses = async () => {
-                if (!tasks) return; 
-
-                const updatedTasks = await Promise.all(
-                    tasks.map(async (task) => {
-                        try {
-                            const hasFile = await checkTaskFile({ taskId: task.id });
-                            const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
-                            return {
-                                ...task,
-                                status: hasFile
-                                    ? 'Completed'
-                                    : isOverdue
-                                        ? 'Closed'
-                                        : task.status || 'Pending',
-                                dueDate: task.dueDate || null,
-                            };
-                        } catch {
-                            const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
-                            return {
-                                ...task,
-                                status: isOverdue
-                                    ? 'Closed'
-                                    : task.status || 'Pending',
-                                dueDate: task.dueDate || null,
-                            };
-                        }
-                    })
-                );
-
-                setTasksWithStatus(updatedTasks);
-            };
-
-            updateTaskStatuses();
-        }
+    console.log("tasks", tasks)
 
 
-    }, [tasks]);
 
     if (isLoading) {
         return <div>Loading tasks...</div>;
@@ -99,6 +68,7 @@ const ListTasks = () => {
     const handleTaskDetail = async (task: Task) => {
         try {
             const taskId = task.id;
+
             const existingFile = await checkTaskFile({ taskId });
             if (existingFile) {
                 toast({
@@ -133,46 +103,63 @@ const ListTasks = () => {
             console.error("Delete failed:", error);
         }
     };
+ 
 
     return (
-        <div className='w-full max-h-[33rem] overflow-y-scroll  -mb-20 '>
+
+
+        <div className='w-full max-h-[33rem] overflow-y-scroll -mb-20'>
             {selectedTask ? (
                 <TaskDetail />
             ) : (
-                
-                <Table  className=""
-                containerClassname="h-fit max-h-[34rem] overflow-y-auto relative">
+                <Table className="">
                     <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
-                    <TableHeader className='bg-black text-white sticky top-0 text-2xl '>
-                        <TableRow >
+                    <TableHeader className='bg-black text-white sticky top-0 text-2xl'>
+                        <TableRow>
                             <TableHead>Group Name</TableHead>
                             <TableHead>Title</TableHead>
                             <TableHead>Description</TableHead>
-                            <TableHead>Status</TableHead>
                             <TableHead>Deadline</TableHead>
+                            <TableHead>Status</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody className='text-2xl '>
-                        {tasksWithStatus.map((task) => (
-                            <TableRow key={task.id}>
+                        {tasks?.map((task) => (
+                            <TableRow key={task.id}
+                                className={`${new Date(task.dueDate) < new Date() ? 'text-slate-500' : ''}`}
+                            >
                                 <TableCell>{selectedGroup?.name}</TableCell>
                                 <TableCell>{task.title}</TableCell>
                                 <TableCell>{task.description}</TableCell>
-                                <TableCell>{task.status}</TableCell>
-                                <TableCell>{task.dueDate ? format(task.dueDate, "dd/MM/yyyy") : "No deadline"}</TableCell>
                                 <TableCell>
-                                    <div className="flex space-x-4 cursor-pointer">
-                                        <button
-                                            className={`hover:scale-125 ${task.status === 'Closed' ? 'cursor-not-allowed opacity-50' : '' }`}
-                                            onClick={() => handleTaskDetail(task)}
-                                            disabled={task.status === 'Closed'}
-                                        >
-                                            <FaPen color='green' />
-                                        </button>
-                                        <button className='hover:scale-125' onClick={() => handleDelete(task.id)}>
-                                            <FaRegTrashAlt color='red' />
-                                        </button>
+                                    {
+                                        task.dueDate ? format(new Date(task.dueDate), 'dd/MM/yyyy') : 'No deadline'
+                                    }
+                                </TableCell>
+
+                                <TableCell>
+                                    {
+                                        task.status
+                                    }
+                                </TableCell>
+
+                                <TableCell>
+                                    <div className="flex space-x-4 cursor-pointer justify-center">
+                                       {
+                                        !isAdmin &&  <button
+                                        className={`hover:scale-125 ${task.status === 'Closed' ? 'cursor-not-allowed opacity-50' : ''}`}
+                                        onClick={() => handleTaskDetail(task)}
+                                        disabled={task.status === 'Closed'}
+                                    >
+                                        <FaPen color='green' />
+                                    </button>
+                                       }
+                                        {isAdmin && (
+                                            <button className='hover:scale-125' onClick={() => handleDelete(task.id)}>
+                                                <FaRegTrashAlt color='red' />
+                                            </button>
+                                        )}
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -185,3 +172,6 @@ const ListTasks = () => {
 };
 
 export default ListTasks;
+
+
+

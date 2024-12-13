@@ -1,7 +1,14 @@
+
+
 import { NextRequest, NextResponse } from "next/server";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
+import { db } from "@/db";
+import { auth } from "@/auth";
+
+
+
 
 // Cloudinary Configuration
 cloudinary.config({
@@ -14,36 +21,82 @@ cloudinary.config({
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-export const POST = async (req: NextRequest) => {
-  const form = await req.formData();
-  const file = form.get("file") as File | null;
+// Middleware Wrapper for Multer
+const runMiddleware = (req: any, res: any, fn: any) =>
+  new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) return reject(result);
+      return resolve(result);
+    });
+  });
 
-  if (!file) {
-    return NextResponse.json({ error: "The file could not be loaded." }, { status: 400 });
-  }
+  
+  
+  export const POST = async (req: Request ) => {
+    const session = await auth();
 
-  try {
-    
-    const arrayBuffer = await file.arrayBuffer();
 
-    const uploadResult = await new Promise<any>((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        { folder: "uploads" },
-        (error, result) => {
-          if (error) reject(error);
-          resolve(result);
-        }
+    if (!session || !session.user?.id) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const form = await req.formData();
+    const file = form.get("file") as File | null;
+    console.log("apiye file geliyor mu ")
+    const taskId = form.get("taskId") as string;
+    const userId = session.user?.id 
+  
+    if (!file || !taskId || !userId) {
+      return NextResponse.json({ error: "Invalid file, task ID, or user ID" }, { status: 400 });
+    }
+  
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+  
+      const uploadResult = await new Promise<any>((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: "uploads" },
+          (error, result) => {
+            if (error) reject(error);
+            resolve(result);
+          }
+        );
+  
+        streamifier.createReadStream(Buffer.from(arrayBuffer)).pipe(uploadStream);
+      });
+  
+      const result = await db.$transaction(async (prisma) => {
+        const task = await prisma.task.findUnique({ where: { id: taskId } });
+        if (!task) throw new Error("Task not found");
+  
+        const fileRecord = await prisma.file.create({
+          data: {
+            taskId: task.id,
+            fileUrl: uploadResult.secure_url,
+            fileId: uploadResult.public_id,
+            uploadedBy: userId, 
+          },
+        });
+
+        const userTaskStatusUpdate = await prisma.userTaskStatus.updateMany({
+          where: {taskId: taskId,
+            userId: userId,
+          },
+          data: {
+            isCompleted: true
+          }
+        });
+  
+        return { task, file: fileRecord , userTaskStatusUpdate};
+      });
+  
+      return NextResponse.json(result);
+    } catch (error) {
+      console.error("Error occurred:", error);
+      return NextResponse.json(
+        { error: "An error occurred during the transaction" },
+        { status: 500 }
       );
-
-      streamifier.createReadStream(Buffer.from(arrayBuffer)).pipe(uploadStream);
-    });
-
-    return NextResponse.json({
-      url: uploadResult.secure_url,
-      id: uploadResult.public_id,
-    });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "An error occurred while uploading the file" }, { status: 500 });
-  }
-};
+    }
+  };
+  

@@ -2,8 +2,10 @@
 'use client';
 
 import { getGroups } from "@/actions/groups/getGroups";
+
 import { Group } from "@/type/types";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { createContext, useContext, useState, ReactNode } from "react";
 
 
@@ -29,16 +31,21 @@ export const GroupContext = createContext<GroupContextType | undefined>(undefine
 
 interface GroupProviderProps {
   children: ReactNode;
+  
 }
 
-export const GroupProvider = ({ children }: GroupProviderProps) => {
+export default  function  GroupProvider ({ children }: GroupProviderProps) {
   const [isCreateGroupFormVisible, setIsCreateGroupFormVisible] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
   const [inviteLink, setInviteLink] = useState<string | null>(null);
 
+ 
+  const session = useSession();
+ console.log(session, " const session = useSession();")
   const { data: groups = [], error, isLoading, refetch } = useQuery({
     queryKey: ["groups"],
     queryFn: getGroups,
+    enabled: !!session?.data?.user,
   });
 
   return (

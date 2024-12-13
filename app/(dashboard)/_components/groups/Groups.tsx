@@ -5,7 +5,7 @@ import CreateGroup from './CreateGroup'
 import { Button } from '@/components/ui/button'
 
 import ActionTool from './ActionTool'
-import { useGroup } from "../../../context/GroupContext"
+import { useGroup } from "../../../../context/GroupContext"
 
 import { getGroups } from '@/actions/groups/getGroups'
 import GroupDetail from './GroupDetail'

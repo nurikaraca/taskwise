@@ -1,15 +1,15 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import TaskMenu from "./TaskMenu";
-import { Group, useGroup } from "@/app/context/GroupContext";
+import { useGroup } from "@/context/GroupContext";
 import { useSession } from "next-auth/react";
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 import CreateTask from "./CreateTask";
-import { useTask } from "@/app/context/TaskContext";
+import { useTask } from "@/context/TaskContext";
 import ListTasks from "./ListTasks";
 import AnimatedText from "@/components/AnimatedText";
 import TaskDetail from "./TaskDetail";
-import { useAdmin } from "@/app/context/AdminContext";
+import { useAdmin } from "@/context/AdminContext";
 import { getGroups } from "@/actions/groups/getGroups";
 
 

@@ -2,12 +2,13 @@
 
 
 import React, { useState } from "react";
-import { uploadFile } from "@/actions/files/uploadfile";
-import { createFile } from "@/actions/files/createFile";
-import { useTask } from "@/app/context/TaskContext";
+//import { uploadFile } from "@/actions/files/uploadfile";
+//import { createFile } from "@/actions/files/createFile";
+import { useTask } from "@/context/TaskContext";
 import { toast } from "@/hooks/use-toast";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Progress } from "@/components/ui/progress";
+import { uploadAndCreateFile } from "@/actions/files/uploadAndCreateFile";
 
 const FileUpload = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -25,34 +26,31 @@ const FileUpload = () => {
       });
       return;
     }
-
+    
     try {
-      
-      const uploadedFile = await uploadFile(file, (progressEvent) => {
+      console.log("file burda işte burdayımmmm ", file)
+     
+      const result = await uploadAndCreateFile(file, selectedTask.id, (progressEvent) => {
         const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
         setProgress(percentCompleted);
       });
-
-      const savedFile = await createFile({
-        taskId: selectedTask.id,
-        fileUrl: uploadedFile.url,
-        fileId: uploadedFile.id,
-      });
-
-      setUploadResult(savedFile);
+     
+  
+      setUploadResult(result);
       toast({
-        title: "Upload Successful!",
+        title: "Upload and Record Creation Successful!",
       });
     } catch (error) {
       console.error("Upload Failed! ", error);
       toast({
         variant: "destructive",
         title: "Upload Failed!",
-        description: "Please try again.",
+        description: `Please try again. ${error}`,
       });
     }
   };
   
+
   return (
     <div className="flex justify-center items-center h-full flex-col ">
       <div className="flex flex-col items-center border-[3px] py-12 px-28 border-dashed border-slate-500 space-y-1 ">

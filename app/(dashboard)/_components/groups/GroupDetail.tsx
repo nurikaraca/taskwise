@@ -1,6 +1,6 @@
 
 
-import { useGroup } from '@/app/context/GroupContext'
+import { useGroup } from '@/context/GroupContext'
 import React, { useEffect, useState } from 'react'
 import CreateGroup from './CreateGroup'
 import { FaCopy } from "react-icons/fa";

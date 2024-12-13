@@ -3,7 +3,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useGroup } from "@/app/context/GroupContext";
+import { useGroup } from "@/context/GroupContext";
 import { groupAdmin } from "@/actions/user/isAdmin";
 
 
@@ -15,6 +15,7 @@ const AdminContext = createContext<AdminContextProps | undefined>(undefined);
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  
   const { selectedGroup } = useGroup();
   const session = useSession();
   const currentUserId = session.data?.user?.id;
@@ -22,7 +23,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-       const checkIfAdmin = async () => {
+     const checkIfAdmin = async () => {
       if (!currentUserId || !groupId) {
         setIsAdmin(false);
         return;
@@ -30,8 +31,16 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       try {
         const admin = await groupAdmin(groupId);
-        
-        setIsAdmin(admin);
+        if (!admin || admin.length === 0) {
+          console.error("No admin found for the group.");
+          return;
+        }
+       
+        if( currentUserId == admin[0].id){
+          setIsAdmin(true);
+        }
+      
+        console.log("admin",admin)
         
       } catch (error) {
         console.error("Error checking admin status:", error);

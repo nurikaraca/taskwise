@@ -12,7 +12,8 @@ const ProfileSettings = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    if (typeof window !== 'undefined'){
+ const fetchUser = async () => {
       try {
         const response = await getUser();
         setUser(response);
@@ -22,8 +23,11 @@ const ProfileSettings = () => {
       }
     }
     console.log(user?.user.image)
-    fetchUser()
-      ;
+    fetchUser();
+
+    }
+   
+      
   }, [])
 
   if (!user?.user) {

@@ -9,15 +9,15 @@ export default async function Home() {
 
     <div className="flex   items-center justify-center   relative  mt-[10rem] ">
 
-    <div className="">
-         <div className="">
-          
-         </div>
-         <div className="">
+      <div className="">
+        <div className="">
+
+        </div>
+        <div className="">
           <HomePage />
-         </div>
-    </div>
-      
+        </div>
+      </div>
+
     </div>
   )
 }

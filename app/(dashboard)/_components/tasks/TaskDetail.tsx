@@ -8,10 +8,10 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormDescription, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useTask } from '@/app/context/TaskContext';
+import { useTask } from '@/context/TaskContext';
 import { uploadFile } from "@/actions/files/uploadfile"; 
 import FileUpload from "./FileUpload"; 
-import { useAdmin } from "@/app/context/AdminContext";
+import { useAdmin } from "@/context/AdminContext";
 import { createFile } from "@/actions/files/createFile";
 import { toast } from "@/hooks/use-toast";
 

@@ -77,10 +77,10 @@ model Task {
 model UserTaskStatus {
   id              String          @id @default(auto()) @map("_id") @db.ObjectId
 
-  user            User            @relation(fields: [userId], references: [id])
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String          @db.ObjectId
 
-  task            Task           @relation(fields: [taskId], references: [id])
+  task            Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId          String          @db.ObjectId
 
   isCompleted     Boolean         @default(false)
@@ -102,7 +102,7 @@ model File {
   user      User     @relation(fields: [uploadedBy], references: [id])
 
   taskId    String   @db.ObjectId
-  task      Task     @relation(fields: [taskId], references: [id])
+  task      Task     @relation(fields: [taskId], references: [id],onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createGroup } from "@/actions/groups/createGroup";
-import { useGroup } from "@/app/context/GroupContext";
+import { useGroup } from "@/context/GroupContext";
 import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({

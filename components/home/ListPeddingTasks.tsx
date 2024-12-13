@@ -1,5 +1,5 @@
 import { getGroupFilters } from "@/actions/groups/getGroupFilters";
-import {  useGroup } from "@/app/context/GroupContext";
+import {  useGroup } from "@/context/GroupContext";
 import { Group } from "@/type/types";
 import { useEffect, useState } from "react";
 

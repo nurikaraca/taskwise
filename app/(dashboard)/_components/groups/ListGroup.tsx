@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Group, useGroup } from '@/app/context/GroupContext';
+import { useGroup } from '@/context/GroupContext';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { getGroupFilters } from '@/actions/groups/getGroupFilters';
 import { getGroups } from '@/actions/groups/getGroups';
@@ -12,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Group } from '@/type/types';
 const ListGroup = () => {
   const { setSelectedGroup, selectedGroup, isLoading, error, groups } = useGroup();
   const [groupName, setGroupName] = useState("");

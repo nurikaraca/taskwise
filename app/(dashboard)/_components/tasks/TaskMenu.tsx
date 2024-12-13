@@ -1,5 +1,5 @@
-import { useAdmin } from "@/app/context/AdminContext";
-import { useTask } from "@/app/context/TaskContext";
+import { useAdmin } from "@/context/AdminContext";
+import { useTask } from "@/context/TaskContext";
 import React from "react";
 import { IoIosListBox, IoIosCreate } from "react-icons/io";
 
@@ -7,10 +7,9 @@ import { IoIosListBox, IoIosCreate } from "react-icons/io";
 
 const TaskMenu = () => {
   const {setView } = useTask();
-  const  {isAdmin } = useAdmin();
+  const  isAdmin  =useAdmin();
 
-
-
+ console.log(isAdmin,"aaaaaaaaaaaaaaaa")
 
   return (
     <div className="flex justify-end items-center space-x-4 p-4  rounded-xl  text-white  h-full  backdrop-blur-sm  w-full ">

@@ -87,7 +87,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import AuthProvider from "@/utils/providers/AuthProvider";
-import Providers from "./context/Providers";
+import Providers from "../context/Providers";
 import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
@@ -122,18 +122,15 @@ export default async function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[url('/b.jpg')] bg-cover bg-center bg-fixed`}
           >
             
-            <Providers>
+       <Providers> 
               <div className="mycontainer w-[94%]   max-h-[55rem] ">
                 <nav className="h-[4rem] flex  ">
-                  <Navbar />
+                 <Navbar />
                 </nav>
-                
-                <main className=" ">{children}</main>
-
-                
+                  <main className=" ">{children}</main>  
                 <Toaster />
               </div>
-            </Providers>
+           </Providers> 
           </body>
         </html>
       </ReactQueryClientProvider>
