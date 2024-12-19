@@ -15,7 +15,7 @@ interface TaskContextType {
   selectedTask: Task | null;
   setSelectedTask: Dispatch<SetStateAction<Task | null>>;
 
-  view: 'taskDetail' | 'taskList' | 'createTask'; // Default olarak seçenekler
+  view: 'taskDetail' | 'taskList' | 'createTask'; 
   setView: Dispatch<SetStateAction<'taskDetail' | 'taskList' | 'createTask'>>;
 
   dueDate: Date | null;  

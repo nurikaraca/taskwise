@@ -42,7 +42,6 @@ const runMiddleware = (req: any, res: any, fn: any) =>
 
     const form = await req.formData();
     const file = form.get("file") as File | null;
-    console.log("apiye file geliyor mu ")
     const taskId = form.get("taskId") as string;
     const userId = session.user?.id 
   

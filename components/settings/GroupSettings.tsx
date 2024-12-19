@@ -134,7 +134,7 @@ const GroupSettings = () => {
         <div className=" w-full">
         <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="w-full py-2 rounded-xl text-white transition hover:bg-red-400">Show Dialog</Button>
+        <Button variant="destructive" className="w-full py-2 rounded-xl text-white transition hover:bg-red-400">Delete Group</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="text-white">
         <AlertDialogHeader>

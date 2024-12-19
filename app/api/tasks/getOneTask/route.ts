@@ -11,6 +11,7 @@ export async function GET(req: Request) {
 
         const { searchParams } = new URL(req.url);
         const groupId = searchParams.get("groupId");
+       
 
         if (!groupId) {
             return NextResponse.json({ message: "Group ID is required" }, { status: 400 });

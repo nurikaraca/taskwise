@@ -8,12 +8,7 @@ export async function GET(req: Request) {
         if (!session || !session.user?.id) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
         }
-        const groups = await db.group.findMany({
-            where: {
-                ownerId: session.user.id 
-               
-            }
-          });
+        const groups = await db.group.findMany();
       
         return NextResponse.json(groups)
     } catch (error) {

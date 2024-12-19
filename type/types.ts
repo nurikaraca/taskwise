@@ -1,5 +1,16 @@
 
 export type UserRole = "ADMIN" | "USER";
+import { LucideIcon } from 'lucide-react';
+import { ReactNode } from 'react';
+
+export interface SidebarItems {
+  links: Array<{
+    label: string;
+    href: string;
+    icon?: LucideIcon;
+  }>;
+  extras?: ReactNode;
+}
 
 
 export  type User = {
@@ -46,6 +57,7 @@ export interface Task {
     id: string;
     name: string;
     description?:string;
+    ownerId : string;
     inviteLink?: string;
     role: string; 
     tasks: Task[];

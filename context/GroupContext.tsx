@@ -41,7 +41,6 @@ export default  function  GroupProvider ({ children }: GroupProviderProps) {
 
  
   const session = useSession();
- console.log(session, " const session = useSession();")
   const { data: groups = [], error, isLoading, refetch } = useQuery({
     queryKey: ["groups"],
     queryFn: getGroups,
