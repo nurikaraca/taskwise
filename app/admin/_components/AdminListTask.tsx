@@ -27,30 +27,20 @@ import { Task } from '@/type/types';
 import useGroupStore from '@/stores/useGroupStore';
 import AdminTaskDetail from './AdminTaskDetail';
 
-
-
-const  AdminListTask = () => {
-    const { isAdmin } = useAdmin();
+const AdminListTask = () => {
     const router = useRouter();
-    const { selectedTask, setSelectedTask ,setView } = useTask();
-
-
+    const { selectedTask, setSelectedTask, setView } = useTask();
     const {
         groups,
         selectedGroup,
         loadSelectedGroup,
-      } = useGroupStore()
+    } = useGroupStore()
 
-      useEffect(() => {
+    useEffect(() => {
         loadSelectedGroup();
     }, [loadSelectedGroup]);
 
-      console.log("first :>" , selectedGroup)
-
-
-    // if (!selectedGroup) {
-    //     return <div className='flex items-center justify-center h-full'>No group selected.</div>;
-    // }
+ 
 
     const groupId = selectedGroup?.id || '';
 
@@ -70,7 +60,7 @@ const  AdminListTask = () => {
         }
     }, [selectedGroup]);
 
-  
+
 
 
 
@@ -83,39 +73,6 @@ const  AdminListTask = () => {
     }
 
 
-
-    const handleTaskDetail = async (task: Task) => {
-      
-       try {
-        const taskId = task.id;
-
-        const existingFile = await checkTaskFile({ taskId });
-        if (existingFile) {
-            toast({
-                variant: "destructive",
-                title: "Something went wrong.",
-                description: "A file has already been submitted for this task!",
-            });
-            
-            return;
-        }
-    } catch (error: any) {
-        if (error.message === "No file found.") {
-            setSelectedTask(task);
-            setView('taskDetail');
-        } else {
-            toast({
-                variant: "destructive",
-                title: "Something went wrong.",
-            });
-        }
-    }
-    };
-
-
-
-
-
     const handleDelete = async (taskId: string) => {
         try {
             await deleteTask(taskId);
@@ -125,12 +82,15 @@ const  AdminListTask = () => {
             console.error("Delete failed:", error);
         }
     };
- 
+
+const  pendingTasks  = tasks?.filter((task) =>task.status === 'PENDING')
+
+
 
     return (
 
 
-        <div className='w-full max-h-[33rem] overflow-y-scroll -mb-20'>
+        <div className='w-full h-full overflow-y-scroll '>
             {selectedTask ? (
                 <AdminTaskDetail />
             ) : (
@@ -147,7 +107,7 @@ const  AdminListTask = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody className='text-xl w-full'>
-                        {tasks?.map((task) => (
+                        {pendingTasks?.map((task) => (
                             <TableRow key={task.id}
                                 className={`hover:backdrop-blur-xl h-16 ${new Date(task.dueDate) < new Date() ? 'text-slate-500' : ''}`}
                             >
@@ -170,20 +130,11 @@ const  AdminListTask = () => {
 
                                 <TableCell>
                                     <div className="flex space-x-4 cursor-pointer justify-center">
-                                       {
-                                        !isAdmin &&  <button
-                                        className={`hover:scale-125 ${task.status === 'Closed' ? 'cursor-not-allowed opacity-50' : ''}`}
-                                        onClick={() => handleTaskDetail(task)}
-                                        disabled={task.status === 'Closed'}
-                                    >
-                                        <FaPen color='green' />
-                                    </button>
-                                       }
-                                        {isAdmin && (
+                                  
                                             <button className='hover:scale-125' onClick={() => handleDelete(task.id)}>
                                                 <FaRegTrashAlt color='red' />
                                             </button>
-                                        )}
+                                        
                                     </div>
                                 </TableCell>
                             </TableRow>
