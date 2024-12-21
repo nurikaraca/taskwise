@@ -5,7 +5,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useEffect, useState } from "react";
 import {
   Form,
   FormControl,
@@ -16,8 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createGroup } from "@/actions/groups/createGroup";
-import { useGroup } from "@/context/GroupContext";
 import { toast } from "@/hooks/use-toast";
+import useGroupStore from "@/stores/useGroupStore";
 
 const formSchema = z.object({
   name: z.string().max(30, "Please enter a valid group name."),
@@ -25,8 +24,16 @@ const formSchema = z.object({
 });
 
 const CreateGroup = () => {
-  const { isCreateGroupFormVisible, setIsCreateGroupFormVisible,inviteLink,setInviteLink } = useGroup();
-  
+  const {
+    groups,
+    selectedGroup,
+    setSelectedGroup,
+    setGroups,
+    isLoading,
+    error,
+    loadSelectedGroup,
+  } = useGroupStore();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +54,7 @@ const CreateGroup = () => {
         title: "Group created successfully:",
         
       });
-      setIsCreateGroupFormVisible(false);  
+      
     } catch (error) {
       console.error("An error occurred while creating the group: ", error);
       toast({
@@ -98,12 +105,12 @@ const CreateGroup = () => {
       </Form>
 
       
-      {inviteLink && (
+      {/* {selectedGroup?.inviteLink && (
         <div className="mt-4 p-2 bg-gray-800 text-center rounded">
           <p>Group Invite Link:</p>
-          <p className="text-blue-300">{inviteLink}</p>
+          <p className="text-blue-300">{selectedGroup?.inviteLink}</p>
         </div>
-      )}
+      )} */}
     </div>
     </div>
   );

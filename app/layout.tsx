@@ -7,7 +7,6 @@ import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider"
 import AuthProvider from "@/utils/providers/AuthProvider";
 import Providers from "../context/Providers";
 import { Toaster } from "@/components/ui/toaster"
-import { Sidebar } from "@/components/SideBar/sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -1,8 +1,11 @@
-import React from 'react'
+"use client"
+import Complated from '../_components/Complated'
 
 const ComplatedPage = () => {
   return (
-    <div>ComplatedPage</div>
+    <div>
+      <Complated/>
+    </div>
   )
 }
 

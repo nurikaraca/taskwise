@@ -23,12 +23,13 @@ import { deleteTask } from '@/actions/tasks/deleteTask';
 import { useAdmin } from '@/context/AdminContext';
 import { format } from "date-fns";
 import { Task } from '@/type/types';
-import TaskDetail from './TaskDetail';
+
 import useGroupStore from '@/stores/useGroupStore';
+import AdminTaskDetail from './AdminTaskDetail';
 
 
 
-const  ListTasks = () => {
+const  AdminListTask = () => {
     const { isAdmin } = useAdmin();
     const router = useRouter();
     const { selectedTask, setSelectedTask ,setView } = useTask();
@@ -131,7 +132,7 @@ const  ListTasks = () => {
 
         <div className='w-full max-h-[33rem] overflow-y-scroll -mb-20'>
             {selectedTask ? (
-                <TaskDetail />
+                <AdminTaskDetail />
             ) : (
                 <Table className="">
                     <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
@@ -194,7 +195,7 @@ const  ListTasks = () => {
     );
 };
 
-export default ListTasks;
+export default AdminListTask;
 
 
 

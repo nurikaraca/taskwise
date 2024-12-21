@@ -2,19 +2,25 @@
 "use client"
 import React, { useEffect } from 'react'
 import CreateGroup from './CreateGroup'
-import { useGroup } from "../../context/GroupContext"
 import ListGroup from './ListGroup'
+import useGroupStore from '@/stores/useGroupStore'
 
 
 
 const Groups = () => {
-  const { isCreateGroupFormVisible, setIsCreateGroupFormVisible, selectedGroup, inviteLink, setSelectedGroup } = useGroup()
 
-
+  const {
+    groups,
+    selectedGroup,
+    setSelectedGroup,
+    setGroups,
+    isLoading,
+    error,
+    loadSelectedGroup,
+  } = useGroupStore();
 
 
   const handleClick = () => {
-    setIsCreateGroupFormVisible(!isCreateGroupFormVisible);
     setSelectedGroup(null);
   }
 

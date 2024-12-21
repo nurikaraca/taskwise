@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
-import { useGroup } from '@/context/GroupContext';
+import React, { useEffect } from 'react';
 import { Group } from '@/type/types';
 import { getGroups } from '@/actions/groups/getGroups';
 import { Button } from '../ui/button';
@@ -9,45 +8,54 @@ import { useAdmin } from '@/context/AdminContext';
 import { redirect } from 'next/navigation'
 import GroupListSkeleton from '../skeleton/group/GroupListSkeleton ';
 import { useSession } from 'next-auth/react';
+import useGroupStore from '@/stores/useGroupStore';
 
 
 const ListGroup = () => {
-  const { setSelectedGroup, selectedGroup, isLoading, error, groups } = useGroup();
+  const {
+    groups,
+    selectedGroup,
+    setSelectedGroup,
+    setGroups,
+    isLoading,
+    setLoading,
+    error,
+    setError,
+    loadSelectedGroup,
+  } = useGroupStore();
+
   const { setIsAdmin } = useAdmin();
 
   const session = useSession();
   const currentUserId = session.data?.user?.id;
-  const [allGroups, setAllGroups] = useState<Group[]>([]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const fetchAllGroups = async () => {
         try {
-          const groups = await getGroups()
-          setAllGroups(groups);
-        
-        } catch (error) {
-          console.error("Error fetching all groups:", error);
+          setLoading(true);
+          const groups = await getGroups();
+          setGroups(groups);
+        } catch (err) {
+          setError(err as Error);
+        } finally {
+          setLoading(false);
         }
       };
       fetchAllGroups();
+      loadSelectedGroup();
     }
   }, []);
 
   const handleSelectGroup = async (group: Group) => {
       setSelectedGroup(group);
-     
-       if(!selectedGroup ){
-        return      
-       }
+  
 
- 
-
-    if(selectedGroup?.ownerId ==currentUserId ){
+    if(group?.ownerId ==currentUserId ){
       setIsAdmin(true)
       redirect("/admin")
     }
-    else if(selectedGroup?.ownerId != currentUserId) {
+    else if(group?.ownerId !== currentUserId) {
       setIsAdmin(false)
       redirect("/dashboard")
     }
@@ -65,7 +73,7 @@ const ListGroup = () => {
     <div className="scroll-custom  flex flex-col items-center justify-start h-full  border-double border bg-slate-50 gap-3 rounded-xl scroll-auto w-[30rem]  ">
    
 
-      {allGroups.map((group: Group)=> (
+      {groups.map((group: Group)=> (
           <div
           key={group.id}
            className=" flex flex-col items-start justify-center space-y-4 h-full w-full  "
