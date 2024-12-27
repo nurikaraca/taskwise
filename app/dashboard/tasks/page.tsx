@@ -1,6 +1,6 @@
 
 
-import ListTasks from '@/components/tasks/ListTasks'
+import ListTasks from '@/app/dashboard/_components/ListTasks'
 import React from 'react'
 
 

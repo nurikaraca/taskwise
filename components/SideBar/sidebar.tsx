@@ -25,8 +25,8 @@ const Sidebar = () => {
     : [
         { label: 'Home', href: '/',  icon:Home},
         { label: 'Tasks', href: '/dashboard/tasks', icon:Package2Icon },
-        { label: 'Completed', href: '/dashboard/complated', icon: ListCheckIcon },
-        { label: 'Members', href: '/admin/members', icon: Users },
+        
+        
       ];
 
  

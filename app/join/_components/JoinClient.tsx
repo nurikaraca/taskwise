@@ -7,13 +7,18 @@ import { usePathname, useRouter } from "next/navigation";
  import {  joinGroup } from "@/actions/groups/joinGroup";
  import {  getGroupByInviteCode } from "@/actions/groups/getGroupByInviteCode";
 import { Group } from "@/type/types";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
+import { useSession } from "next-auth/react";
+import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 
 export default  function JoinClient() {
   const router = useRouter();
   const pathname = usePathname();
   const [group, setGroup] = useState<Group | null>(null);
   const [isJoining, setIsJoining] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const session = useSession();
+
 
   const inviteCode = pathname.split("/").pop(); 
 
@@ -25,9 +30,14 @@ export default  function JoinClient() {
         if (group?.id) {
           try {
             const data = await getGroupById(group.id);
+           
             setGroup(data);
           } catch (err) {
-            setError("An error occurred while retrieving group information.");
+            toast({
+              variant:"destructive",
+              title: "An error occurred while retrieving group information",
+            });
+            
             console.error(err);
           }
         }
@@ -47,7 +57,10 @@ export default  function JoinClient() {
         const groupData = await getGroupByInviteCode(inviteCode);
         setGroup(groupData);
       } catch (err) {
-        setError("An error occurred while retrieving group information.");
+        toast({
+          variant:"destructive",
+          title: "An error occurred while retrieving group information",
+        });
         console.error(err);
       }
     };
@@ -62,11 +75,18 @@ export default  function JoinClient() {
       setIsJoining(true);
      
       await joinGroup( group?.id, inviteCode);
-      alert("You have successfully joined the group!");
+      toast({
+        variant: "success",
+        title: "You have successfully joined the group!",
+      });
       router.push("/");
-    } catch (err) {
-      setError("An error occurred while joining the group.");
-      console.error(err);
+    } catch (err: any) {
+      
+      toast({
+        variant:"destructive",
+        title: err.message || "An error occurred while joining the group.",
+      });
+     
     } finally {
       setIsJoining(false);
     }
@@ -75,16 +95,33 @@ export default  function JoinClient() {
   if (!group) {
     return <div className="text-white">Loading group information..</div>;
   }
+  
+// Check if the logged-in user's ID matches the group's owner ID.
+  if(session.data?.user?.id=== group.ownerId){
+    return (
+      <div className="text-slate-900 w-full flex items-center justify-center h-full text-4xl flex-col">
+       <div className=" w-[39rem]  h-[10rem]  bg-[#F4F2EE] flex justify-center items-center flex-col rounded-xl">
+  
+         <h1 className="">Group Name: <span className="text-4xl ">{group.name}</span> </h1>  
+        <p>You are the owner of this group</p>
+       </div>
+      </div>
+      )
+  }
+
+
 
   return (
-    <div className="text-white w-full flex items-center justify-center h-full text-4xl flex-col">
-      {error && <p>{error}</p>}
-       <h1 className="">Group Name: <span className="text-4xl">{group.name}</span> </h1>  
+    <div className="text-slate-900 w-full flex items-center justify-center h-full text-4xl flex-col">
+     <div className=" w-[39rem]  h-[10rem]  bg-[#F4F2EE] flex justify-center items-center flex-col rounded-xl">
+
+       <h1 className="">Group Name: <span className="text-4xl ">{group.name}</span> </h1>  
       {isJoining ? (
         <p>Joining the group...</p>
       ) : (
-         <button className="flex bg-[#4B5563] p-2 m-2 rounded-xl hover:scale-105" onClick={handleJoinGroup}>Join Group</button>
+         <Button variant={"mybutton"} onClick={handleJoinGroup}>Join Group</Button>
       )}
+     </div>
     </div>
   );
 }

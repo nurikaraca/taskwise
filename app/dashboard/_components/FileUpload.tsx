@@ -2,8 +2,6 @@
 
 
 import React, { useState } from "react";
-//import { uploadFile } from "@/actions/files/uploadfile";
-//import { createFile } from "@/actions/files/createFile";
 import { useTask } from "@/context/TaskContext";
 import { toast } from "@/hooks/use-toast";
 import { IoCloudUploadOutline } from "react-icons/io5";
@@ -12,8 +10,7 @@ import { uploadAndCreateFile } from "@/actions/files/uploadAndCreateFile";
 
 const FileUpload = () => {
   const [file, setFile] = useState<File | null>(null);
-  const { selectedTask } = useTask();
-  console.log("const { selectedTask } = useTask();" , selectedTask)
+  const { selectedTask,setSelectedTask } = useTask();
   const [uploadResult, setUploadResult] = useState<any>(null);
   const [progress, setProgress] = useState(0); // Progress state
 
@@ -51,11 +48,13 @@ const FileUpload = () => {
     }
   };
   
+ 
 
   return (
-    <div className="flex justify-center items-center h-full flex-col  " >
-      <div className="flex flex-col items-center border-[3px] py-12 px-28 border-dashed border-slate-500 space-y-1 ">
-        <IoCloudUploadOutline size={200} stroke="#507EC0" className="stroke-custom" />
+    <div className="flex justify-center items-center h-full flex-col p-3 m-3 " >
+     
+      <div className="flex flex-col items-center border-[3px] border-dashed border-slate-500 p-[5rem] gap-5 ">
+        <IoCloudUploadOutline size={300} stroke="#507EC0" className="stroke-custom" />
         <div className="h-[3rem] w-full flex items-center justify-center flex-col space-y-1">
           <input
             id="fileInput"
@@ -80,16 +79,18 @@ const FileUpload = () => {
           >
             Upload File
           </button>
-        </div>
-      </div>
 
+          
       {/* Progress Bar */}
-      <div className="w-full mt-5 flex justify-center">
+      <div className="w-full  flex justify-center">
         <Progress value={progress} color="green" className="w-[60%]" />
       </div>
 
       {/* Upload Result */}
       {uploadResult && <p className="mt-3 text-green-600">Upload successful!</p>}
+        </div>
+      </div>
+
     </div>
   );
 };

@@ -48,7 +48,7 @@ const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
  
      
   return (
-    <div className=' '>
+    <div className=' text-slate-900'>
      
      <DropdownMenu  >
       <DropdownMenuTrigger asChild  >
@@ -67,7 +67,7 @@ const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
             </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 text-white  backdrop-blur-lg">
+      <DropdownMenuContent className="w-56 text-slate-900  backdrop-blur-lg">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

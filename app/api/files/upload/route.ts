@@ -85,6 +85,8 @@ const runMiddleware = (req: any, res: any, fn: any) =>
             isCompleted: true
           }
         });
+
+        
   
         return { task, file: fileRecord , userTaskStatusUpdate};
       });

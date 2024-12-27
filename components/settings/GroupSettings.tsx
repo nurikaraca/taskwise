@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import ListGroup from "../account/ListGroup";
-import { useGroup } from "@/context/GroupContext";
+import React, { useEffect, useState } from "react";
+
+
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { updateGroup } from "@/actions/groups/updateGroup";
 import { toast } from "@/hooks/use-toast";
@@ -17,8 +17,24 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "../ui/button";
 import { deleteGroup } from "@/actions/groups/deleteGroup";
+import useGroupStore from "@/stores/useGroupStore";
+
+import { getGroups } from "@/actions/groups/getGroups";
+import ListGroup from "../account/ListGroup";
 const GroupSettings = () => {
-  const { setSelectedGroup, selectedGroup, isLoading,error ,refetchGroups,groups } = useGroup();
+  const {
+    groups,
+    setGroups,
+    selectedGroup,
+    setSelectedGroup,
+    loadSelectedGroup, 
+  } = useGroupStore();
+
+  
+  
+ 
+
+
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
 
@@ -45,7 +61,7 @@ const GroupSettings = () => {
         title: "The group has been updated",
 
       });
-      refetchGroups()
+      
     } catch (error: any) {
       console.error("Failed to update group:", error.message);
     }
@@ -69,8 +85,7 @@ const GroupSettings = () => {
         variant: "success",
         title: "Group successfully deleted.",
       });
-      setSelectedGroup(null);
-      refetchGroups()
+      
     } catch (error: any) {
       console.error("Failed to delete group:", error.message);
 
@@ -82,14 +97,14 @@ const GroupSettings = () => {
     }
   }
   
-  return <div className="h-full text-white flex ">
+  return <div className="h-full  flex ">
     <div className=" mt-5 w-[26rem] h-full flex items-center justify-center ">
       <ListGroup />
     </div>
 
 
     <div className="w-full h-full flex flex-col items-center">
-      <div className="mt-5 h-[2rem] flex w-full text-white justify-center text-xl">
+      <div className="mt-5 h-[2rem] flex w-full  justify-center text-xl">
         <span className="mr-3">Group Name:</span> {selectedGroup?.name}
       </div>
 
@@ -101,7 +116,7 @@ const GroupSettings = () => {
             type="text"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
-            className="bg-transparent border-none text-white focus:outline-none w-full"
+            className="bg-transparent border-none text-slate-900 focus:outline-none w-full"
             placeholder="Group Name"
           />
         </div>
@@ -113,7 +128,7 @@ const GroupSettings = () => {
             type="text"
             value={groupDescription}
             onChange={(e) => setGroupDescription(e.target.value)}
-            className="bg-transparent border-none text-white focus:outline-none w-full"
+            className="bg-transparent border-none text-slate-900 focus:outline-none w-full"
             placeholder="Group Description"
           />
         </div>
@@ -121,13 +136,10 @@ const GroupSettings = () => {
         {/* Update Button */}
         <Button 
           onClick={handleUpdateGroup}
-          className={`w-full py-2 rounded-xl text-white transition ${isLoading
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-            }`}
-          disabled={isLoading}
+           className={`w-full py-2 rounded-xl text-slate-100 transition bg-blue-600 hover:bg-blue-700`}
+         
         >
-          {isLoading ? "Updating..." : "Update Group"}
+          Update
         </Button>
 
         {/* delete  */}

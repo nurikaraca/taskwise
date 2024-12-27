@@ -1,12 +1,15 @@
-import { useGroup } from "@/context/GroupContext";
+
 import React, { useEffect } from "react";
-import ListGroup from "../account/ListGroup";
+
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
 import { deleteUser } from "@/actions/groups/deleteUser";
 import Image from "next/image";
 import { RxAvatar } from "react-icons/rx";
+import useGroupStore from "@/stores/useGroupStore";
+import ListGroup from "../account/ListGroup";
+
 
 export interface Member {
   id: string;
@@ -17,7 +20,16 @@ export interface Member {
 }
 
 const MemberSettings = () => {
-  const { selectedGroup, setSelectedGroup, refetchGroups, groups } = useGroup()
+  const {
+    selectedGroup,
+    loadSelectedGroup,
+  } = useGroupStore();
+
+
+  useEffect(() => {
+    loadSelectedGroup();
+  }, [loadSelectedGroup]);
+
 
   const { data: members, error, isLoading } = useQuery({
     queryKey: ['groupMembers', selectedGroup?.id],
@@ -65,7 +77,7 @@ const MemberSettings = () => {
 
 
 
-  return (<div className="h-[39rem] text-white flex ">
+  return (<div className="h-[39rem] text-slate-900 flex ">
     <div className=" mt-5 w-[26rem] h-full flex items-center justify-center ">
       <ListGroup />
     </div>

@@ -49,7 +49,7 @@ const ListGroup = () => {
 
   const handleSelectGroup = async (group: Group) => {
       setSelectedGroup(group);
-  
+      
 
     if(group?.ownerId ==currentUserId ){
       setIsAdmin(true)

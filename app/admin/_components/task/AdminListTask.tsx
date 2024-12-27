@@ -29,7 +29,7 @@ import AdminTaskDetail from './AdminTaskDetail';
 
 const AdminListTask = () => {
     const router = useRouter();
-    const { selectedTask, setSelectedTask, setView } = useTask();
+    const { selectedTask, setSelectedTask } = useTask();
     const {
         groups,
         selectedGroup,

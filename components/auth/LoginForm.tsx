@@ -21,6 +21,7 @@ import AuthButton from "./AuthButton";
 import { loginWithCreds } from "@/actions/auth";
 import LoginGoogle from "./LoginGoogle";
 import LoginGithub from "./LoginGithub";
+import { Button } from "../ui/button";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email."),
@@ -58,10 +59,10 @@ const LoginForm = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   }
-//absolute -top-24 -left-28 absolute -top-24 -left-28
+
   return (
-    <div className="flex  text-slate-100   flex-col items-center  text-xl p-2 border border-slate-600 space-y-2  w-full">
-      <h1 className="  mb-2 text-slate-300">Sign In</h1>
+    <div className="flex  text-slate-900   flex-col items-center  text-xl p-2 md:border border-slate-600 space-y-2  w-full">
+      <h1 className="  mb-2 text-slate-900">Sign In</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 w-full">
@@ -90,13 +91,13 @@ const LoginForm = () => {
                       placeholder="Password"
                       {...field}
                     />
-                    <button
+                    <Button
                       type="button"
                       onClick={togglePasswordVisibility}
                       className="absolute inset-y-0 right-2 flex items-center text-slate-500"
                     >
                       {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                    </button>
+                    </Button>
                   </div>
                 </FormControl>
                 <FormMessage />

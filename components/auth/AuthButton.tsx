@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormStatus } from 'react-dom';
 import { Button } from '../ui/button';
 
-const AuthButton = ({ text }) => {
+const AuthButton = ({ text }: {text: string}) => {
     const { pending } = useFormStatus();
   
     return (

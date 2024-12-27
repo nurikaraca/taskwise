@@ -103,14 +103,6 @@ const CreateGroup = () => {
           <Button  variant="mybutton"  className="   flex items-center justify-center  w-full" type="submit">Create New Group</Button>
         </form>
       </Form>
-
-      
-      {/* {selectedGroup?.inviteLink && (
-        <div className="mt-4 p-2 bg-gray-800 text-center rounded">
-          <p>Group Invite Link:</p>
-          <p className="text-blue-300">{selectedGroup?.inviteLink}</p>
-        </div>
-      )} */}
     </div>
     </div>
   );

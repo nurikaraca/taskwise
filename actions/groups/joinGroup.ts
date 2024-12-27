@@ -15,8 +15,14 @@ export const joinGroup = async ( groupId: string | undefined, inviteCode: string
         }
 
         return response.data;
-    } catch (error) {
-        console.error("An error occurred while joining the group:", error);
-        throw error;
+    } catch (error : any) {
+        if (error.response) {
+            const { status, data } = error.response;
+            console.error(`Error ${status}: ${data.message}`);
+            throw new Error(data.message || "An unexpected error occurred.");
+          }
+
+          console.error("An error occurred while joining the group:", error.message);
+          throw new Error("An unexpected error occurred.");
     }
 };

@@ -12,9 +12,14 @@ export async function GET(req: Request) {
         const userId = session.user.id;
         const tasks = await db.userTaskStatus.findMany({
             where: {
-                
-                userId: userId, 
-                isCompleted:false
+                userId: userId,
+                isCompleted: false,
+                task: {
+                    status: "PENDING", 
+                    dueDate: {
+                        gte: new Date(), 
+                    },
+                },
             },
             include: {
                 task: {
@@ -23,11 +28,11 @@ export async function GET(req: Request) {
                         title: true,
                         description: true,
                         dueDate: true,
-                        groupId:true,
-                        assignedToId:true
-                    }
-                }
-        
+                        status:true,
+                        groupId: true,
+                        assignedToId: true,
+                    },
+                },
             },
         });
 

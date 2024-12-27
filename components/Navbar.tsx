@@ -10,8 +10,8 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <nav className='  flex items-center  justify-between mx-10 h-full  '>
-      <Link className='flex-2 mb-4' href="/">
+    <nav className='relative  flex items-center  justify-between mx-10 h-[5rem]  '>
+      <Link className='flex-2 mb-4 z-50' href="/">
         <Image
           src="/bg-transparent.png"
           alt="logo"
@@ -26,15 +26,11 @@ const Navbar = async () => {
       </div>
 
       {/* menu */}
-      <div className="hidden md:flex items-center flex-3 gap-x-5">
-        {/* {
-          session && <Link href="/dashboard">
-            Dashboard
-          </Link>
-        } */}
+      <div className="hidden md:flex items-center flex-3 gap-x-5  z-50">
+      
         {!session?.user ? (
           <Link href="/sign-in">
-            <div className=" text-white text-sm px-4 py-2 rounded-sm">
+            <div className=" text-slate-900 text-sm px-4 py-2 rounded-sm">
               Login
             </div>
           </Link>

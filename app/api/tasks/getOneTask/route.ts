@@ -10,32 +10,27 @@ export async function GET(req: Request) {
         }
 
         const { searchParams } = new URL(req.url);
-        const groupId = searchParams.get("groupId");
-       
+        const taskId  = searchParams.get("taskId");
 
-        if (!groupId) {
-            return NextResponse.json({ message: "Group ID is required" }, { status: 400 });
-        }
+        if (!taskId) {
+            return NextResponse.json({ message: "Task ID is required" }, { status: 400 });
+          }
 
-        const groupExists = await db.group.findUnique({
-            where: { id: groupId },
+        const task = await db.task.findUnique({
+            where: { id: taskId },
         });
 
-        if (!groupExists) {
-            return NextResponse.json({ message: "Group not found" }, { status: 404 });
-        }
+        if (!task) {
+            return NextResponse.json({ message: "Task not found" }, { status: 404 });
+          }
 
-        const tasks = await db.task.findMany({
-            where: {
-                groupId: groupId,
-            },
-        });
+        
 
-        return NextResponse.json(tasks);
+        return NextResponse.json(task);
     } catch (error) {
-        console.error("Error fetching tasks:", error);
+        console.error("Error fetching task:", error);
         return NextResponse.json(
-            { message: "An error occurred while fetching tasks." },
+            { message: "An error occurred while fetching the  task." },
             { status: 500 }
         );
     }

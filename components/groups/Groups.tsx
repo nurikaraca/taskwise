@@ -1,41 +1,38 @@
-
 "use client"
-import React, { useEffect } from 'react'
+import React from 'react'
 import CreateGroup from './CreateGroup'
 import ListGroup from './ListGroup'
 import useGroupStore from '@/stores/useGroupStore'
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 
 
 
 const Groups = () => {
-
-  const {
-    groups,
-    selectedGroup,
-    setSelectedGroup,
-    setGroups,
-    isLoading,
-    error,
-    loadSelectedGroup,
-  } = useGroupStore();
-
-
-  const handleClick = () => {
-    setSelectedGroup(null);
-  }
-
-
+  const session = useSession();
+  console.log("ss", session.data)
   return (
-    <div className='flex flex-col lg:flex-row h-full w-full  text-2xl bg-slate-200 '>
+    <div className='flex flex-col lg:flex-row h-full w-full  text-2xl bg-slate-200 h'>
+      {session.data ? <>
+        <div className=" flex-1 flex items-center justify-center   ">
+          <ListGroup />
+        </div>
 
-      <div className=" flex-1 flex items-center justify-center   ">
-       
-        <ListGroup />
-      </div>
-      
-      <div className="flex-1 flex items-center justify-center "onClick={handleClick}>
-        <CreateGroup />
-      </div>
+        <div className="flex-1 flex items-center justify-center ">
+          <CreateGroup />
+        </div>
+
+      </> :
+        <>
+           <div className="h-full w-full  flex  items-center justify-center ">
+            <Image 
+             src="/hero.png"
+             alt='Resim açıklaması'
+             fill
+            />
+          </div>
+          
+        </>}
 
 
     </div>
@@ -44,29 +41,3 @@ const Groups = () => {
 }
 
 export default Groups
-
-
-
-{/* <div className="w-full h-1/2 flex justify-center ">
-       <ActionTool />
-     </div> */}
-
-//   {/* Left side */}
-//   <div className="justify-start flex flex-col items-center border-r border-slate-700 xl:h-[40rem] w-[1.5rem] sm:w-[2.2rem] md:w-[2.8rem] lg:w-[3.5rem] xl:w-[4.3rem]  ">
-
-//     {/* List groups */}
-//     <div className=" h-1/2    w-full     flex justify-center border-b-2 border-slate-700 mb-1 ">
-//        <ListGroup />
-//     </div>
-
-//     {/* Tools */}
-//     <div className="w-full h-1/2 flex justify-center ">
-//       <ActionTool />
-//     </div>
-//   </div>
-
-//   {/* Group detail  */}
-//  <div className="w-full ">
-//   <GroupDetail/>
-
-//  </div>

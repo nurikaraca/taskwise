@@ -5,7 +5,7 @@ import { FaLayerGroup } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 const SettingsMenu = ({setActiveComponent }: { setActiveComponent: (component: string) => void }) => {
   return (
-    <div className="flex flex-col h-full w-full p-3 text-2xl text-white">
+    <div className="flex flex-col h-full w-full p-3 text-2xl text-slate-900">
     <ul className="flex flex-col space-y-4">
       <button
         className="flex items-center"

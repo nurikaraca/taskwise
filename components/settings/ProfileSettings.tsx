@@ -57,7 +57,7 @@ const ProfileSettings = () => {
   }
 
   return (
-    <div className="h-full  flex flex-col items-center justify-center text-white">
+    <div className="h-full  flex flex-col items-center justify-center text-slate-900">
       <div className="h-[18rem] ">
         <UserImage user={user?.user} />
       </div>
@@ -74,7 +74,7 @@ const ProfileSettings = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="bg-transparent border-none text-white focus:outline-none w-full"
+            className="bg-transparent border-none text-slate-900 focus:outline-none w-full"
             placeholder="Enter your new name"
           />
         </div>

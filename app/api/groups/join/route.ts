@@ -24,6 +24,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
+    const  isMember = await db.userGroup.findFirst({
+      where: {
+        userId: session.user.id,
+        groupId: group.id,
+      },
+    })
+    
+    if (isMember){
+      return NextResponse.json({ message: "User is already a member of the group" }, { status: 400 });
+    }
+
     
     await db.userGroup.create({
       data: {

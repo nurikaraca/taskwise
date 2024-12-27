@@ -1,10 +1,14 @@
-import Members from '@/components/groups/Members'
+
 import React from 'react'
+import Members from '../_components/Members'
 
 const MembersPage = () => {
   return (
-    <div>
-        <Members />
+    <div className='h-full w-full  flex '>
+      
+          <Members /> 
+    
+         
     </div>
   )
 }

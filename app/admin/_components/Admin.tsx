@@ -3,25 +3,28 @@
 import Sidebar from "@/components/SideBar/sidebar"
 import useGroupStore from "@/stores/useGroupStore";
 import { useEffect } from "react";
+import { Button } from "react-day-picker";
+import { FaCopy } from "react-icons/fa";
 
 const Admin = () => {
   const {
     selectedGroup,
-    loadSelectedGroup, // loadSelectedGroup'u store'dan alıyoruz
+    loadSelectedGroup, 
   } = useGroupStore();
 
-  // Component ilk yüklendiğinde localStorage'dan seçilen grubu yükle
+  
   useEffect(() => {
     loadSelectedGroup();
   }, [loadSelectedGroup]);
 
-  console.log("Selected Group:", selectedGroup);
+
 
   return (
     <div className='h-full w-full  flex '>
-        <h1 className="text-3xl bg-red-600 text-white ">{selectedGroup?.name} </h1>
         <div className="h-full w-full">
-          <Sidebar />
+        <h1 className="text-3xl  h-full w-full text-slate-950  flex items-center justify-center">{selectedGroup?.name}</h1>
+     
+           <Sidebar /> 
         </div>
         
         

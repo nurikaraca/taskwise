@@ -11,41 +11,28 @@ export async function GET(req: Request) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
-        const url = new URL(req.url);
-        const roleParame = url.searchParams.get("role") || "USER";
-        
 
-        const role = roleParame.toUpperCase() as keyof typeof GroupRole;
-       
-        if (!["ADMIN", "USER"].includes(role)) {
-            return NextResponse.json({ message: "Invalid role" }, { status: 400 });
-        }
-     
 
-        const groups = await db.userGroup.findMany({
+        const userId = session.user.id;
+
+
+        const adminGroups  = await db.group.findMany({
             where: {
-                userId: session.user.id,
-                role,
+                ownerId: userId,
             },
             select: {
-                groupId: true, 
+                id: true,
+                name: true,
+                description: true,
+                createdAt: true,
             },
         });
-        const groupIds = groups.map((group) => group.groupId);
-
-        const relatedGroups = await db.group.findMany({
-            where: {
-                id: {
-                    in: groupIds, 
-                },
-            },
-        });
-
-        return NextResponse.json(relatedGroups);
+       
+        return NextResponse.json(adminGroups);
     } catch (error) {
-        console.error("Error fetching groups with role:", error);
+        console.error("Error fetching admin groups:", error);
         return NextResponse.json(
-            { message: "An error occurred while fetching groups with roles." },
+            { message: "Internal server error" },
             { status: 500 }
         );
     }

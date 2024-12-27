@@ -1,6 +1,6 @@
 
 import Sidebar from "@/components/SideBar/sidebar";
-import Groups from "../../components/groups/Groups";
+
 
 interface DashboardLayoutProps {
    children: React.ReactNode
