@@ -112,7 +112,7 @@ const Complated = () => {
                                    key={task.id}
                                    onClick={() => handleDetailTask(task)} 
                                    className={`
-                                       hover:bg-gray-200 
+                                       hover:bg-gray-200  dark:hover:bg-darkBg2 
                                        cursor-pointer 
                                        h-16 
                                        ${new Date(task.dueDate) < new Date() ? 'text-slate-500' : ''}

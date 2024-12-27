@@ -48,21 +48,6 @@ const CreateTask = () => {
   const { toast } = useToast()
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const fetchMembers = async () => {
-  //       if (selectedGroup?.id) {
-  //         try {
-  //           const data = await getGroupMembers(selectedGroup.id);
-  //           setMembers(data);
-  //         } catch (error) {
-  //           console.error("Error fetching members:", error);
-  //         }
-  //       }
-  //     };
-  //     fetchMembers();
-  //   }
-  // }, [selectedGroup]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -117,7 +102,7 @@ const CreateTask = () => {
 
 
   return (
-    <div className="flex items-center justify-center  text-slate-700 flex-col  w-full h-full ">
+    <div className="flex items-center justify-center  flex-col  w-full h-full ">
       <h2 className=" text-xl font-bold">Create New Task</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col w-[30rem] mt-9  ">

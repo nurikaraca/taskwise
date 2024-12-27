@@ -28,7 +28,7 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
     }
   };
   return (
-    <aside className='w-[270px] h-screen fixed left-0 top-0 border-r mt-20'>
+    <aside className='w-[270px] h-screen fixed left-0 top-0 border-r  mt-20 bg-lightBg dark:bg-darkBg2 text-lightText dark:text-darkText'>
       <div className='h-full px-3 py-4'>
         <div className="flex  justify-center gap-2 ">
         <h3 className='text-lg font-semibold text-foreground  uppercase'>{selectedGroup?.name} </h3>

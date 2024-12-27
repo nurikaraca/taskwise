@@ -95,8 +95,8 @@ const  pendingTasks  = tasks?.filter((task) =>task.status === 'PENDING')
                 <AdminTaskDetail />
             ) : (
                 <Table className="">
-                    <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
-                    <TableHeader className='bg-black text-white sticky top-0 text-2xl'>
+                    <TableCaption className='text-xl '>Task List</TableCaption>
+                    <TableHeader className=' sticky top-0 text-2xl'>
                         <TableRow>
                             <TableHead>Group Name</TableHead>
                             <TableHead>Title</TableHead>
@@ -109,7 +109,7 @@ const  pendingTasks  = tasks?.filter((task) =>task.status === 'PENDING')
                     <TableBody className='text-xl w-full'>
                         {pendingTasks?.map((task) => (
                             <TableRow key={task.id}
-                                className={`hover:backdrop-blur-xl h-16 ${new Date(task.dueDate) < new Date() ? 'text-slate-500' : ''}`}
+                                className={` hover:bg-slate-900/20 dark:hover:bg-slate-900 h-16 ${new Date(task.dueDate) < new Date() ? 'text-slate-500' : ''}`}
                             >
                                 <TableCell>{selectedGroup?.name}</TableCell>
                                 <TableCell>{task.title}</TableCell>

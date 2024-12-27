@@ -48,7 +48,7 @@ const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
  
      
   return (
-    <div className=' text-slate-900'>
+    <div className='bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText '>
      
      <DropdownMenu  >
       <DropdownMenuTrigger asChild  >
@@ -67,7 +67,7 @@ const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
             </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 text-slate-900  backdrop-blur-lg">
+      <DropdownMenuContent className="w-56  backdrop-blur-lg bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -79,7 +79,6 @@ const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
         <DropdownMenuItem >
           <LogOut />
            <span onClick={() =>logout()}>Log out</span> 
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -101,7 +101,7 @@ const AdminTaskDetail = () => {
     fetchMemberStatuses();
   }, [members, taskId]);
   return (
-    <div className='h-full w-full '>
+    <div className='h-full w-full   bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText'>
       <div className="h-[5rem] w-20  rounded-full " onClick={() => goToCompletedPage()} >
         <IoArrowBackSharp size={80} />
       </div>
@@ -109,26 +109,24 @@ const AdminTaskDetail = () => {
       <div className="flex h-[calc(100vh-14rem)] w-full">
 
         <div className="h-full w-full ml-4">
-          <div className="h-full max-w-[30rem] flex items-start justify-center p-4 bg-white shadow-lg rounded-lg border border-gray-200  flex-col gap-3">
-            <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 flex justify-center w-full uppercase ">
-              <span className="text-blue-600">{task?.title}</span>
+          <div className="h-full max-w-[30rem] flex items-start justify-center p-4  shadow-lg rounded-lg border border-gray-200  flex-col gap-3">
+            <h2 className="text-lg font-semibold  border-b pb-2 flex justify-center w-full uppercase ">
+              <span className="">{task?.title}</span>
             </h2>
-            <p className="text-gray-600">
-              <span className="font-medium text-gray-800">    {task?.description || "No description available"}</span>
+            <p className="">
+              <span className="font-medium">    {task?.description || "No description available"}</span>
 
             </p>
             <p className="text-green-600 flex w-full  justify-center">
-              <span className="font-medium text-gray-800">Deadline: </span>
+              <span className="font-medium pr-3  ">Deadline: </span>
               {task?.dueDate ? format(new Date(task.dueDate), "dd/MM/yyyy") : "No deadline"}
             </p>
           </div>
 
         </div>
 
-        <div className=" h-full w-full scroll-custom p-10 mr-4">
-          <div className="w-full mt-4  p-4 hover:border-b-2 border-slate-200/10  h-[37rem]   scroll-custom text-slate-900">
-
-
+        <div className=" h-full w-full   mr-4">
+          <div className=" h-full max-w-[30rem] flex items-start justify-center p-4  shadow-lg rounded-lg border border-gray-200  flex-col gap-3 w-full    hover:border-b-2 border-slate-200/10     scroll-custom ">
             <ul className="pl-4 w-full">
               {members?.map((member: Member) => (
                 <li
@@ -163,6 +161,7 @@ const AdminTaskDetail = () => {
                       <MdDownloadForOffline size={30} />
                     </button>
                   </div>
+                  
                 </li>
               ))}
             </ul>

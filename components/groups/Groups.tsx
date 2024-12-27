@@ -10,9 +10,9 @@ import Image from 'next/image'
 
 const Groups = () => {
   const session = useSession();
-  console.log("ss", session.data)
+ 
   return (
-    <div className='flex flex-col lg:flex-row h-full w-full  text-2xl bg-slate-200 h'>
+    <div className='flex flex-col lg:flex-row h-full w-full  text-2xl bg-lightBg2 dark:bg-darkBg'>
       {session.data ? <>
         <div className=" flex-1 flex items-center justify-center   ">
           <ListGroup />

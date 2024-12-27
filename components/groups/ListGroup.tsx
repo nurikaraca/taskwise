@@ -48,14 +48,14 @@ const ListGroup = () => {
   }, []);
 
   const handleSelectGroup = async (group: Group) => {
-      setSelectedGroup(group);
-      
+    setSelectedGroup(group);
 
-    if(group?.ownerId ==currentUserId ){
+
+    if (group?.ownerId == currentUserId) {
       setIsAdmin(true)
       redirect("/admin")
     }
-    else if(group?.ownerId !== currentUserId) {
+    else if (group?.ownerId !== currentUserId) {
       setIsAdmin(false)
       redirect("/dashboard")
     }
@@ -67,23 +67,23 @@ const ListGroup = () => {
   if (isLoading) return <GroupListSkeleton />;
   if (error) return <div>Error fetching groups: {error.message}</div>;
   return (
-    <div className="w-[30rem] h-[20rem]">
+    <div className="w-[30rem] h-[20rem] ">
 
-    
-    <div className="scroll-custom  flex flex-col items-center justify-start h-full  border-double border bg-slate-50 gap-3 rounded-xl scroll-auto w-[30rem]  ">
-   
 
-      {groups.map((group: Group)=> (
+      <div className="scroll-custom  flex flex-col items-center justify-start h-full  border-double border bg-lightBg dark:bg-darkBg gap-2 rounded-xl scroll-auto w-full  ">
+
+
+        {groups.map((group: Group) => (
           <div
-          key={group.id}
-           className=" flex flex-col items-start justify-center space-y-4 h-full w-full  "
+            key={group.id}
+            className=" flex flex-col items-center justify-center space-y-4 h-full w-full "
             onClick={() => handleSelectGroup(group)}
-         >
-           <Button variant={'mybutton'} className='flex items-center justify-center  w-full m-2 p-2 '>{group.name} </Button>
-         </div>
-      ))}
-       
-    </div>
+          >
+            <Button variant={'mybutton'} className='flex items-center justify-center  w-[88%] p-5  first:mt-3 last:mb-3'>{group.name} </Button>
+          </div>
+        ))}
+
+      </div>
 
     </div>
   );

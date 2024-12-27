@@ -61,8 +61,8 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex  text-slate-900   flex-col items-center  text-xl p-2 md:border border-slate-600 space-y-2  w-full">
-      <h1 className="  mb-2 text-slate-900">Sign In</h1>
+    <div className="flex   bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText    flex-col items-center  text-xl p-2 md:border border-slate-600 space-y-2  w-full">
+      <h1 className="  mb-2 ">Sign In</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 w-full">

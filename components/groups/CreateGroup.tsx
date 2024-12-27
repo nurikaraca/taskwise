@@ -52,15 +52,17 @@ const CreateGroup = () => {
       toast({
         variant: "success",
         title: "Group created successfully:",
-        
+
       });
       
+    form.reset();
+
     } catch (error) {
       console.error("An error occurred while creating the group: ", error);
       toast({
         variant: "destructive",
         title: "An error occurred while creating the group:",
-        
+
       });
     }
   };
@@ -68,42 +70,47 @@ const CreateGroup = () => {
 
 
   return (
-   <div className="w-[30rem] h-[20rem] ">
+    <div className="w-[30rem] h-[20rem] bg-lightBg dark:bg-darkBg ">
 
 
-    <div className="flex text-black flex-col items-center justify-start space-y-2 w-full h-full border-double border bg-slate-50 gap-3 rounded-xl">
-       <h1 className=' flex bg-blue-500 w-[30rem] text-white justify-center  fixed h-10 '>Create New Group</h1>
+      <div className="flex text-lightText dark:text-darkText flex-col items-center justify-start space-y-2 w-full h-full border-double border  gap-3 rounded-xl">
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-start justify-center space-y-4 h-full w-full px-2">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input type="text"  placeholder="Group Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input type="text" placeholder="Description" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button  variant="mybutton"  className="   flex items-center justify-center  w-full" type="submit">Create New Group</Button>
-        </form>
-      </Form>
-    </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-start justify-center space-y-4 h-full w-full px-2  ">
+            <h1 className='  flex justify-center   w-full  '>Create New Group</h1>
+
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input type="text" placeholder="Group Name" {...field}  />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input type="text" placeholder="Description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+         
+               <Button  variant="mybutton"  className=" flex  justify-center  w-full mb-5 " type="submit">Create New Group</Button>
+          
+             
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };

@@ -2,8 +2,8 @@ import { auth } from '@/auth'
 import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
-import MobileMenu from './MobileMenu';
 import Account from './account/Account';
+import { ModeToggle } from './ModeToggle';
 
 
 const Navbar = async () => {
@@ -20,17 +20,14 @@ const Navbar = async () => {
         />
       </Link>
      
-      {/* Mobile menu */}
-      <div className="flex md:hidden">
-        <MobileMenu />
-      </div>
+      
 
       {/* menu */}
-      <div className="hidden md:flex items-center flex-3 gap-x-5  z-50">
+      <div className="flex items-center flex-3 gap-x-5  z-50">
       
         {!session?.user ? (
           <Link href="/sign-in">
-            <div className=" text-slate-900 text-sm px-4 py-2 rounded-sm">
+            <div className="  text-sm px-4 py-2 rounded-sm dark:text-white">
               Login
             </div>
           </Link>
@@ -40,8 +37,12 @@ const Navbar = async () => {
             <Account />
           </div>
         )}
+
+             {/* Mode Toggle */}
+       <ModeToggle />
       </div>
 
+ 
     </nav>
   )
 }
