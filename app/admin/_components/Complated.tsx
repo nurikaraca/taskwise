@@ -37,7 +37,7 @@ const Complated = () => {
 
     useEffect(() => {
         loadSelectedGroup();
-    }, [loadSelectedGroup]);
+    }, []);
 
 
 

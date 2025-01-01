@@ -50,9 +50,9 @@ export default async function RootLayout({
             <Providers>
               <div className="min-h-screen flex flex-col ">
                 <nav className="h-[5rem] w-full ">
-                  <Navbar />
+                   <Navbar /> 
                 </nav>
-                <main className="flex-grow w-full mx-auto container h-[calc(100vh-5rem)] ">
+                <main className="flex-grow w-full md:mx-auto container h-[calc(100vh-5rem)] ">
 
                   {children}
 

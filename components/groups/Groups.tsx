@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 const Groups = () => {
   const session = useSession();
- 
+
   return (
     <div className='flex flex-col lg:flex-row h-full w-full  text-2xl bg-lightBg2 dark:bg-darkBg'>
       {session.data ? <>
@@ -24,14 +24,18 @@ const Groups = () => {
 
       </> :
         <>
-           <div className="h-full w-full  flex  items-center justify-center ">
-            <Image 
-             src="/hero.png"
-             alt='Resim açıklaması'
-             fill
+
+          <div className="relative h-full w-full flex items-center justify-center">
+            <Image
+              src="/hero.png"
+              alt="Resim açıklaması"
+              layout="responsive"
+              width={2000}
+              height={1333}
+              className="object-contain"
             />
           </div>
-          
+
         </>}
 
 

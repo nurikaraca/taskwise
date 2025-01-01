@@ -11,12 +11,13 @@ const Navbar = async () => {
 
   return (
     <nav className='relative  flex items-center  justify-between mx-10 h-[5rem]  '>
-      <Link className='flex-2 mb-4 z-50' href="/">
+      <Link className='flex-2 mb-4 z-50 ' href="/">
         <Image
           src="/bg-transparent.png"
           alt="logo"
           width={20}
           height={20}
+          className='hidden lg:flex'
         />
       </Link>
      

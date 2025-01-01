@@ -1,6 +1,6 @@
 
 
-import NextAuth from "next-auth";
+import NextAuth, {DefaultSession} from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -8,6 +8,20 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { saltAndHashPassword } from "./utils/helper";
 import bcrypt from "bcryptjs";
 import { db } from "./db";
+//import { admin } from './lib/firebase-admin';
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      email: string;
+      name: string;
+      // Firebase token'ı buraya ekliyoruz
+      firebaseToken?: string;
+    } & DefaultSession["user"];
+  }
+}
+
 
 export const {
   handlers: { GET, POST }, signIn, signOut, auth, } =
@@ -49,6 +63,12 @@ export const {
   callbacks: {
     async session({ session, token, user }) {
       session.user.id = user?.id || token.sub || ""; 
+
+      // // Firebase custom token al
+      // if(user){
+      //   const firebaseToken = await admin.auth().createCustomToken(user.id);
+      //   session.firebaseToken = firebaseToken;
+      // }
       return session;
     },
     async jwt({ token, user }) {

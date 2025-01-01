@@ -6,9 +6,9 @@ const DashBoard = () => {
    
   
   return (
-    <div>
+    <div className='h-full w-full'>
         
-        
+        <h1 className='flex items-center justify-center h-full'>Hello World</h1>
     </div>
   )
 }

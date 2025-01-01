@@ -63,6 +63,7 @@ export interface Task {
     tasks: Task[];
   }
 
+  
   export interface Member {
     id: string;
     name: string;
@@ -70,6 +71,7 @@ export interface Task {
     role: string;
     image: string; 
   }
+
   
   export interface UserGroup {
     id: string;
@@ -79,3 +81,12 @@ export interface Task {
     createdAt: Date;
     updatedAt: Date;
   }
+
+  export type Message = {
+    id: string;
+    content: string;
+    senderId: string;
+    timestamp: Date | null;
+    sender?: User;
+    groupId?: string; 
+  };

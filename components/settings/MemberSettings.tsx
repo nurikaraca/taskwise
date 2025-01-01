@@ -77,14 +77,15 @@ const MemberSettings = () => {
 
 
 
-  return (<div className="h-[39rem] text-slate-900 flex ">
-    <div className=" mt-5 w-[26rem] h-full flex items-center justify-center ">
+  return (
+  <div className="h-full flex flex-col lg:flex-row bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText">
+    <div className=" mt-5 w-full lg:w-[26rem] h-[40%] lg:h-full flex items-center justify-center ">
       <ListGroup />
     </div>
 
 
-    <div className="w-full h-full flex flex-col items-center ">
-      <div className="mt-5 h-[2rem] flex w-full text-white justify-center text-xl">
+    <div className="w-full h-[60%] lg:h-full flex flex-col items-center ">
+      <div className="mt-5 h-[2rem] flex w-full  justify-center text-xl">
         <span className="mr-3">Group Name:</span> {selectedGroup?.name}
       </div>
 
@@ -93,7 +94,7 @@ const MemberSettings = () => {
       <div className="container mx-auto p-4 ">
         <div className="max-h-[33rem] overflow-y-scroll w-full border border-gray-300 rounded-md shadow-md ">
           <table className="table-auto w-full border-collapse ">
-            <thead className="bg-black text-white sticky top-0 ">
+            <thead className=" sticky top-0 ">
               <tr>
                 <th className="p-4 w-4/6 text-center border-b border-gray-600">User Name</th>
                 <th className="p-4 w-2/6 text-center border-b border-gray-600">Actions</th>
@@ -103,7 +104,7 @@ const MemberSettings = () => {
               {members?.map((member: Member) => (
                 <tr key={member.id} className="text-center border-b border-gray-300">
                   <td className="p-4 ">
-                    <div className="ml-28 flex gap-2">
+                    <div className="md:ml-28 flex gap-2">
                       <div className="">
                         {member.image ? (
                           <Image

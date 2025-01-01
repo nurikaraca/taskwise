@@ -97,13 +97,13 @@ const GroupSettings = () => {
     }
   }
   
-  return <div className="h-full  flex ">
-    <div className=" mt-5 w-[26rem] h-full flex items-center justify-center ">
-      <ListGroup />
+  return <div className="h-full  flex flex-col md:flex-row">
+    <div className=" mt-5 w-full md:w-[26rem]  h-[50%] md:h-full flex items-center justify-center ">
+       <ListGroup />
     </div>
 
 
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="w-full h-[50%] md:h-full flex flex-col items-center">
       <div className="mt-5 h-[2rem] flex w-full  justify-center text-xl">
         <span className="mr-3">Group Name:</span> {selectedGroup?.name}
       </div>
@@ -149,6 +149,7 @@ const GroupSettings = () => {
         <Button variant="destructive" className="w-full py-2 rounded-xl text-white transition hover:bg-red-400">Delete Group</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="text-white">
+        
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>

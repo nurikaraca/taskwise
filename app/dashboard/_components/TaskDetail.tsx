@@ -21,11 +21,11 @@ const TaskDetail = () => {
   }
 
   return (
-    <div className='h-full  w-full '>
+    <div className='h-full  w-full flex  '>
        <Button variant={"link"} className="flex items-start justify-start   text-3xl h-[4rem]" onClick={() => handleBack()}>
               Back
             </Button>
-        <div className="  flex flex-col items-center  justify-center h-[calc(100%-5rem)] ">
+        <div className="  flex flex-col items-center  justify-center h-[calc(100%-5rem)] w-full ">
          
             {!isAdmin && <FileUpload  />}
         </div>    

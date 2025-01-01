@@ -102,10 +102,10 @@ const CreateTask = () => {
 
 
   return (
-    <div className="flex items-center justify-center  flex-col  w-full h-full ">
+    <div className="flex items-center justify-center  flex-col  w-full  h-full  ">
       <h2 className=" text-xl font-bold">Create New Task</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col w-[30rem] mt-9  ">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col w-full md:w-[30rem] mt-9  ">
           {/* Title Input */}
           <FormField
             control={form.control}

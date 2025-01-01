@@ -101,15 +101,15 @@ const AdminTaskDetail = () => {
     fetchMemberStatuses();
   }, [members, taskId]);
   return (
-    <div className='h-full w-full   bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText'>
+    <div className='h-full w-full bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText '>
       <div className="h-[5rem] w-20  rounded-full " onClick={() => goToCompletedPage()} >
         <IoArrowBackSharp size={80} />
       </div>
 
-      <div className="flex h-[calc(100vh-14rem)] w-full">
+      <div className="flex  h-[calc(100vh-14rem)] w-full sm:w-full flex-col lg:flex-row justify-center  items-center ">
 
-        <div className="h-full w-full ml-4">
-          <div className="h-full max-w-[30rem] flex items-start justify-center p-4  shadow-lg rounded-lg border border-gray-200  flex-col gap-3">
+        <div className="h-full w-full   flex justify-center items-center">
+          <div className="h-full w-[20rem] lg:w-[22rem] xl:w-[30rem] flex items-start justify-center p-4  shadow-lg rounded-lg md:border  border-slate-200/10  flex-col gap-3">
             <h2 className="text-lg font-semibold  border-b pb-2 flex justify-center w-full uppercase ">
               <span className="">{task?.title}</span>
             </h2>
@@ -125,8 +125,8 @@ const AdminTaskDetail = () => {
 
         </div>
 
-        <div className=" h-full w-full   mr-4">
-          <div className=" h-full max-w-[30rem] flex items-start justify-center p-4  shadow-lg rounded-lg border border-gray-200  flex-col gap-3 w-full    hover:border-b-2 border-slate-200/10     scroll-custom ">
+        <div className=" h-full w-full md:w-full    flex justify-center">
+          <div className=" h-full w-[20rem] lg:w-[22rem] xl:w-[30rem] flex items-start justify-center p-4  shadow-lg rounded-lg border   flex-col gap-3     hover:border-b-2 border-slate-200/10     scroll-custom ">
             <ul className="pl-4 w-full">
               {members?.map((member: Member) => (
                 <li

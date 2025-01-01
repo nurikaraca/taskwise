@@ -29,10 +29,17 @@ const useGroupStore = create<GroupStore>((set) => ({
   setGroups: (groups) => set({ groups }),
   setLoading: (loading) => set({ isLoading: loading }),
   setError: (error) => set({ error }),
-  loadSelectedGroup: () => {
-    const group = localStorage.getItem("selectedGroup");
-    if (group) {
-      set({ selectedGroup: JSON.parse(group) });
+  loadSelectedGroup:async () => {
+    try {
+      const group = localStorage.getItem("selectedGroup");
+      if (group) {
+        set({ selectedGroup: JSON.parse(group) });
+      } else {
+        // Default grup atayabilirsin
+        set({ selectedGroup: null });
+      }
+    } catch (error) {
+      console.error("Error loading selected group:", error);
     }
   },
 }));

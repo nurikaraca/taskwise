@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import UserImage from '../account/UserImage'
 import { getUser } from '@/actions/user/getUser';
-import { UserProps } from './Settings';
 import { updateName } from '@/actions/user/updateName';
 import { toast } from '@/hooks/use-toast';
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import { User } from '@/type/types';
 
 const ProfileSettings = () => {
-  const [user, setUser] = useState<UserProps | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,13 +16,14 @@ const ProfileSettings = () => {
  const fetchUser = async () => {
       try {
         const response = await getUser();
-        setUser(response);
+        const filteredResponse = response.user;
+        setUser(filteredResponse);
 
       } catch (error) {
         console.error("Error fetching user:", error);
       }
     }
-    console.log(user?.user.image)
+   
     fetchUser();
 
     }
@@ -30,7 +31,7 @@ const ProfileSettings = () => {
       
   }, [])
 
-  if (!user?.user) {
+  if (!user) {
     return <div>Loading...</div>;
   }
 
@@ -57,24 +58,23 @@ const ProfileSettings = () => {
   }
 
   return (
-    <div className="h-full  flex flex-col items-center justify-center text-slate-900">
+    <div className="h-full  flex flex-col items-center justify-center w-full ">
       <div className="h-[18rem] ">
-        <UserImage user={user?.user} />
+        <UserImage user={user} />
       </div>
 
-       <div className=" h-[3rem] w-[20rem] rounded-xl flex justify-center items-center bg-slate-200/5 mb-3">
-        
-        {user.user.name}
-      </div> 
+       <span className=" h-[3rem] w-[20rem] rounded-xl flex justify-center items-center  mb-3 border border-slate-600/20">
+        {user.name}
+      </span> 
 
-      <div className="flex flex-col items-center w-[20rem] space-y-3 ">
-        <div className="flex items-center bg-slate-200/5 w-full p-3 rounded-xl">
+      <div className="flex flex-col items-center w-[20rem] space-y-3  ">
+        <div className="flex items-center  w-full p-3 rounded-xl  border border-slate-600/20">
           <MdDriveFileRenameOutline size={30} className="mr-3" />
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="bg-transparent border-none text-slate-900 focus:outline-none w-full"
+            className="bg-transparent border-none  focus:outline-none w-full"
             placeholder="Enter your new name"
           />
         </div>
