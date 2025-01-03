@@ -28,7 +28,7 @@ export async function DELETE(req: Request) {
         return NextResponse.json({ message: "Group not found" }, { status: 404 });
     }
 
- const userInGroup = group.members.find(member => member.userId ==userId);
+ 
 
  await db.userGroup.delete({
     where:{

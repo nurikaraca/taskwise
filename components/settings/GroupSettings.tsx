@@ -20,20 +20,8 @@ import { deleteGroup } from "@/actions/groups/deleteGroup";
 import useGroupStore from "@/stores/useGroupStore";
 import ListGroup from "../account/ListGroup";
 const GroupSettings = () => {
-  const {
-
-  
-    selectedGroup,
-    setSelectedGroup,
-    loadSelectedGroup, 
-  } = useGroupStore();
-
-  
-  
- 
-
-
-  const [groupName, setGroupName] = useState("");
+  const {selectedGroup } = useGroupStore();
+ const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
 
 
@@ -49,7 +37,7 @@ const GroupSettings = () => {
         return;
       }
 
-      const updated = await updateGroup({
+     await updateGroup({
         groupId: selectedGroup?.id,
         name: groupName,
         description: groupDescription,
@@ -60,8 +48,14 @@ const GroupSettings = () => {
 
       });
       
-    } catch (error: any) {
-      console.error("Failed to update group:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error){
+        toast({
+          variant: "destructive",
+          title: error.message || "Failed to update group.",
+        });
+      }
+      
     }
   }
 
@@ -84,8 +78,14 @@ const GroupSettings = () => {
         title: "Group successfully deleted.",
       });
       
-    } catch (error: any) {
-      console.error("Failed to delete group:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error){
+        toast({
+          variant: "destructive",
+          title: error.message || "Failed to delete group.",
+        });
+      }
+      
 
       toast({
         variant:"destructive",

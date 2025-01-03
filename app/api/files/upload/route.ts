@@ -1,7 +1,7 @@
 
 
 import { NextResponse } from "next/server";
-import multer from "multer";
+import { UploadApiResponse } from "cloudinary";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 import { db } from "@/db";
@@ -18,7 +18,7 @@ cloudinary.config({
 });
 
 // Multer Configuration
-const storage = multer.memoryStorage();
+
 
 
 
@@ -44,12 +44,12 @@ const storage = multer.memoryStorage();
     try {
       const arrayBuffer = await file.arrayBuffer();
   
-      const uploadResult = await new Promise<any>((resolve, reject) => {
+      const uploadResult = await new Promise<UploadApiResponse>((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
           { folder: "uploads" },
           (error, result) => {
             if (error) reject(error);
-            resolve(result);
+            resolve(result as UploadApiResponse);
           }
         );
   

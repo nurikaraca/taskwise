@@ -36,7 +36,7 @@ const CreateGroup = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const newGroup = await createGroup({
+       await createGroup({
         name: data.name,
         description: data.description,
       });

@@ -1,7 +1,6 @@
 
 "use client";
 
-import React, { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useTask } from '@/context/TaskContext';
@@ -11,7 +10,7 @@ import { useAdmin } from "@/context/AdminContext";
 const TaskDetail = () => {
   const { isAdmin, } = useAdmin();
    const {setSelectedTask } = useTask();
-  const [file, setFile] = useState<File | null>(null); 
+
 
   
   const handleBack = () => {

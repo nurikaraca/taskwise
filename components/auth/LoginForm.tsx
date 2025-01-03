@@ -107,7 +107,7 @@ const LoginForm = () => {
 
           <AuthButton text="Sign in" />
 
-          <span className="text-slate-500 flex justify-center text-[1.1rem] sm:text-md md:text-md lg:text-lg  xl:text-xl">Don't have an account ?
+          <span className="text-slate-500 flex justify-center text-[1.1rem] sm:text-md md:text-md lg:text-lg  xl:text-xl">Don&apos;t have an account ?
             <Link href="/sign-up" className="ml-2">
               Sign up
             </Link>
