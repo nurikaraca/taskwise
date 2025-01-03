@@ -2,11 +2,11 @@
 import { Group, Message } from '@/type/types';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useEffect,useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:4000');
-const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
+const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
 
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -17,7 +17,7 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
   const messsageEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messsageEndRef.current?.scrollIntoView({behavior: "smooth"});
+    messsageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
       scrollToBottom();
     });
 
-   
+
     return () => {
       socket.off('receive_message');
     };
@@ -65,7 +65,7 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
 
         if (response.ok) {
           setNewMessage(''); // Clear the message box
-        scrollToBottom(); // Scroll to the bottom after sending a message
+          scrollToBottom(); // Scroll to the bottom after sending a message
         }
       } catch (error) {
         console.error('Mesaj gönderilirken hata:', error);
@@ -73,7 +73,7 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
     }
   };
 
-  
+
   return (
     <div className="h-full w-full flex flex-col items-center justify-center bg-lightBg2 dark:bg-darkBg text-lightText dark:text-darkText">
       {/* Mesaj Listesi */}
@@ -84,9 +84,11 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
               src={message.sender?.image || 'https://via.placeholder.com/150'}
               alt="user profile"
               className="w-14 h-14 rounded-full mr-3"
+              width={300}
+              height={300}
             />
             <div>
-              <p className="font-bold text-xl">{message.sender?.name  }</p>
+              <p className="font-bold text-xl">{message.sender?.name}</p>
               <p className="text-lg">{message.content}</p>
             </div>
           </div>
@@ -101,7 +103,7 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Write a message..." 
+          placeholder="Write a message..."
           className="flex-1 p-2 rounded mr-2 border-0 "
         />
         <button

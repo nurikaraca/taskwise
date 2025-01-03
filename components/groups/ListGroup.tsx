@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import React, { useEffect, useCallback } from "react";
@@ -6,9 +8,9 @@ import { Button } from "../ui/button";
 import { useAdmin } from "@/context/AdminContext";
 import useGroupStore from "@/stores/useGroupStore";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { getGroups } from "@/actions/groups/getGroups";
-import GroupListSkeleton from "../skeleton/group/GroupListSkeleton ";
+import GroupListSkeleton from "@/components/skeleton/group/GroupListSkeleton ";
+import { useRouter } from "next/navigation";
 
 const ListGroup: React.FC = () => {
   const {
@@ -24,6 +26,7 @@ const ListGroup: React.FC = () => {
   const { setIsAdmin } = useAdmin();
   const session = useSession();
   const currentUserId = session.data?.user?.id;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -48,13 +51,13 @@ const ListGroup: React.FC = () => {
 
       if (group?.ownerId === currentUserId) {
         setIsAdmin(true);
-        redirect("/admin");
+        router.push("/admin");
       } else {
         setIsAdmin(false);
-        redirect("/dashboard");
+        router.push("/dashboard");
       }
     },
-    [setSelectedGroup, setIsAdmin, currentUserId]
+    [setSelectedGroup, setIsAdmin, currentUserId, router] // router bağımlılık olarak eklendi
   );
 
   if (isLoading) return <GroupListSkeleton />;

@@ -43,7 +43,7 @@ const formSchema = z.object({
 });
 
 const CreateTask = () => {
-  const { selectedGroup } = useGroupStore();
+  const { selectedGroup } = useGroupStore(); 
   const [members] = useState<Member[]>([]);
   const { toast } = useToast()
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -75,14 +75,14 @@ const CreateTask = () => {
     }
 
     try {
-      const newTask = await createTask({
+      await createTask({
         title: data.title,
         description: data.description,
         groupId: selectedGroup.id,
         dueDate: data.date,
       });
 
-      console.log("", newTask);
+     
       toast({
         variant: "success",
         title: "Task created",
