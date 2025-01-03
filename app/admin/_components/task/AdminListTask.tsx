@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/table";
 import { useTask } from '@/context/TaskContext';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
 import { deleteTask } from '@/actions/tasks/deleteTask';
 import { format } from "date-fns";

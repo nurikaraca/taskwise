@@ -46,7 +46,7 @@ export default  function JoinClient() {
      fetchGroup();
     }
     
-  }, []);
+  }, [group]);
 
   useEffect(() => {
     if (typeof window !== 'undefined'){
