@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 
 import { MdDriveFileRenameOutline } from "react-icons/md";
@@ -18,13 +18,11 @@ import {
 import { Button } from "../ui/button";
 import { deleteGroup } from "@/actions/groups/deleteGroup";
 import useGroupStore from "@/stores/useGroupStore";
-
-import { getGroups } from "@/actions/groups/getGroups";
 import ListGroup from "../account/ListGroup";
 const GroupSettings = () => {
   const {
-    groups,
-    setGroups,
+
+  
     selectedGroup,
     setSelectedGroup,
     loadSelectedGroup, 

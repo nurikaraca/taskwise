@@ -1,10 +1,9 @@
 "use client"
 
 import { createUserImage } from "@/actions/user/createUserImage";
-import { getUser } from "@/actions/user/getUser";
 import { User } from "@/type/types";
 import Image from "next/image";
-import { useState,useEffect, use } from "react";
+import { useState } from "react";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 
 const UserImage= ({ user }:{user : User}) => {

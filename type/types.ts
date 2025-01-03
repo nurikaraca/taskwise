@@ -90,3 +90,31 @@ export interface Task {
     sender?: User;
     groupId?: string; 
   };
+
+
+  export interface UploadResult {
+    task: Task & {
+      groupId: string;
+      assignedToId: string;
+      dueDate: Date;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    file: File & {
+      taskId: string;
+      fileUrl: string;
+      fileId: string;
+      uploadedBy: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    userTaskStatusUpdate: {
+      id: string;
+      userId: string;
+      taskId: string;
+      isCompleted: boolean;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }
+  

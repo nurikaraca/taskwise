@@ -5,7 +5,6 @@ import React, { useEffect } from 'react'
 
 const GroupChat = () => {
    const {
-      groups,
       selectedGroup,
       loadSelectedGroup,
     } = useGroupStore()
@@ -13,7 +12,7 @@ const GroupChat = () => {
     
     useEffect(() => {
       loadSelectedGroup();
-    }, []);
+    }, [loadSelectedGroup]);
   return (
     <div className='h-full w-full'>
     {

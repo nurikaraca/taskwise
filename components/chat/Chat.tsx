@@ -1,13 +1,11 @@
-
 'use client';
-import useGroupStore from '@/stores/useGroupStore';
 import { Group, Message } from '@/type/types';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useEffect,useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:4000');
-
 const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
 
 
@@ -82,7 +80,7 @@ const Chat = ({selectedGroup}: {selectedGroup:Group}) => {
       <div className="flex-1 w-full p-4 xl:border rounded scroll-custom  overflow-y-auto">
         {messages.map((message: Message, index) => (
           <div key={`${message.id}-${index}`} className="flex items-start mb-4">
-            <img
+            <Image
               src={message.sender?.image || 'https://via.placeholder.com/150'}
               alt="user profile"
               className="w-14 h-14 rounded-full mr-3"

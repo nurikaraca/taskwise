@@ -15,8 +15,6 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "@geist-ui/icons";
 import Link from "next/link";
-
-
 import AuthButton from "./AuthButton";
 import { loginWithCreds } from "@/actions/auth";
 import LoginGoogle from "./LoginGoogle";
@@ -28,11 +26,13 @@ const formSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters."),
 });
 
+type FormData = z.infer<typeof formSchema>;
+
 const LoginForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
-  const form = useForm({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -41,7 +41,7 @@ const LoginForm = () => {
   });
 
  
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     try {
       const result = await loginWithCreds(data);
       if (result?.error) {

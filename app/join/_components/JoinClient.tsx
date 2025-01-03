@@ -10,7 +10,7 @@ import { Group } from "@/type/types";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react";
-import { getGroupMembers } from "@/actions/groups/getGroupMembers";
+
 
 export default  function JoinClient() {
   const router = useRouter();
@@ -80,12 +80,15 @@ export default  function JoinClient() {
         title: "You have successfully joined the group!",
       });
       router.push("/");
-    } catch (err: any) {
+    } catch (error: unknown) {
       
-      toast({
+      if (error instanceof Error){
+        toast({
         variant:"destructive",
-        title: err.message || "An error occurred while joining the group.",
+        title: error.message || "An error occurred while joining the group.",
       });
+      }
+      
      
     } finally {
       setIsJoining(false);

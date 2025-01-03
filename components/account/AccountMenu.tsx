@@ -1,23 +1,7 @@
 "use client"
 import { logout } from '@/actions/auth'
 import React from 'react'
-import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
-  User,
-  UserPlus,
-  Users,
-} from "lucide-react"
- 
+import {LogOut,  User} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -25,12 +9,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -44,7 +23,7 @@ interface AccountMenuProps {
     image?: string;
   }
 
-const AccountMenu:React.FC<AccountMenuProps>  = ({  email, name, image }) => {
+const AccountMenu:React.FC<AccountMenuProps>  = ({ name, image }) => {
  
      
   return (

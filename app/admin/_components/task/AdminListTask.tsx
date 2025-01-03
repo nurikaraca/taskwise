@@ -1,9 +1,7 @@
-
 "use client";
-
 import { getTasks } from '@/actions/tasks/getAllTasks';
-import React, { useEffect, useState } from 'react';
-import { FaPen, FaRegTrashAlt } from "react-icons/fa";
+import React, { useEffect } from 'react';
+import { FaRegTrashAlt } from "react-icons/fa";
 import {
     Table,
     TableBody,
@@ -16,22 +14,16 @@ import {
 import { useTask } from '@/context/TaskContext';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-
-import { checkTaskFile } from '@/actions/files/checkTaskFile';
 import { toast } from '@/hooks/use-toast';
 import { deleteTask } from '@/actions/tasks/deleteTask';
-import { useAdmin } from '@/context/AdminContext';
 import { format } from "date-fns";
-import { Task } from '@/type/types';
-
 import useGroupStore from '@/stores/useGroupStore';
 import AdminTaskDetail from './AdminTaskDetail';
 
 const AdminListTask = () => {
-    const router = useRouter();
-    const { selectedTask, setSelectedTask } = useTask();
+    const { selectedTask } = useTask();
     const {
-        groups,
+        
         selectedGroup,
         loadSelectedGroup,
     } = useGroupStore()
@@ -58,7 +50,7 @@ const AdminListTask = () => {
                 refetch();
             }
         }
-    }, [selectedGroup]);
+    }, [selectedGroup, refetch]);
 
 
 

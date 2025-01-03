@@ -44,7 +44,7 @@ const formSchema = z.object({
 
 const CreateTask = () => {
   const { selectedGroup } = useGroupStore();
-  const [members, setMembers] = useState<Member[]>([]);
+  const [members] = useState<Member[]>([]);
   const { toast } = useToast()
   const [date, setDate] = useState<Date | undefined>(new Date());
 

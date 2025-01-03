@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { auth } from "@/auth";
 
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
     const session = await auth();
     if (!session || !session.user?.id) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 })

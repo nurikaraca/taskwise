@@ -1,4 +1,4 @@
-import Chat from '@/components/chat/Chat'
+
 import React from 'react'
 import GroupChat from '../_components/GroupChat'
 

@@ -12,23 +12,23 @@ const ProfileSettings = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined'){
- const fetchUser = async () => {
-      try {
-        const response = await getUser();
-        const filteredResponse = response.user;
-        setUser(filteredResponse);
+    if (typeof window !== 'undefined') {
+      const fetchUser = async () => {
+        try {
+          const response = await getUser();
+          const filteredResponse = response.user;
+          setUser(filteredResponse);
 
-      } catch (error) {
-        console.error("Error fetching user:", error);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
       }
-    }
-   
-    fetchUser();
+
+      fetchUser();
 
     }
-   
-      
+
+
   }, [])
 
   if (!user) {
@@ -45,12 +45,16 @@ const ProfileSettings = () => {
 
       });
 
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Something went wrong.:",
+    } catch (err: unknown) {
 
-      });
+      if (err instanceof Error) {
+        toast({
+          variant: "destructive",
+          title: err.message || "Something went wrong.:",
+
+        });
+      }
+
     }
     finally {
       setIsLoading(false);
@@ -63,9 +67,9 @@ const ProfileSettings = () => {
         <UserImage user={user} />
       </div>
 
-       <span className=" h-[3rem] w-[20rem] rounded-xl flex justify-center items-center  mb-3 border border-slate-600/20">
+      <span className=" h-[3rem] w-[20rem] rounded-xl flex justify-center items-center  mb-3 border border-slate-600/20">
         {user.name}
-      </span> 
+      </span>
 
       <div className="flex flex-col items-center w-[20rem] space-y-3  ">
         <div className="flex items-center  w-full p-3 rounded-xl  border border-slate-600/20">
@@ -80,11 +84,10 @@ const ProfileSettings = () => {
         </div>
         <button
           onClick={handleUpdateName}
-          className={`w-full py-2 rounded-xl text-white transition ${
-            isLoading
+          className={`w-full py-2 rounded-xl text-white transition ${isLoading
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-blue-600 hover:bg-blue-700"
-          }`}
+            }`}
           disabled={isLoading}
         >
           {isLoading ? "Updating..." : "Update Name"}

@@ -1,7 +1,5 @@
 "use client"
-import { Button } from '@/components/ui/button';
 import AdminListTask from './AdminListTask'
-import { MdDashboard } from "react-icons/md";
 const AdminTasks = () => {
   return (
     <div className='w-full h-full'>

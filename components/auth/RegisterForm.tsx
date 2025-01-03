@@ -4,13 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -33,10 +31,11 @@ const formSchema = z.object({
   path: ["passwordConfirm"],
 });
 
+type FormData = z.infer<typeof formSchema>;
 const RegisterForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
-  const form = useForm({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -46,7 +45,7 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     if (typeof window !== 'undefined') {
       const result = await signupWithCreds(data);
       console.log("mydata => ",data)

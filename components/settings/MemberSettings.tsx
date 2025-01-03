@@ -65,12 +65,19 @@ const MemberSettings = () => {
         variant: "success",
         title: "User deleted successfully.",
       });
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error deleting user.",
-        description: error.response?.data?.message || error.message || "An unknown error occurred.",
-      });
+    } catch (err: unknown) {
+
+     
+      if (err instanceof Error) {
+        toast({
+          variant: "destructive",
+          title: "Error deleting user.",
+          description: err.message  || "An unknown error occurred.",
+        });
+      }
+
+
+      
     }
   };
 

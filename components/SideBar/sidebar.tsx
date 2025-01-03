@@ -7,7 +7,7 @@ import { SidebarItems } from '@/type/types';
 import { useMediaQuery } from 'usehooks-ts';
 import { usePathname } from 'next/navigation'; 
 import { Home, ListCheckIcon, Package2Icon, SquarePenIcon, Users, MessageCircleMore } from 'lucide-react';
-import { useState } from 'react';
+
 
 const Sidebar = () => {
   const isDesktop = useMediaQuery('(min-width: 640px)', {

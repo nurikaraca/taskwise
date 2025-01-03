@@ -1,18 +1,16 @@
-
-
-
 import React, { useState } from "react";
 import { useTask } from "@/context/TaskContext";
 import { toast } from "@/hooks/use-toast";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Progress } from "@/components/ui/progress";
 import { uploadAndCreateFile } from "@/actions/files/uploadAndCreateFile";
+import { UploadResult } from "@/type/types";
 
 const FileUpload = () => {
   const [file, setFile] = useState<File | null>(null);
-  const { selectedTask,setSelectedTask } = useTask();
-  const [uploadResult, setUploadResult] = useState<any>(null);
-  const [progress, setProgress] = useState(0); // Progress state
+  const { selectedTask } = useTask();
+  const [uploadResult, setUploadResult] = useState<UploadResult | null>(null);
+  const [progress, setProgress] = useState(0); 
 
   const handleUpload = async () => {
     if (!file) return;
@@ -35,6 +33,7 @@ const FileUpload = () => {
      
   
       setUploadResult(result);
+    
       toast({
         title: "Upload and Record Creation Successful!",
       });

@@ -4,7 +4,6 @@ import React, { useEffect, useCallback } from "react";
 import { Group } from "@/type/types";
 import { Button } from "../ui/button";
 import { useAdmin } from "@/context/AdminContext";
-
 import useGroupStore from "@/stores/useGroupStore";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -14,7 +13,6 @@ import GroupListSkeleton from "../skeleton/group/GroupListSkeleton ";
 const ListGroup: React.FC = () => {
   const {
     groups,
-    selectedGroup,
     setSelectedGroup,
     setGroups,
     isLoading,

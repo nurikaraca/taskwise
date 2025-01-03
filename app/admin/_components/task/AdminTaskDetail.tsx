@@ -1,11 +1,10 @@
 "use client"
 import { getTaskById } from "@/actions/tasks/getTaskById";
 import { Member, Task } from "@/type/types";
-import { redirect, useRouter, useParams } from "next/navigation";
+import {useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { format } from "date-fns";
-import Members from "../Members";
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 import { useQuery } from "@tanstack/react-query";
 import useGroupStore from "@/stores/useGroupStore";
@@ -13,7 +12,6 @@ import Image from "next/image";
 import { RxAvatar } from "react-icons/rx";
 import { MdDownloadForOffline } from "react-icons/md";
 import { downloadFile } from "@/actions/files/downloadfile";
-import { checkTaskFile } from "@/actions/files/checkTaskFile";
 import { getMemberTaskStatus } from "@/actions/user/checkIsCompleted";
 
 const AdminTaskDetail = () => {
@@ -32,7 +30,7 @@ const AdminTaskDetail = () => {
   }, [loadSelectedGroup]);
 
 
-  const { data: members, error, isLoading } = useQuery({
+  const { data: members, } = useQuery({
     queryKey: ['groupMembers', selectedGroup?.id],
     queryFn: () => getGroupMembers(selectedGroup?.id || ""),
     enabled: !!selectedGroup?.id,

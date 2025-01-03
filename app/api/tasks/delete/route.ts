@@ -40,8 +40,6 @@ export async function DELETE(req: Request) {
                 message:"You are not authorized to delete this task" },
             {status: 403})
         }
-        
-        console.log("task bu " ,taskId, task)
 
         await db.task.delete({
             where: { id: taskId }
@@ -49,11 +47,17 @@ export async function DELETE(req: Request) {
    
         return NextResponse.json({message: "Task deleted successfully"}, { status: 200 })
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Server Error", error);
+        if (error instanceof Error) {
+            return NextResponse.json(
+                { message: error.message || "Internal server error" },
+                { status: 500 }
+            );
+        }
         return NextResponse.json(
-          { message: error.message || "Internal server error" },
-          { status: 500 }
+            { message: "An unknown error occurred" },
+            { status: 500 }
         );
-      }
     }
+}

@@ -16,25 +16,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createGroup } from "@/actions/groups/createGroup";
 import { toast } from "@/hooks/use-toast";
-import useGroupStore from "@/stores/useGroupStore";
 
 const formSchema = z.object({
   name: z.string().max(30, "Please enter a valid group name."),
   description: z.string().max(100, "Description is too long."),
 });
 
+type FormData = z.infer<typeof formSchema>;
 const CreateGroup = () => {
-  const {
-    groups,
-    selectedGroup,
-    setSelectedGroup,
-    setGroups,
-    isLoading,
-    error,
-    loadSelectedGroup,
-  } = useGroupStore();
+  
 
-  const form = useForm({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -42,7 +34,7 @@ const CreateGroup = () => {
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     try {
       const newGroup = await createGroup({
         name: data.name,

@@ -37,10 +37,17 @@ export async function PUT(req: Request) {
     return NextResponse.json(updatedGroup);
 
 
-   } catch (error:any) {
+   } catch (error: unknown) {
     console.error("Error updating group:", error);
+    if (error instanceof Error) {
+        return NextResponse.json(
+            { message: "Internal Server Error", error: error.message },
+            { status: 500 }
+        );
+    }
+
     return NextResponse.json(
-        { message: "Internal Server Error", error: error.message },
+        { message: "Internal Server Error", error: "Unknown error occurred" },
         { status: 500 }
     );
 }

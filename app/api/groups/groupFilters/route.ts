@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { db } from '@/db';
 import { auth } from "@/auth";
-import { URL } from 'url';
-import { GroupRole } from "@prisma/client";
 
-export async function GET(req: Request) {
+
+export async function GET() {
     try {
         const session = await auth();
         if (!session || !session.user?.id) {

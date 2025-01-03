@@ -2,11 +2,8 @@
 import React from 'react'
 import CreateGroup from './CreateGroup'
 import ListGroup from './ListGroup'
-import useGroupStore from '@/stores/useGroupStore'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-
-
 
 const Groups = () => {
   const session = useSession();

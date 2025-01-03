@@ -1,6 +1,6 @@
 
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
@@ -19,16 +19,8 @@ cloudinary.config({
 
 // Multer Configuration
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
-// Middleware Wrapper for Multer
-const runMiddleware = (req: any, res: any, fn: any) =>
-  new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) return reject(result);
-      return resolve(result);
-    });
-  });
+
 
   
   

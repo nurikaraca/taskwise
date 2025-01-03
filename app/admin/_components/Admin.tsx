@@ -1,10 +1,6 @@
 "use client"
-
-import Sidebar from "@/components/SideBar/sidebar"
 import useGroupStore from "@/stores/useGroupStore";
 import { useEffect } from "react";
-
-
 const Admin = () => {
   const {
     selectedGroup,

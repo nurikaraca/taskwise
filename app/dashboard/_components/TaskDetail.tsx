@@ -10,8 +10,7 @@ import { useAdmin } from "@/context/AdminContext";
 
 const TaskDetail = () => {
   const { isAdmin, } = useAdmin();
-   const { selectedTask,setSelectedTask } = useTask();
-  const [uploadResult, setUploadResult] = useState<any>(null); 
+   const {setSelectedTask } = useTask();
   const [file, setFile] = useState<File | null>(null); 
 
   

@@ -10,6 +10,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+interface CloudinaryUploadResult {
+  secure_url: string;
+  public_id: string;
+  [key: string]: any;
+}
 export const POST = async (req: NextRequest) => {
   const form = await req.formData();
   const file = form.get("file") as File | null;
@@ -23,25 +28,24 @@ export const POST = async (req: NextRequest) => {
   }
 
   try {
-    
     const arrayBuffer = await file.arrayBuffer();
 
-    const uploadResult = await new Promise<any>((resolve, reject) => {
+    const uploadResult: CloudinaryUploadResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { folder: "user-images" }, 
+        { folder: "user-images" },
         (error, result) => {
           if (error) reject(error);
-          resolve(result);
+          resolve(result as CloudinaryUploadResult);
         }
       );
 
       streamifier.createReadStream(Buffer.from(arrayBuffer)).pipe(uploadStream);
     });
 
-    // update user
+
     const updatedUser = await db.user.update({
       where: { id: userId },
-      data: { image: uploadResult.secure_url }, 
+      data: { image: uploadResult.secure_url },
     });
 
     return NextResponse.json({
@@ -49,11 +53,20 @@ export const POST = async (req: NextRequest) => {
       imageUrl: uploadResult.secure_url,
       user: updatedUser,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error during upload or user update:", error);
+
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { message: error.message || "Internal server error" },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { error: "An error occurred while uploading or updating the user." },
+      { message: "An unknown error occurred" },
       { status: 500 }
     );
+    
   }
 };

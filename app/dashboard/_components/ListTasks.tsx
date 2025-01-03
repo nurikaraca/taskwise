@@ -29,7 +29,7 @@ const ListTasks = () => {
     }, [loadSelectedGroup]);
 
 
-    const { data: pendingTasks, isLoading, isError, refetch } = useQuery<UserTaskStatus[]>({
+    const { data: pendingTasks, isLoading, isError } = useQuery<UserTaskStatus[]>({
         queryKey: ['pendingTasks'],
         queryFn: getPeddingTasks,
     });
@@ -54,7 +54,7 @@ const ListTasks = () => {
             setSelectedTask(task);
 
             console.log(`Task selected: ${task.title}`);
-        } catch (error: any) {
+        } catch (error) {
             console.error("Error selecting task:", error);
         }
     };
