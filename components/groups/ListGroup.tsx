@@ -57,7 +57,7 @@ const ListGroup: React.FC = () => {
         router.push("/dashboard");
       }
     },
-    [setSelectedGroup, setIsAdmin, currentUserId, router] // router bağımlılık olarak eklendi
+    [setSelectedGroup, setIsAdmin, currentUserId, router] 
   );
 
   if (isLoading) return <GroupListSkeleton />;

@@ -16,7 +16,7 @@ declare module "next-auth" {
       id: string;
       email: string;
       name: string;
-      // Firebase token'ı buraya ekliyoruz
+      
       firebaseToken?: string;
     } & DefaultSession["user"];
   }
