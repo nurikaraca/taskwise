@@ -1,7 +1,7 @@
 
 import { auth } from '@/auth';
 import axios from 'axios';
-const Urls = `http://localhost:3000/api/groups/list`;
+const Urls = `api/groups/list`;
 export const getGroups = async () => {
     try {
        
