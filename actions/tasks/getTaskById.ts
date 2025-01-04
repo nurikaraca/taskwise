@@ -5,7 +5,7 @@ export const getTaskById= async(taskId: string  | undefined) => {
   if (!taskId) {
     throw new Error("Task ID is required");
   }
-    const Urls = `http://localhost:3000/api/tasks/getOneTask?taskId=${taskId}`;
+    const Urls = `api/tasks/getOneTask?taskId=${taskId}`;
    try {
      const response =  await axios.get(Urls);
      return response.data;

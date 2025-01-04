@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const joinGroup = async ( groupId: string | undefined, inviteCode: string | undefined) => {
     try {
-        const response = await axios.post("http://localhost:3000/api/groups/join/", {
+        const response = await axios.post("api/groups/join/", {
             
             groupId,
             inviteCode,

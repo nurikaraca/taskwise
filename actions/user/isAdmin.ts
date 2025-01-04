@@ -2,7 +2,7 @@ import { Member, User } from "@/type/types";
 import axios from "axios";
 
 
-const Urls = `http://localhost:3000/api/groups`;
+const Urls = `/api/groups`;
 export const groupAdmin = async (groupId: string):Promise<User[]> => {
 
  

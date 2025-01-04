@@ -1,7 +1,7 @@
 import { Member } from "@/type/types";
 import axios from "axios";
 
-const Urls = `http://localhost:3000/api/groups`;
+const Urls = `api/groups`;
 
 export const getGroupMembers = async (groupId: string) => {
   try {

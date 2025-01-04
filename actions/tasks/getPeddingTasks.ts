@@ -1,5 +1,5 @@
 import axios from "axios";
-const Urls = `http://localhost:3000/api/tasks/getPeddingTasks`;
+const Urls = `api/tasks/getPeddingTasks`;
 
 export const getPeddingTasks = async () => {
     try {

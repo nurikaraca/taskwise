@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req: Request) {
-  const baseURL = "http://localhost:3000/join/";
+  const baseURL = "join/";
   try {
     const session = await auth();
     if (!session || !session.user?.id) {

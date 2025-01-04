@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Url = `http://localhost:3000/api/groups/update`
+const Url = `api/groups/update`
 export const updateGroup = async ({ groupId, name, description }: { groupId: string, name: string; description: string }) => {
 
     try {

@@ -3,7 +3,7 @@ export const deleteTask = async (taskId: string) => {
   try {
     
     
-    const response = await axios.delete("http://localhost:3000/api/tasks/delete", {
+    const response = await axios.delete("api/tasks/delete", {
       params: { taskId }, 
     });
     return response.data; 

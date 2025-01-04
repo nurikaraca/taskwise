@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Url = `http://localhost:3000/api/groups/delete`
+const Url = `api/groups/delete`
 export const deleteGroup = async ({ groupId }: { groupId: string }) => {
 
     try {

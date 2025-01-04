@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Url = `http://localhost:3000/api/user/checkIsCompleted`;
+const Url = `api/user/checkIsCompleted`;
 
 export const getMemberTaskStatus = async (memberId: string, taskId: string) => {
   try {

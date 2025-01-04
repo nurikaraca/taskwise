@@ -1,7 +1,7 @@
 import { Task } from "@/type/types";
 import axios from "axios";
 
-const Urls = `http://localhost:3000/api/tasks/getAll`;
+const Urls = `api/tasks/getAll`;
 
 
 

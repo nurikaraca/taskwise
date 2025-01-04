@@ -1,5 +1,5 @@
 import axios from 'axios';
-const Urls = `http://localhost:3000/api/user/getUser`;
+const Urls = `api/user/getUser`;
 export const getUser = async () => {
     try {
         const response = await axios.get(Urls);

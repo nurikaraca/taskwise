@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createGroup = async ({ name, description }: { name: string; description: string }) => {
   try {
-    const response = await axios.post("http://localhost:3000/api/groups/create", {
+    const response = await axios.post("api/groups/create", {
       name,
       description,
     });

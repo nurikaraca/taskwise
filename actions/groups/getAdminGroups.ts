@@ -2,7 +2,7 @@
 import axios from "axios";
 
 
-const Urls = `http://localhost:3000/api/groups/groupFilters`;
+const Urls = `api/groups/groupFilters`;
 
 
 export const getAdminGroups  = async () => {
