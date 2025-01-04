@@ -5,7 +5,10 @@ import { auth } from "@/auth";
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req: Request) {
-  const baseURL = "join/";
+  const baseURL =process.env.NODE_ENV === "production"
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/join/`
+    : "http://localhost:3000/join/";
+
   try {
     const session = await auth();
     if (!session || !session.user?.id) {
