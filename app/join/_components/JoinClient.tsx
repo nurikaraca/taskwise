@@ -22,32 +22,6 @@ export default  function JoinClient() {
 
   const inviteCode = pathname.split("/").pop(); 
 
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const fetchGroup = async () => {
-
-        if (group?.id) {
-          try {
-            const data = await getGroupById(group.id);
-           
-            setGroup(data);
-          } catch (err) {
-            toast({
-              variant:"destructive",
-              title: "An error occurred while retrieving group information",
-            });
-            
-            console.error(err);
-          }
-        }
-      };
-  
-     fetchGroup();
-    }
-    
-  }, [group]);
-
   useEffect(() => {
     if (typeof window !== 'undefined'){
 
@@ -56,6 +30,8 @@ export default  function JoinClient() {
       try {
         const groupData = await getGroupByInviteCode(inviteCode);
         setGroup(groupData);
+        console.log("first " , groupData)
+        console.log("gorup", group)
       } catch (err) {
         toast({
           variant:"destructive",
@@ -66,15 +42,43 @@ export default  function JoinClient() {
     };
 
     fetchGroup();
-    }
- 
-  }, [inviteCode]);
+    }}, [inviteCode]);
 
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const fetchGroup = async () => {
+  //       console.log("gorup laa" , group)
+  //       if (group?.id) {
+  //         try {
+  //           const data = await getGroupById(group.id);
+  //          console.log("data" , data)
+  //           setGroup(data);
+  //         } catch (err) {
+  //           toast({
+  //             variant:"destructive",
+  //             title: "An error occurred while retrieving group information",
+  //           });
+            
+  //           console.error(err);
+  //         }
+  //       }
+  //     };
+  
+  //    fetchGroup();
+  //   }
+    
+  // }, [group]);
+
+  // const groupId  = group?.id
+  //    console.log(groupId)
+
+console.log("gorup billis " , group)
   const handleJoinGroup = async () => {
     try {
       setIsJoining(true);
-     
-      await joinGroup( group?.id, inviteCode);
+      if(!inviteCode) {return;}
+
+      await joinGroup(inviteCode );
       toast({
         variant: "success",
         title: "You have successfully joined the group!",

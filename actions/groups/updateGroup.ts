@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const Url = `api/groups/update`
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.NEXT_PUBLIC_BASE_URL}`
+: "http://localhost:3000";
 export const updateGroup = async ({ groupId, name, description }: { groupId: string, name: string; description: string }) => {
 
     try {
-        const response = await axios.put(Url, {
+        const response = await axios.put(`${baseURL}/api/groups/update`, {
             groupId, name, description
         })
 

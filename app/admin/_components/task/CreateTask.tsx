@@ -5,8 +5,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,13 +18,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createTask } from "@/actions/tasks/createTask";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar"
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Member } from "@/type/types";
 import useGroupStore from "@/stores/useGroupStore";
+import { getGroupMembers } from "@/actions/groups/getGroupMembers";
+
 
 const formSchema = z.object({
   title: z.string().min(2).max(100, "Title is too long."),
@@ -43,10 +43,18 @@ const formSchema = z.object({
 });
 
 const CreateTask = () => {
-  const { selectedGroup } = useGroupStore(); 
   const [members] = useState<Member[]>([]);
   const { toast } = useToast()
   const [date, setDate] = useState<Date | undefined>(new Date());
+
+  const {
+    selectedGroup,
+    loadSelectedGroup,
+  } = useGroupStore();
+
+  useEffect(() => {
+    loadSelectedGroup();
+  }, [loadSelectedGroup]);
 
 
   const form = useForm({
@@ -58,13 +66,16 @@ const CreateTask = () => {
     },
   });
 
+
+
   const onSubmit = async (data: { title: string; description: string, date: Date }) => {
     if (!selectedGroup?.id) {
       console.error("No group is selected.");
       return;
     }
+    const  members = await getGroupMembers(selectedGroup?.id);
     //If there are no members in the group, a task cannot be created.
-    if (members.length === 1) {
+    if (members.length === 0) {
       toast({
         variant: "destructive",
         title: "Something went wrong.",

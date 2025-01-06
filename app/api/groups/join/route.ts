@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Invite code is required" }, { status: 400 });
     }
 
-    
+    console.log("invitekoduuuuuuuuuuuu" , inviteCode)
     const group = await db.group.findFirst({
       where: { inviteCode }, 
     });

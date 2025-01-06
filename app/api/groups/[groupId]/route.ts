@@ -5,7 +5,7 @@ import { db } from "@/db";
 // API that gets the members of the group
 export async function GET(req: Request, context: { params: { groupId: string } }) {
   try {
-    const { groupId } = context.params; // No need to await `context.params`
+    const { groupId } = context.params; 
 
     if (!groupId) {
       return NextResponse.json(
@@ -14,16 +14,20 @@ export async function GET(req: Request, context: { params: { groupId: string } }
       );
     }
 
-    // Get members of the group
+    // Get members of the group, excluding admins
     const groupMembers = await db.userGroup.findMany({
       where: {
         groupId,
+        role:{
+          not: "ADMIN",
+        }
       },
       include: {
         user: true,
       },
     });
 
+    // Map the data to the desired structure
     const members = groupMembers.map((member) => ({
       id: member.user.id,
       name: member.user.name,

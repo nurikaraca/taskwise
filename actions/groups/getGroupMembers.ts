@@ -2,16 +2,17 @@ import { Member } from "@/type/types";
 import axios from "axios";
 
 const Urls = `api/groups`;
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.NEXT_PUBLIC_BASE_URL}`
+: "http://localhost:3000";
 
 export const getGroupMembers = async (groupId: string) => {
+  if (!groupId) {
+    throw new Error("Group ID is required");
+  }
   try {
-    const response = await axios.get(`${Urls}/${groupId}/members`);
-
-    // Filter non-admin members
-    const nonAdminMembers = response.data.filter(
-      (member: Member) => member.role !== "ADMIN"
-    );
-    return nonAdminMembers;
+    const response = await axios.get(`${baseURL}/api/groups/${groupId}`);  
+    return response.data;
   } catch (error) {
     console.error("Axios error while fetching group members:", error);
     throw error;

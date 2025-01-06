@@ -1,11 +1,17 @@
 
 import axios from 'axios';
 
-export const joinGroup = async ( groupId: string | undefined, inviteCode: string | undefined) => {
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.NEXT_PUBLIC_BASE_URL}`
+: "http://localhost:3000";
+
+export const joinGroup = async ( inviteCode: string) => {
     try {
-        const response = await axios.post("api/groups/join/", {
+        console.log("bu bilgiler groupId ",)
+        console.log("bu bilgiler inviteCode",inviteCode)
+        const response = await axios.post(`${baseURL}/api/groups/join`, {
             
-            groupId,
+          
             inviteCode,
         });
 

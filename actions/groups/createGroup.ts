@@ -1,8 +1,10 @@
 import axios from "axios";
-
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.NEXT_PUBLIC_BASE_URL}`
+: "http://localhost:3000";
 export const createGroup = async ({ name, description }: { name: string; description: string }) => {
   try {
-    const response = await axios.post("api/groups/create", {
+    const response = await axios.post(`${baseURL}/api/groups/create`, {
       name,
       description,
     });

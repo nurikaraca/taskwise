@@ -1,11 +1,12 @@
 import axios from "axios";
-
-const Url = `api/groups/deleteUser`
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.NEXT_PUBLIC_BASE_URL}`
+: "http://localhost:3000";
 export const deleteUser = async ({ groupId, userId }: { groupId: string,userId: string }) => {
 
     try {
      
-        const response = await axios.delete(Url, {
+        const response = await axios.delete(`${baseURL}/api/groups/deleteUser`, {
             data: { groupId, userId },
         });
 

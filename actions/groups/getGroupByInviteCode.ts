@@ -1,10 +1,14 @@
 
 
 import axios from 'axios';
-
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.NEXT_PUBLIC_BASE_URL}`
+: "http://localhost:3000";
 export const getGroupByInviteCode = async (inviteCode: string) => {
     try {
-        const response = await axios.get(`api/groups/getWithInviteCode?inviteCode=${inviteCode}`);
+        console.log("girdi")
+        const response = await axios.get(`${baseURL}/api/groups/getWithInviteCode?inviteCode=${inviteCode}`);
+        console.log("çıktı")
         return response.data.group; 
     } catch (error) {
         console.error("Grup bilgileri alınamadı:", error);
