@@ -23,7 +23,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar"
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Member } from "@/type/types";
 import useGroupStore from "@/stores/useGroupStore";
 import { getGroupMembers } from "@/actions/groups/getGroupMembers";
 
@@ -43,7 +42,6 @@ const formSchema = z.object({
 });
 
 const CreateTask = () => {
-  const [members] = useState<Member[]>([]);
   const { toast } = useToast()
   const [date, setDate] = useState<Date | undefined>(new Date());
 

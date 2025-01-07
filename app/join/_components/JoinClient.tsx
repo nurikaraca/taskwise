@@ -1,11 +1,8 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-
- import { getGroupById } from "@/actions/groups/getGroupById";
- import {  joinGroup } from "@/actions/groups/joinGroup";
- import {  getGroupByInviteCode } from "@/actions/groups/getGroupByInviteCode";
+import {  joinGroup } from "@/actions/groups/joinGroup";
+import {  getGroupByInviteCode } from "@/actions/groups/getGroupByInviteCode";
 import { Group } from "@/type/types";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
@@ -30,8 +27,6 @@ export default  function JoinClient() {
       try {
         const groupData = await getGroupByInviteCode(inviteCode);
         setGroup(groupData);
-        console.log("first " , groupData)
-        console.log("gorup", group)
       } catch (err) {
         toast({
           variant:"destructive",
@@ -72,7 +67,6 @@ export default  function JoinClient() {
   // const groupId  = group?.id
   //    console.log(groupId)
 
-console.log("gorup billis " , group)
   const handleJoinGroup = async () => {
     try {
       setIsJoining(true);

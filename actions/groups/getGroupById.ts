@@ -7,7 +7,7 @@ export const getGroupById = async (id: string) => {
         const response = await axios.get(`${baseURL}/api/groups/single?id=${id}`);
         return response.data;
     } catch (error) {
-        console.error("Grup bilgileri alınamadı:", error);
+        console.error("Group information could not be retrieved:", error);
         throw error;
     }
 };

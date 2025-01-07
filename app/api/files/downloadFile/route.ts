@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db"; 
 import { auth } from "@/auth"; 
 import cloudinary from "cloudinary";
+export const dynamic = "force-dynamic";
 
 
 cloudinary.v2.config({

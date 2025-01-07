@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { auth } from "@/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   try {
     const session = await auth();
@@ -9,7 +11,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url); 
     const taskId = searchParams.get("taskId");
 
     if (!taskId) {
