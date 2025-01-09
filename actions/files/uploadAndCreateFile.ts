@@ -25,7 +25,7 @@ export const uploadAndCreateFile = async (
         }
     }
 
-    const response = await axios.post(`${baseURL}api/files/upload`, formData, {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/files/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
