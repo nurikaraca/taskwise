@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
  const baseURL =process.env.NODE_ENV === "production"
- ? `${process.env.SOCKET_URL}/`
+ ? `${process.env.NEXT_PUBLIC_SOCKET_URL}/`
  : "http://localhost:4000";
 
 
