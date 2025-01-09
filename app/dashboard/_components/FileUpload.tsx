@@ -59,24 +59,33 @@ const FileUpload = () => {
             id="fileInput"
             className="hidden"
             type="file"
-            title=""
+            accept="application/pdf"
             onChange={(e) => {
               const selectedFile = e.target.files ? e.target.files[0] : null;
-              setFile(selectedFile);
+              if (selectedFile && selectedFile.type === "application/pdf") {
+                setFile(selectedFile);
+              } else {
+                setFile(null);
+                toast({
+                  variant: "destructive",
+                  title: "Invalid File Type",
+                  description: "Please select a valid PDF file.",
+                });
+              }
             }}
           />
           <label
             htmlFor="fileInput"
             className="text-xl bg-[#49A0FC] px-20 p-2 rounded-[5px] hover:bg-[#49a0fcbe] cursor-pointer hover:scale-[1.1] transition-transform duration-300 "
           >
-            Choose File
+            Choose PDF
           </label>
-          <span className="text-xl flex justify-start">File: {file ? file.name : "No file selected"}</span>
+          <span className="text-xl flex justify-start"> {file && file.name }</span>
           <button
             onClick={handleUpload}
             className="text-xl bg-[#49A0FC] px-20 p-2 rounded-[5px] hover:bg-[#49a0fcbe] cursor-pointer hover:scale-[1.1] transition-transform duration-300"
           >
-            Upload File
+            Upload PDF
           </button>
 
           
