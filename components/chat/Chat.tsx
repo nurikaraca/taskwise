@@ -19,6 +19,7 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
   const session = useSession();
   const groupId = selectedGroup?.id;
 
+ 
   const messsageEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -28,6 +29,10 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
   useEffect(() => {
     // Fetch old messages from the server
     const fetchMessages = async () => {
+      if (!groupId) {
+        console.error("Group ID is missing or invalid.");
+        return;
+      }
       try {
         const response = await fetch(`${baseURL}/messages/${groupId}`);
         const data = await response.json();
