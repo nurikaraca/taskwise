@@ -5,7 +5,12 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
+const baseURL =process.env.NODE_ENV === "production"
+? `${process.env.SOCKET_URL}/`
+: "http://localhost:4000";
+
+
+const socket = io(baseURL);
 const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
 
 
@@ -24,12 +29,12 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
     // Fetch old messages from the server
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/messages/${groupId}`);
+        const response = await fetch(`${baseURL}/messages/${groupId}`);
         const data = await response.json();
         setMessages(data);
         scrollToBottom();
       } catch (error) {
-        console.error('Mesajlar alınırken hata:', error);
+        console.error('An error occurred while receiving messages.:', error);
       }
     };
 
@@ -57,7 +62,7 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
 
       try {
         //Send the message to the backend
-        const response = await fetch('http://localhost:4000/messages', {
+        const response = await fetch(`${baseURL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(message),
@@ -68,7 +73,7 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
           scrollToBottom(); // Scroll to the bottom after sending a message
         }
       } catch (error) {
-        console.error('Mesaj gönderilirken hata:', error);
+        console.error('An error occurred while sending the message: ', error);
       }
     }
   };
