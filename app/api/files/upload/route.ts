@@ -8,7 +8,6 @@ import { db } from "@/db";
 import { auth } from "@/auth";
 
 
-export const dynamic = "force-dynamic";
 
 // Cloudinary Configuration
 cloudinary.config({
