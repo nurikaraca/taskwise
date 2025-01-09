@@ -23,6 +23,7 @@ export const uploadAndCreateFile = async (
             console.log("File inside FormData:", pair[1]);
         }
     }
+    console.log("base url " , baseURL)
     const response = await axios.post(`${baseURL}/api/files/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
