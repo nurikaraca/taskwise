@@ -19,7 +19,7 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
   const session = useSession();
   const groupId = selectedGroup?.id;
 
- 
+ console.log("groupId" , groupId)
   const messsageEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -34,6 +34,7 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
         return;
       }
       try {
+        console.log("fetchmessages baseUrl", baseURL)
         const response = await fetch(`${baseURL}/messages/${groupId}`);
         const data = await response.json();
         setMessages(data);
