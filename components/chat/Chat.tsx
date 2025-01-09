@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const baseURL =process.env.NODE_ENV === "production"
-? `${process.env.SOCKET_URL}/`
-: "http://localhost:4000";
+ const baseURL =process.env.NODE_ENV === "production"
+ ? `${process.env.SOCKET_URL}/`
+ : "http://localhost:4000";
 
 
 const socket = io(baseURL);
