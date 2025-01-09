@@ -1,7 +1,7 @@
 import axios, { AxiosProgressEvent } from "axios";
 const baseURL =process.env.NODE_ENV === "production"
 ? `${process.env.NEXT_PUBLIC_BASE_URL}`
-: "http://localhost:3000";
+: "http://localhost:3000/";
 
 console.log("base url " , baseURL)
 export const uploadAndCreateFile = async (
@@ -25,7 +25,7 @@ export const uploadAndCreateFile = async (
         }
     }
 
-    const response = await axios.post(`${baseURL}/api/files/upload`, formData, {
+    const response = await axios.post(`${baseURL}api/files/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
