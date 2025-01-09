@@ -19,7 +19,6 @@ const Chat = ({ selectedGroup }: { selectedGroup: Group }) => {
   const session = useSession();
   const groupId = selectedGroup?.id;
 
- console.log("groupId" , groupId)
   const messsageEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
