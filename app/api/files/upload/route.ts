@@ -7,7 +7,7 @@ import streamifier from "streamifier";
 import { db } from "@/db";
 import { auth } from "@/auth";
 
-
+console.log("1")
 
 // Cloudinary Configuration
 cloudinary.config({
@@ -30,12 +30,13 @@ cloudinary.config({
     if (!session || !session.user?.id) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-
+    console.log("2")
     const form = await req.formData();
     const file = form.get("file") as File | null;
     const taskId = form.get("taskId") as string;
     const userId = session.user?.id 
   
+    console.log("3")
     if (!file || !taskId || !userId) {
       return NextResponse.json({ error: "Invalid file, task ID, or user ID" }, { status: 400 });
     }
