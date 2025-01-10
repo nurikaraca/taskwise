@@ -102,7 +102,7 @@
 
 
 import { NextResponse } from "next/server";
-import { UploadApiResponse } from "cloudinary";
+
 import { v2 as cloudinary } from "cloudinary";
 import { db } from "@/db";
 import { auth } from "@/auth";
