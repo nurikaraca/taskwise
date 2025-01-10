@@ -6,7 +6,7 @@ import { Readable } from "stream";
 import { db } from "@/db";
 import { auth } from "@/auth";
 
-if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || !process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY || !process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET) {
   throw new Error("Cloudinary configuration is missing. Please check environment variables.");
 }
 
@@ -107,3 +107,16 @@ export const POST = async (req: Request) => {
     );
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
