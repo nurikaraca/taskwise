@@ -118,7 +118,7 @@ cloudinary.config({
   secure: true,
 });
 
-export const POST = async (req) => {
+export const POST = async (req: Request) => {
   const session = await auth();
 
   if (!session || !session.user?.id) {
