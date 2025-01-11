@@ -64,11 +64,6 @@ export const {
     async session({ session, token, user }) {
       session.user.id = user?.id || token.sub || ""; 
 
-      // // Firebase custom token al
-      // if(user){
-      //   const firebaseToken = await admin.auth().createCustomToken(user.id);
-      //   session.firebaseToken = firebaseToken;
-      // }
       return session;
     },
     async jwt({ token, user }) {
