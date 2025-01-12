@@ -48,12 +48,13 @@ const LoginForm = () => {
       console.log("data" , data)
       const result = await loginWithCreds(data);
       console.log("result" , result)
+      console.log("result" , result.error)
       if (result?.error) {
         console.error("Login failed:", result.error);
       } else {
         router.push("/");  
       }
-      router.push("/"); 
+      
     } catch (error) {
       console.error("Login error:", error);
     }
