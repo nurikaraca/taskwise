@@ -67,6 +67,7 @@ export const signupWithCreds = async (formData: {name: string; email: string; pa
 
 export const loginWithCreds = async (data: { email: string; password: string }) => {
     const { email, password } = data;
+    console.log(" email, pasword" ,  email, password)
     const existingUser = await getUserByEmail(email);
     if (!existingUser) {
       return { error: "User not found!" };
