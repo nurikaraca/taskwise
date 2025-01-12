@@ -38,6 +38,7 @@ export const signupWithCreds = async (formData: {name: string; email: string; pa
     const {name, email, password } = formData;
 
    console.log("name, email, password" , name, email, password)
+ 
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
         return { error: "User already exists. Please login." };
@@ -68,6 +69,7 @@ export const signupWithCreds = async (formData: {name: string; email: string; pa
 export const loginWithCreds = async (data: { email: string; password: string }) => {
     const { email, password } = data;
     console.log(" email, pasword" ,  email, password)
+    console.log("NEXTAUTH-URL ",process.env.NEXTAUTH_URL)
     const existingUser = await getUserByEmail(email);
     if (!existingUser) {
       return { error: "User not found!" };
@@ -83,7 +85,7 @@ export const loginWithCreds = async (data: { email: string; password: string }) 
     if (!isPasswordCorrect) {
       return { error: "Invalid credentials!" };
     }
-  
+      console.log("SignIn =>" , email,password)
     const result = await signIn("credentials", { redirect: false, email, password });
   
     if (result?.error) {

@@ -53,6 +53,7 @@ const LoginForm = () => {
       } else {
         router.push("/dashboard");  
       }
+      router.push("/dashboard"); 
     } catch (error) {
       console.error("Login error:", error);
     }
