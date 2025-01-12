@@ -15,12 +15,3 @@ const SingUp = () => {
 }
 
 export default SingUp
-
-{/* <div className='flex justify-center items-center h-screen '>
-      <section className=' flex flex-col'>
-       
-             <div className="">
-              <RegisterForm />
-             </div>
-      </section>
-    </div> */}

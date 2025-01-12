@@ -44,16 +44,16 @@ const LoginForm = () => {
   const onSubmit = async (data: FormData) => {
 
     try {
-      console.log("NEXTAUTH_URL ",process.env.NEXTAUTH_URL)
+    
       console.log("data" , data)
       const result = await loginWithCreds(data);
       console.log("result" , result)
       if (result?.error) {
         console.error("Login failed:", result.error);
       } else {
-        router.push("/dashboard");  
+        router.push("/");  
       }
-      router.push("/dashboard"); 
+      router.push("/"); 
     } catch (error) {
       console.error("Login error:", error);
     }
