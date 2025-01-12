@@ -42,7 +42,9 @@ const LoginForm = () => {
 
  
   const onSubmit = async (data: FormData) => {
+
     try {
+      console.log("data" , data)
       const result = await loginWithCreds(data);
       if (result?.error) {
         console.error("Login failed:", result.error);
