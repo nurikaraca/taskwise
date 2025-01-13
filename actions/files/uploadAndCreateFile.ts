@@ -38,7 +38,7 @@ console.log("baseurl =>  " , baseURL)
 
     return response.data;
   } catch (error) {
-    console.error("An error occurred during file upload and record creation:", error);
+    console.log("An error occurred during file upload and record creation:", error);
     throw error;
   }
 };
