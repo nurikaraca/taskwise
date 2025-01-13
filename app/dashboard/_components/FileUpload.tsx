@@ -81,7 +81,7 @@ console.log("result" ,result)
           >
             Choose PDF
           </label>
-          <span className="text-xl flex justify-start"> {file && file.name}</span>
+          <span className="text-xl flex justify-start  text-slate-500"> {file && file.name}</span>
           <button
             onClick={handleUpload}
             className="text-xl bg-[#49A0FC] px-20 p-2 rounded-[5px] hover:bg-[#49a0fcbe] cursor-pointer hover:scale-[1.1] transition-transform duration-300"
