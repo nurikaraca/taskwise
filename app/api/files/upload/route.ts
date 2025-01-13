@@ -36,7 +36,7 @@ cloudinary.config({
   
     try {
       const arrayBuffer = await file.arrayBuffer();
-  
+  console.log("*******************")
       const uploadResult = await new Promise<UploadApiResponse>((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
           { folder: "uploads" },
@@ -48,7 +48,7 @@ cloudinary.config({
   
         streamifier.createReadStream(Buffer.from(arrayBuffer)).pipe(uploadStream);
       });
-  
+  console.log("-- -------------- -----------------")
       const result = await db.$transaction(async (prisma) => {
         const task = await prisma.task.findUnique({ where: { id: taskId } });
         if (!task) throw new Error("Task not found");
@@ -61,6 +61,7 @@ cloudinary.config({
             uploadedBy: userId, 
           },
         });
+        console.log("fileRecord " ,fileRecord)
         const userTaskStatusUpdate = await prisma.userTaskStatus.updateMany({
           where: {taskId: taskId,
             userId: userId,
