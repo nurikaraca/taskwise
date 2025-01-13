@@ -1,15 +1,8 @@
-
-  {
-    "functions": {
-      "api/cron.js": {
-        "runtime": "nodejs20.x"
-      }
-    },
-    "cron": [
-      {
-        "path": "/api/cron",
-        "schedule": "5 * * * *" 
-      }
-    ]
-  }
-  
+{
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "5 * * * *"
+    }
+  ]
+}
