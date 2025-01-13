@@ -19,6 +19,7 @@ export const uploadAndCreateFile = async (
  
 console.log("taskId", taskId)
 console.log("file", file)
+console.log("baseurl =>  " , baseURL)
   try {
     for (let pair of formData.entries()) {
         console.log("uploadAndcreatefile", pair[0] + ': ', pair[1]);
