@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { db } from '@/db';
 
-const prisma = new PrismaClient();
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('Cron job triggered to update expired tasks...');
   try {
     const now = new Date();
-    const result = await prisma.task.updateMany({
+    const result = await db.task.updateMany({
       where: {
         dueDate: { lt: now },
         status: { not: 'CLOSED' },
