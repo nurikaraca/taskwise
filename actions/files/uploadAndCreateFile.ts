@@ -21,12 +21,12 @@ console.log("taskId", taskId)
 console.log("file", file)
 console.log("baseurl =>  " , baseURL)
   try {
-    for (let pair of formData.entries()) {
-        console.log("uploadAndcreatefile", pair[0] + ': ', pair[1]);
-        if (pair[0] === 'file') {
-            console.log("File inside FormData:", pair[1]);
-        }
-    }
+    // for (let pair of formData.entries()) {
+    //     console.log("uploadAndcreatefile", pair[0] + ': ', pair[1]);
+    //     if (pair[0] === 'file') {
+    //         console.log("File inside FormData:", pair[1]);
+    //     }
+    // }
 
     const response = await axios.post(`${baseURL}/api/files/upload`, formData, {
       headers: {
