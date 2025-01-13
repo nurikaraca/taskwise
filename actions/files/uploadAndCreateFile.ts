@@ -17,7 +17,8 @@ export const uploadAndCreateFile = async (
 
 
  
-
+console.log("taskId", taskId)
+console.log("file", file)
   try {
     for (let pair of formData.entries()) {
         console.log("uploadAndcreatefile", pair[0] + ': ', pair[1]);
@@ -32,7 +33,7 @@ export const uploadAndCreateFile = async (
       },
       onUploadProgress,
     });
-
+  console.log("response" , response.data)
 
     return response.data;
   } catch (error) {

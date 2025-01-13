@@ -24,17 +24,12 @@ const FileUpload = () => {
     }
 
     try {
-      console.log("file ", file)
-      console.log("selected", selectedTask);
-
+    
       const result = await uploadAndCreateFile(file, selectedTask.id, (progressEvent) => {
         const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
         setProgress(percentCompleted);
       });
-
-console.log("result" ,result)
       setUploadResult(result);
-
       toast({
         title: "Upload and Record Creation Successful!",
       });
