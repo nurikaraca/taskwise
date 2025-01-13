@@ -1,13 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import { db } from '@/db';
 
-
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
-
+export async function GET() {
   console.log('Cron job triggered to update expired tasks...');
   try {
     const now = new Date();
@@ -20,9 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     console.log(`${result.count} tasks updated to CLOSED`);
-    return res.status(200).json({ message: 'Cron job executed successfully', updatedCount: result.count });
+    return NextResponse.json({ message: 'Cron job executed successfully', updatedCount: result.count });
   } catch (error) {
     console.error('Error updating tasks:', error);
-    return res.status(500).json({ message: 'Internal Server Error' });
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
