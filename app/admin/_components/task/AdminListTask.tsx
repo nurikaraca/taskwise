@@ -40,30 +40,15 @@ const AdminListTask = () => {
         queryFn: () => getTasks(groupId),
         enabled: !!groupId,
     });
-
-
-
-    useEffect(() => {
+  useEffect(() => {
         if (typeof window !== 'undefined') {
             if (selectedGroup) {
                 refetch();
             }
         }
     }, [selectedGroup, refetch]);
-
-
-
-
-
-    if (isLoading) {
-        return <div>Loading tasks...</div>;
-    }
-
-    if (isError) {
-        return <div>Error loading tasks. Please try again later.</div>;
-    }
-
-
+    if (isLoading) {return <div>Loading tasks...</div>}
+    if (isError) {return <div>Error loading tasks. Please try again later.</div>}
     const handleDelete = async (taskId: string) => {
         try {
             await deleteTask(taskId);
