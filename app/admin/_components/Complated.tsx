@@ -5,6 +5,7 @@ import { getTasks } from '@/actions/tasks/getAllTasks';
 import React, { useEffect } from 'react';
 import { FaRegTrashAlt } from "react-icons/fa";
 import { CiCircleCheck } from "react-icons/ci";
+import { VscListSelection } from "react-icons/vsc";
 import {
     Table,
     TableBody,
@@ -105,7 +106,6 @@ const Complated = () => {
                             {closedTasks?.map((task) => (
                                    <TableRow
                                    key={task.id}
-                                   onClick={() => handleDetailTask(task)} 
                                    className={`
                                        hover:bg-gray-200  dark:hover:bg-darkBg2 
                                        cursor-pointer 
@@ -138,6 +138,10 @@ const Complated = () => {
 
                                     <TableCell>
                                         <div className="flex space-x-4 cursor-pointer justify-center">
+ 
+                                        <button className='hover:scale-125' onClick={() => handleDetailTask(task)}>
+                                                <VscListSelection color='green' />
+                                            </button>
 
                                             <button className='hover:scale-125' onClick={() => handleDelete(task.id)}>
                                                 <FaRegTrashAlt color='red' />
