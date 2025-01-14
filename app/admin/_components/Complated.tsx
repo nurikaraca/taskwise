@@ -90,7 +90,7 @@ const Complated = () => {
     return (
         <div className='w-full h-full '>        
             <div className='w-full h-full overflow-y-scroll '>
-                    <Table className="">
+                    <Table>
                         <TableCaption className='text-xl bg-slate-800'>Task List</TableCaption>
                         <TableHeader className='bg-black text-white sticky top-0 text-2xl'>
                             <TableRow>
